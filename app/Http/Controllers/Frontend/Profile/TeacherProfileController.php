@@ -84,7 +84,7 @@ class TeacherProfileController extends FrontendBaseController
      * Change teacher weekly planning
      */
     public function updateAvailability(Request $request , $id) {
-        $days = ['saturday', 'sunday', 'monday', 'thursday', 'wednesday', 'tuesday', 'friday'];
+        $days = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
         $list_periods = $this->repositories['PeriodsRepository']->all();
 
         if (Auth::user()->id != $id) {
