@@ -188,29 +188,5 @@
 @endsection
 
 @section('scripts')
-<script>
-    $(document).ready(function(){
-        @if(!empty(session()->has('success')))
-            @if(session('success') == true)
-                new Noty({
-                    type: 'success',
-                    theme: 'sunset',
-                    text: "{{ session('message') }}"
-                }).show();
-            @elseif(session('success') == false)
-                new Noty({
-                        type: 'error',
-                        theme: 'sunset',
-                        text: "{{ session('message') }}"
-                    }).show();
-            @endif
-        @elseif(session()->has('error'))
-            new Noty({
-                    type: 'error',
-                    theme: 'sunset',
-                    text: "Une erreur est survenue"
-                }).show();
-        @endif
-    });
-</script>
+    @include('frontend._partials.notif')
 @endsection

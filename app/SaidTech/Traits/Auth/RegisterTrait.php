@@ -44,8 +44,8 @@ trait RegisterTrait
 
         $res = Mail::send('emails.confirmEmail', ['data' => $data],
             function ($mail) use ($user, $subject) {
-                $mail->from(getenv('MAIL_FROM_ADDRESS'), "CABES");
-                $mail->to('noreplay@example.com', $user->full_name);
+                $mail->from(getenv('MAIL_FROM_ADDRESS', 'noreplay@cabesacademy.org'), "CABES");
+                $mail->to($user->email, $user->full_name);
                 $mail->subject($subject);
             });
 
