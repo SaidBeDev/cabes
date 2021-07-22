@@ -150,14 +150,14 @@
                                                                             $shedule = null;
 
                                                                             foreach ($user->teacher->shedules as $sh) {
-                                                                                if ($sh->day == $days[$i] && $sh->period_id == $period->id) {
+                                                                                if ($sh->day == $days[$i] && $sh->period_id == $period->id && $sh->status->id == 3) {
                                                                                     $shedule = $sh;
                                                                                     break;
                                                                                 }
                                                                             }
                                                                         @endphp
                                                                         {{-- Check if session is overdate or canceled --}}
-                                                                        @if ($shedule->session->is_canceled == 1 || Carbon::now()->gte(Carbon::createFromFormat('Y-m-d H:i', $shedule->date .' '. $period->hour_from)))
+                                                                        @if ((!empty($shedule->session) and $shedule->session->is_canceled == 1) || Carbon::now()->gte(Carbon::createFromFormat('Y-m-d H:i', $shedule->date .' '. $period->hour_from)))
                                                                             <td class="bg-light">.{{-- ucfirst(trans('frontend.occupied')) --}}</td>
                                                                         {{-- Check if session is occupied --}}
                                                                         @elseif (!empty($shedule->session) ? ((int)$shedule->session->students->count() == (int)$shedule->session->capacity) : false)

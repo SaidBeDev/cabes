@@ -159,7 +159,7 @@ class MngSessionsController extends FrontendBaseController
         }
 
         $translations = [
-            'ar' => ['title' => !empty($request->title_ar) ? $request->title_ar : $request->title_fr, 'desc' => !empty($request->desc_ar) ? $request->desc_ar : $request->desc_fr, 'objectives' => !empty($request->objectives_ar) ? $request->objectives_ar : $request->objectives_fr],
+            'ar' => ['title' => !empty($request->title_ar) ? $request->title_ar : $request->title_fr . ' 1', 'desc' => !empty($request->desc_ar) ? $request->desc_ar : $request->desc_fr, 'objectives' => !empty($request->objectives_ar) ? $request->objectives_ar : $request->objectives_fr],
             'fr' => ['title' => $request->title_fr, 'desc' => $request->desc_fr, 'objectives' => $request->objectives_fr]
         ];
 
@@ -217,7 +217,7 @@ class MngSessionsController extends FrontendBaseController
      */
     public function update(Request $request, $id) {
         $oldSession = $this->repository->find($id);
-        $session = $request->validate($this->getSessionRules());
+        $session = $request->validate($this->getSessionUpdateRules());
         $session = $request->except(['title_fr', 'title_ar', 'desc_fr', 'desc_ar']);
 
         $session['teacher_id'] = $oldSession->teacher_id;
@@ -244,7 +244,7 @@ class MngSessionsController extends FrontendBaseController
         }
 
         $translations = [
-            'ar' => ['title' => !empty($request->title_ar) ? $request->title_ar : $request->title_fr, 'desc' => !empty($request->desc_ar) ? $request->desc_ar : $request->desc_fr, 'objectives' => !empty($request->objectives_ar) ? $request->objectives_ar : $request->objectives_fr],
+            'ar' => ['title' => !empty($request->title_ar) ? $request->title_ar : $request->title_fr . ' 1', 'desc' => !empty($request->desc_ar) ? $request->desc_ar : $request->desc_fr, 'objectives' => !empty($request->objectives_ar) ? $request->objectives_ar : $request->objectives_fr],
             'fr' => ['title' => $request->title_fr, 'desc' => $request->desc_fr, 'objectives' => $request->objectives_fr]
         ];
 
@@ -264,6 +264,7 @@ class MngSessionsController extends FrontendBaseController
     public function getEnrolledStudents($id) {
 
         $data = [
+            'uri' => "",
             'session' => $this->repository->find($id),
             'title' => trans('frontend.enrolled_list')
         ];

@@ -60,7 +60,7 @@
                                             @if (!empty(Auth::user()))
                                                 <div class="ed_view_price pl-4">
 
-                                                    <h2 class="theme-cl">{{ '-'. $session->credit_cost .' '. trans('frontend.da') }}</h2>
+                                                    <h2 class="theme-cl">{{ (Auth::user()->profile_type->name == "teacher" ? '' : '-'). $session->credit_cost .' '. trans('frontend.da') }}</h2>
                                                 </div>
                                             @endif
 

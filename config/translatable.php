@@ -11,8 +11,8 @@ return [
     |
     */
     'locales' => [
-        'ar',
         'fr',
+        'ar'
     ],
 
     /*
@@ -39,7 +39,7 @@ return [
     | and never fallback to the translator one.
     |
     */
-    'locale' => null,
+    'locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------

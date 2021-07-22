@@ -93,7 +93,11 @@
                                                                             $d = strtolower(Carbon::createFromFormat('Y-m-d', $session->date)->format('l'));
 
                                                                             foreach($session->periods as $p) {
-                                                                                $isSession[$d][$p->id] = true;
+                                                                                $d1 = Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->periods->last()->hour_to);
+                                                                                $now = Carbon::now();
+
+                                                                                /* $isSession[$d][$p->id] = true; */
+                                                                                $isSession[$d][$p->id] = $now->gte($d1) ? false : true;
                                                                             }
                                                                         }
                                                                     @endphp
@@ -122,7 +126,7 @@
                                         </div>
                                     @endfor --}}
 
-                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                    <button class="btn btn-primary" type="submit">{{ trans('frontend.save') }}</button>
                                 {!! Form::close() !!}
 
                             </div>
