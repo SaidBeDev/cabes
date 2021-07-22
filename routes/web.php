@@ -134,7 +134,7 @@ Route::group([
         Route::get('/'. Laravellocalization::transRoute('routes.login'), 'LoginController@create')->name('loginForm');
         Route::post('/auth', 'LoginController@login')->name('login');
 
-        Route::get('/verify/{code}/{id}', 'registerController@verify')->name('verifyEmail');
+        Route::get('/verify/{code}/{id}', 'ٌRegisterController@verify')->name('verifyEmail');
 
         Route::get('/logout', 'LoginController@logout')->name('logout');
 
