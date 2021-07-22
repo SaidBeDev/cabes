@@ -58,7 +58,7 @@
                                 ]) !!}
 
                                     @php
-                                        $days = ['saturday', 'sunday', 'monday', 'thursday', 'wednesday', 'tuesday', 'friday'];
+                                        $days = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
                                     @endphp
 
                                     <div class="col-md-12">
