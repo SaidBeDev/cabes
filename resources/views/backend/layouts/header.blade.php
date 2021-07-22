@@ -47,10 +47,10 @@
                         </div>
                         <div class="widget-content-left  ml-3 header-user-info">
                             <div class="widget-heading">
-                                {{ Auth::user()->full_name }}
+                                {{ !empty(Auth::user()) ? Auth::user()->full_name : '' }}
                             </div>
                             <div class="widget-subheading">
-                                {{ trans('frontend.' . Auth::user()->profile_type->name) }}
+                                {{ !empty(Auth::user()) ? trans('frontend.' . Auth::user()->profile_type->name) : '' }}
                             </div>
                         </div>
                         <div class="widget-content-right header-user-info ml-3">

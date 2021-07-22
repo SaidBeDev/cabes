@@ -155,13 +155,6 @@ Route::group([
         // Homepage Index Route
         Route::get('/', 'HomepageController@index')->name('index');
 
-        Route::get('/welc', function() {
-            $data = [
-                'title' => "gsgds"
-            ];
-            return view('frontend.rubrics.auth.welcome', ['data' => $data]);
-        });
-
         /**
          * Dashboard Routes
          */
