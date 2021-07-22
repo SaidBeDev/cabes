@@ -13,17 +13,23 @@ use \Cviebrock\EloquentSluggable\Services\SlugService;
 use App\Http\Controllers\Frontend\FrontendBaseController;
 
 use App\SaidTech\Repositories\UsersRepository\UserRepository;
+
 use App\SaidTech\Traits\Files\UploadImageTrait as uploadImage;
+
 use App\SaidTech\Repositories\ConfigsRepository\ConfigRepository;
 use App\SaidTech\Repositories\ModulesRepository\ModuleRepository;
 use App\SaidTech\Repositories\PeriodsRepository\PeriodRepository;
+
 use App\SaidTech\Traits\Data\businessHoursTrait as businessHours;
+
 use App\SaidTech\Repositories\SessionsRepository\SessionRepository;
 use App\SaidTech\Repositories\StudentsRepository\StudentRepository;
 use App\SaidTech\Repositories\TeachersRepository\TeacherRepository;
 use App\SaidTech\Repositories\StudyYearsRepository\StudyYearRepository;
 use App\SaidTech\Repositories\ProfileTypesRepository\ProfileTypeRepository;
 use App\Shedule;
+
+use JsValidator;
 
 class MngSessionsController extends FrontendBaseController
 {
@@ -93,7 +99,8 @@ class MngSessionsController extends FrontendBaseController
             'list_modules' => $this->repositories['ModuleRepository']->all(),
             'study_years' => $this->repositories['StudyYearsRepository']->all(),
             'list_periods' => $this->repositories['PeriodsRepository']->all(),
-            'default_capacity' => $this->repositories['ConfigsRepository']->findWhere(['name' => "group_capacity"])->first()->content
+            'default_capacity' => $this->repositories['ConfigsRepository']->findWhere(['name' => "group_capacity"])->first()->content,
+            'validator' => JsValidator::make($this->getSessionRules())
         ];
 
         return view($this->base_view . 'sessions.create', ['data' => array_merge($this->data, $data)]);

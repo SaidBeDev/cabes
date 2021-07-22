@@ -164,6 +164,9 @@
 @section('scripts')
     @include('frontend._partials.notif')
 
+    {{-- Validation --}}
+    {!! $data['validator']->selector('#register') !!}
+
 <script>
     $(document).ready(function() {
         $('.period-select').on('change', function() {

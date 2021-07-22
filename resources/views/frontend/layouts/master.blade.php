@@ -76,6 +76,9 @@
 
     {!! Html::script('node_modules/noty/lib/noty.min.js') !!}
 
+     <!-- Laravel Javascript Validation -->
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             $('.daira-select').selectpicker({

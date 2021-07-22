@@ -31,6 +31,7 @@ use App\SaidTech\Repositories\StudyYearsRepository\StudyYearRepository;
 use App\SaidTech\Repositories\ContactTypesRepository\ContactTypeRepository;
 use App\SaidTech\Repositories\ProfileTypesRepository\ProfileTypeRepository;
 use Cartalyst\Sentinel\Laravel\Facades\Activation;
+use Exception;
 
 class RegisterController extends Controller
 {
@@ -398,7 +399,7 @@ class RegisterController extends Controller
             }
         } else {
             // Resend verification email.
-            Activation::removeExpired();
+            /* Activation::removeExpired();
 
             $new_act = Activation::create($user);
 
@@ -409,7 +410,9 @@ class RegisterController extends Controller
                 'message' => "A new activation email was sent, please check your email"
             ];
 
-            return redirect()->route('frontend.index')->with($response);
+            return redirect()->route('frontend.index')->with($response); */
+
+            throw new \LogicException('Activation not exist');
         }
     }
 
