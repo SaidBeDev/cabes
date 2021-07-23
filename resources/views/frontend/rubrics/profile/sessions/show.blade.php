@@ -2,10 +2,6 @@
     $user = Auth::user();
     $session = $data['session'];
 
-    $d1 = Carbon::createFromFormat('H:i', $session->periods->first()->hour_from);
-    $d2 = Carbon::createFromFormat('H:i', '15:00');
-    $now = Carbon::now();
-
 @endphp
 
 @extends('frontend.layouts.master')
@@ -23,7 +19,7 @@
             <div class="col-lg-9 col-md-9 col-sm-12">
 
                 {{-- Breadcrumbs --}}
-                @include('frontend.rubrics.profile.__partials.breadcrumbs')
+                {!! Breadcrumbs::render('show_session', ['session' => $session]) !!}
 
                 <!-- Row -->
                 <div class="row">

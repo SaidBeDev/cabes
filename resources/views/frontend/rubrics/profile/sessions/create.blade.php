@@ -13,7 +13,7 @@
             <div class="col-lg-9 col-md-9 col-sm-12">
 
                 {{-- Breadcrumbs --}}
-                @include('frontend.rubrics.profile.__partials.breadcrumbs')
+                {!! Breadcrumbs::render('create_session') !!}
 
                 <!-- Row -->
                 <div class="row">
@@ -169,6 +169,10 @@
 
 <script>
     $(document).ready(function() {
+
+
+
+
         $('.period-select').on('change', function() {
             seOption = $('select.period-select option:selected');
             notSeOption = $('select.period-select option:not(:selected)');

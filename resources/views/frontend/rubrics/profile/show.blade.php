@@ -18,7 +18,7 @@
             <div class="col-lg-9 col-md-9 col-sm-12">
 
                 {{-- Breadcrumbs --}}
-                @include('frontend.rubrics.profile.__partials.breadcrumbs')
+                {!! Breadcrumbs::render('profile_show') !!}
 
                 <!-- Row -->
                 <div class="row">
