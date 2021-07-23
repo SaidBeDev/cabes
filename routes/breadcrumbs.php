@@ -33,13 +33,13 @@ Breadcrumbs::for('sessions', function ($trail) {
 // Profile > Sessions > Sessions Completed
 Breadcrumbs::for('completed_sessions', function ($trail) {
     $trail->parent('sessions');
-    $trail->push(ucfirst(trans('frontend.completed_sessions')), route('frontend.profile.sessions.getCompletedSessions'));
+    $trail->push(ucfirst(trans('frontend.completed_sessions')), '#');
 });
 
 // Profile > Sessions > Sessions Canceled
 Breadcrumbs::for('canceled_sessions', function ($trail) {
     $trail->parent('sessions');
-    $trail->push(ucfirst(trans('frontend.canceled_sessions')), route('frontend.profile.sessions.getCanceledSessions'));
+    $trail->push(ucfirst(trans('frontend.canceled_sessions')), '#');
 });
 
 // Profile > Sessions > Sessions Create
