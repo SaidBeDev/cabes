@@ -51,7 +51,8 @@ Breadcrumbs::for('create_session', function ($trail) {
 // Profile > Sessions > Sessions Edit
 Breadcrumbs::for('edit_session', function ($trail, $id) {
     $trail->parent('sessions');
-    $trail->push(ucfirst(trans('frontend.edit_session')), route('frontend.profile.sessions.edit', ['id' => $id]));
+    $trail->push(ucfirst(trans('frontend.edit_session')),
+     route('frontend.profile.sessions.edit', ['id' => $id]));
 });
 
 // Profile > Sessions > Sessions Edit

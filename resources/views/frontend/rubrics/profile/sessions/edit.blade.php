@@ -16,7 +16,7 @@
             <div class="col-lg-9 col-md-9 col-sm-12">
 
                 {{-- Breadcrumbs --}}
-                {!! Breadcrumbs::render('edit_session', ['id' => $session->id]) !!}
+                {!! Breadcrumbs::render('edit_session', $session->id) !!}
 
                 <!-- Row -->
                 <div class="row">

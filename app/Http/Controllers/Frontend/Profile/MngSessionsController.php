@@ -74,7 +74,9 @@ class MngSessionsController extends FrontendBaseController
         $data = [
             'uri' => "my_courses",
             'title' => trans('menu.sessions'),
-            'list_sessions' => Auth::user()->profile_type->name == "teacher" ? $this->repository->findWhere(['is_completed' => 0, 'is_canceled' => 0, 'teacher_id' => Auth::user()->teacher->id])->all() : Auth::user()->student->sessions
+            'list_sessions' => Auth::user()->profile_type->name == "teacher" ? $this->repository->findWhere(['is_completed' => 0, 'is_canceled' => 0, 'teacher_id' => Auth::user()->teacher->id])->all() : Auth::user()->student->sessions->filter(function($session) {
+                return $session->is_completed == 0 && $session->is_canceled == 0;
+            })
         ];
 
         return view($this->base_view . 'sessions.index', ['data' => array_merge($this->data, $data)]);
@@ -289,7 +291,7 @@ class MngSessionsController extends FrontendBaseController
             $list_sessions = $this->repository->findWhere(['is_completed' => 1, 'teacher_id' => Auth::user()->teacher->id])->groupBy('id');
         }
         elseif (Auth::user()->profile_type->name == "student") {
-            $list_sessions = Auth::user()->student->sessions->filter(function($key, $session) {
+            $list_sessions = Auth::user()->student->sessions->filter(function($session) {
                 return $session->is_completed == 1;
             });
         }
@@ -326,8 +328,15 @@ class MngSessionsController extends FrontendBaseController
      * List of canceled sessions
      */
     public function getCanceledSessions($id) {
+        $list_sessions = null;
 
-        $list_sessions = $this->repository->findWhere(['is_canceled' => 1, 'teacher_id' => Auth::user()->teacher->id])->groupBy('id');
+        if (Auth::user()->profile_type->name == "teacher") {
+            $list_sessions = $this->repository->findWhere(['is_canceled' => 1, 'teacher_id' => Auth::user()->teacher->id])->groupBy('id');
+        }elseif (Auth::user()->profile_type->name == "student") {
+            $list_sessions = Auth::user()->student->sessions->filter(function($session) {
+                return $session->is_canceled == 1;
+            });
+        }
 
         $cancel_pen  = (int)$this->repositories['ConfigsRepository']->findWhere(['name' => 'session_cancel_penality'])->first()->content;
 

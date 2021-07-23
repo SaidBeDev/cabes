@@ -282,6 +282,21 @@ a.badge-alternate:focus {
     background: #00adb614;
     color: #00adb6;
 }
+/* Sessions */
+.ins_info_thumb img {
+    border-radius: 50%;
+    background-color: #fff;
+}
+.single_instructor_thumb {
+    height: 170px;
+    width: 170px;
+}
+.single_instructor_thumb img {
+    border-radius: 50% !important;
+    background: #eee;
+
+}
+
 /* aside */
 .dashboard-navbar, .dashboard-wraper{
     background-image: linear-gradient(to right, #0f2027, #203a43, #2c5364) !important
@@ -299,6 +314,7 @@ a.badge-alternate:focus {
     color: red;
     font-weight: 500;
 }
+
 /**/
 /* Footer styles */
 footer.dark-footer{

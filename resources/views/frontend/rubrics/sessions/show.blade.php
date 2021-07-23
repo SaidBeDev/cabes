@@ -66,7 +66,7 @@
                                 <li>
                                     <div class="ins_info">
                                         <div class="ins_info_thumb">
-                                            <img src="{{ asset('frontend/assets/img/user-1.jpg') }}" class="img-fluid" alt="" />
+                                            <img src="{{ asset(!empty($session->teacher->user->avatar) ? 'frontend/images/avatars/' . $session->teacher->user->avatar : ($session->teacher->user->gender == 'male' ? 'frontend/images/default/user-m.png' : 'frontend/images/default/user-f.png')) }}" class="img-fluid" alt="" />
                                         </div>
                                         <div class="ins_info_caption">
                                             <span>{{ trans('frontend.teacher') }}</span>
@@ -119,7 +119,7 @@
                             <div class="tab-pane fade" id="instructor" role="tabpanel" aria-labelledby="instructor-tab">
                                 <div class="single_instructor">
                                     <div class="single_instructor_thumb">
-                                        <a href="#"><img src="{{ asset('frontend/assets/img/user-5.jpg') }}" class="img-fluid" alt=""></a>
+                                        <a href="#"><img src="{{ asset(!empty($session->teacher->user->avatar) ? 'frontend/images/avatars/' . $session->teacher->user->avatar : ($session->teacher->user->gender == 'male' ? 'frontend/images/default/user-m.png' : 'frontend/images/default/user-f.png')) }}" class="img-fluid" alt=""></a>
                                     </div>
                                     <div class="single_instructor_caption">
                                         <h4><a href="#">{{ $session->teacher->user->full_name }}</a></h4>
@@ -175,29 +175,33 @@
                             </ul>
                         </div>
                         <div class="ed_view_link">
-                            @if (!empty(Auth::user()))
-                                @if (Auth::user()->profile_type->name == "student")
-                                    @if ($session->students->contains(Auth::user()->student->id))
-                                        {{-- Check if user can cancel the enrollement --}}
-                                        @php
-                                            $d1 = Carbon::createFromFormat('Y-m-d', $session->date);
-                                            $now = Carbon::now();
-                                        @endphp
-                                        @if ($now->lt($d1))
-                                            <a href="#" class="btn btn-danger enroll-btn" data-action="unroll" data-isEnrolled="1" data-sessionId="{{ $session->id }}">{{ trans('frontend.unroll') }}<i class="ti-angle-right"></i></a>
+                            @php
+                                $d1 = Carbon::createFromFormat('Y-m-d', $session->date);
+                                $d2 = Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->periods->first()->hour_from);
+                                $now = Carbon::now();
+                            @endphp
+                            @if ($session->is_canceled == 0 && $session->is_completed == 0 && $now->lt($d2))
+                                @if (!empty(Auth::user()))
+                                    @if (Auth::user()->profile_type->name == "student")
+                                        @if ($session->students->contains(Auth::user()->student->id))
+                                            {{-- Check if user can cancel the enrollement --}}
+
+                                            @if ($now->lt($d1))
+                                                <a href="#" class="btn btn-danger enroll-btn" data-action="unroll" data-isEnrolled="1" data-sessionId="{{ $session->id }}">{{ trans('frontend.unroll') }}<i class="ti-angle-right"></i></a>
+                                            @else
+                                                <a href="#" class="btn btn-secondary disabled enroll-btn" >{{ trans('frontend.enrolled') }}<i class="ti-angle-right"></i></a>
+                                            @endif
                                         @else
-                                            <a href="#" class="btn btn-secondary disabled enroll-btn" >{{ trans('frontend.enrolled') }}<i class="ti-angle-right"></i></a>
-                                        @endif
-                                    @else
-                                        @if ((int)$session->students->count() < (int)$session->capacity)
-                                            <a href="#" class="btn btn-theme enroll-btn" data-action="enroll" data-isEnrolled="0" data-sessionId="{{ $session->id }}">{{ trans('frontend.enroll') }}<i class="ti-angle-right"></i></a>
-                                        @else
-                                            <a href="#" class="btn btn-secondary disabled enroll-btn" data-toggle="tooltip" data-placement="top" title="{{ trans('frontend.atteinted_msg') }}">{{ trans('frontend.atteinted') }}<i class="ti-angle-right"></i></a>
+                                            @if ((int)$session->students->count() < (int)$session->capacity)
+                                                <a href="#" class="btn btn-theme enroll-btn" data-action="enroll" data-isEnrolled="0" data-sessionId="{{ $session->id }}">{{ trans('frontend.enroll') }}<i class="ti-angle-right"></i></a>
+                                            @else
+                                                <a href="#" class="btn btn-secondary disabled enroll-btn" data-toggle="tooltip" data-placement="top" title="{{ trans('frontend.atteinted_msg') }}">{{ trans('frontend.atteinted') }}<i class="ti-angle-right"></i></a>
+                                            @endif
                                         @endif
                                     @endif
+                                @else
+                                    <a href="#" class="btn btn-theme unallowed" data-toggle="tooltip" data-placement="top" title="{{ trans('frontend.auth_rule') }}">{{ trans('frontend.enroll') }} {{-- <i class="ti-angle-right"></i> --}}</a>
                                 @endif
-                            @else
-                                <a href="#" class="btn btn-theme unallowed" data-toggle="tooltip" data-placement="top" title="{{ trans('frontend.auth_rule') }}">{{ trans('frontend.enroll') }} {{-- <i class="ti-angle-right"></i> --}}</a>
                             @endif
 
                         </div>
@@ -258,14 +262,16 @@
                             new Noty({
                                 type: 'success',
                                 theme: 'sunset',
-                                text: response.message
+                                text: response.message,
+                                timeout: 8000
                             }).show();
                         }
                         else if (response.success == 0) {
                             new Noty({
                                 type: 'error',
                                 theme: 'sunset',
-                                text: response.message
+                                text: response.message,
+                                timeout: 8000
                             }).show();
                         }
                     })
@@ -273,7 +279,8 @@
                         new Noty({
                                 type: 'error',
                                 theme: 'sunset',
-                                text: "Un erreur est survenue"
+                                text: "Un erreur est survenue",
+                                timeout: 8000
                             }).show();
                     })
 
