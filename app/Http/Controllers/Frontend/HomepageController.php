@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Builder;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use App\Http\Controllers\Frontend\FrontendBaseController;
+use App\Module;
 use App\SaidTech\Repositories\UsersRepository\UserRepository;
 use App\SaidTech\Repositories\ModulesRepository\ModuleRepository;
 use App\SaidTech\Repositories\SessionsRepository\SessionRepository;
@@ -59,7 +60,9 @@ class HomepageController extends FrontendBaseController
                 $query->where('name', '=', 'teacher');
             })->all(),
             'list_sessions' => $this->repositories['SessionRepository']->findWhere(['is_canceled' => 0, 'is_completed' => 0])->all(),
-            'list_modules' => $this->repositories['ModulesRepository']->all()
+            'list_modules' => Module::with('translations')->get()->sortBy(function($module) {
+                return $module->teachers->count();
+            }, SORT_REGULAR, true)
         ];
 
         return view($this->base_view . 'index', ['data' => array_merge($this->data, $data)]);

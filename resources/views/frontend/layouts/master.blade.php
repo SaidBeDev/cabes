@@ -84,6 +84,13 @@
             $('.daira-select').selectpicker({
                 'dropupAuto': false
             })
+
+            $('button[type="submit"]').on('click', function(e) {
+                if ($('form').valid()) {
+                    $('button[type="submit"]').attr('disabled', true);
+                    $('form').submit();
+                }
+            });
         });
     </script>
 

@@ -255,7 +255,7 @@ a.badge-alternate:focus {
     font-size: 15px;
 }
 .dashboard_container_header .dashboard_fl_1 h4 {
-    font-family: "Lato";
+    font-family: monospace;
 }
 .form-group label{
     font-family: 'Baloo Tammudu 2', cursive;
@@ -292,6 +292,12 @@ a.badge-alternate:focus {
 .d-navigation ul li.active>a {
     background-image: linear-gradient(to right, #367a96, #29515f, #274c5d75) !important;
     background-color: unset;
+}
+
+/* Errors styling */
+.error-help-block {
+    color: red;
+    font-weight: 500;
 }
 /**/
 /* Footer styles */
