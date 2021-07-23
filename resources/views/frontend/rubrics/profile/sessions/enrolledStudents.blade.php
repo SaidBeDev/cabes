@@ -28,7 +28,7 @@
                                 <!-- Single Instructor -->
                                 <div class="single_instructor border">
                                     <div class="single_instructor_thumb">
-                                        <a href="#"><img src="{{ asset( !empty($student->user->image) ? $student->user->image : ($student->user->gender == 'male' ? 'frontend/images/default/user-m.png' : 'frontend/images/default/user-f.png')) }}" class="img-fluid" alt=""></a>
+                                        <a href="#"><img src="{{ asset( !empty($student->user->avatar) ? 'frontend/images/avatars/'. $student->user->avatar : ($student->user->gender == 'male' ? 'frontend/images/default/user-m.png' : 'frontend/images/default/user-f.png')) }}" class="img-fluid" alt=""></a>
                                     </div>
                                     <div class="single_instructor_caption">
                                         <h4><a href="#">{{ $student->user->full_name }}</a></h4>

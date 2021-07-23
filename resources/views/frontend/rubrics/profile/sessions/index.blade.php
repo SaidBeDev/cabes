@@ -28,23 +28,28 @@
                             </div>
                             <div class="dashboard_container_body p-4">
                                 @foreach ($data['list_sessions'] as $session)
+                                    @php
+                                        $d1 = Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->periods->first()->hour_to);
+                                        $d2 = Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->periods->last()->hour_from);
+                                        $now = Carbon::now();
+                                    @endphp
                                     <!-- Single Course -->
                                     <div class="dashboard_single_course">
                                         <div class="dashboard_single_course_thumb">
                                             <img src="{{ !empty($session->image) ? asset(config('SaidTech.images.sessions.upload_path') . $session->image) : 'https://via.placeholder.com/700x500' }}" class="img-fluid" alt="" />
                                             <div class="dashboard_action">
-                                                <a href="{{ route('frontend.profile.sessions.edit', ['id' => $session->id]) }}" class="btn btn-ect">{{ trans('frontend.edit') }}</a>
+                                                @if (Auth::user()->profile_type->name == "teacher")
+                                                    @if ($now->lte($d2))
+                                                        <a href="{{ route('frontend.profile.sessions.edit', ['id' => $session->id]) }}" class="btn btn-ect">{{ trans('frontend.edit') }}</a>
+                                                    @endif
+                                                @endif
                                                 <a href="{{ route('frontend.profile.sessions.show', ['id' => $session->id]) }}" class="btn btn-ect">{{ trans('frontend.browse') }}</a>
                                             </div>
                                         </div>
                                         <div class="dashboard_single_course_caption">
                                             @if (Auth::user()->profile_type->name == "teacher")
                                                 <div style="text-align: end; margin-bottom: 10px">
-                                                    @php
-                                                        $d1 = Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->period->hour_to);
-                                                        $d2 = Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->period->hour_from);
-                                                        $now = Carbon::now();
-                                                    @endphp
+
                                                     @if ($now->gt($d1))
                                                         <a href="#" class="btn {{ $session->is_completed ? 'btn-success' : 'btn-outline-success' }} btn-sm btn-circle mark-btn" data-action="mark_comp" data-sessionId="{{ $session->id }}" data-isCompleted="{{ $session->is_completed }}" data-toggle="tooltip" data-placement="top" title="{{ trans('frontend.mark_completed') }}"><i class="fa fa-check"></i></a>
                                                     @endif

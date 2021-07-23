@@ -19,7 +19,7 @@
             <div class="col-lg-9 col-md-9 col-sm-12">
 
                 {{-- Breadcrumbs --}}
-                {!! Breadcrumbs::render('show_session', ['session' => $session]) !!}
+                {!! Breadcrumbs::render('show_session', $session) !!}
 
                 <!-- Row -->
                 <div class="row">
