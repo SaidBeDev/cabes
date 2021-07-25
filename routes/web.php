@@ -85,31 +85,37 @@ Route::group([
             Route::get('/history/{id}', 'ManageStudentsController@showHistory')->name('showHistory');
           });
 
-          // Manage Sessions
-          Route::namespace('Sessions')->name('sessions.')->prefix('sessions')->group(function() {
+        // Manage Sessions
+        Route::namespace('Sessions')->name('sessions.')->prefix('sessions')->group(function() {
 
-            Route::get('/{id}/list', 'ManageSessionsController@index')->name('index');
+        Route::get('/{id}/list', 'ManageSessionsController@index')->name('index');
 
-            Route::get('/', 'ManageSessionsController@getTeachers')->name('getTeachers');
+        Route::get('/', 'ManageSessionsController@getTeachers')->name('getTeachers');
 
-            Route::get('/{id}', 'ManageSessionsController@show')->name('show');
-            Route::get('/{id}/edit', 'ManageSessionsController@edit')->name('edit');
+        Route::get('/{id}', 'ManageSessionsController@show')->name('show');
+        Route::get('/{id}/edit', 'ManageSessionsController@edit')->name('edit');
 
-            Route::get('joined-students/{id}', 'ManageSessionsController@getEnrolledStudents')->name('getEnrolledStudents');
-            Route::get('completed-sessions/{id}', 'ManageSessionsController@getCompletedSessions')->name('getCompletedSessions');
-            Route::get('canceled-sessions/{id}', 'ManageSessionsController@getCanceledSessions')->name('getCanceledSessions');
+        Route::get('joined-students/{id}', 'ManageSessionsController@getEnrolledStudents')->name('getEnrolledStudents');
+        Route::get('completed-sessions/{id}', 'ManageSessionsController@getCompletedSessions')->name('getCompletedSessions');
+        Route::get('canceled-sessions/{id}', 'ManageSessionsController@getCanceledSessions')->name('getCanceledSessions');
 
-            Route::post('mark-completed/{id}', 'ManageSessionsController@markAsCompleted')->name('markAsCompleted');
+        Route::post('mark-completed/{id}', 'ManageSessionsController@markAsCompleted')->name('markAsCompleted');
 
-            Route::post('mark-canceled/{id}', 'ManageSessionsController@markAsCanceled')->name('markAsCanceled');
-          });
+        Route::post('mark-canceled/{id}', 'ManageSessionsController@markAsCanceled')->name('markAsCanceled');
+        });
 
-          // Manage Conifgs
-          Route::namespace('Configs')->name('configs.')->prefix('configs')->group(function() {
-            Route::get('/', 'ManageConfigsController@index')->name('index');
+          // About Us
+        Route::namespace('About')->name('about.')->prefix(trans('routes.about'))->group(function() {
+            Route::get('/edit', 'AboutUsController@edit')->name('edit');
+            Route::put('/update', 'AboutUsController@update')->name('update');
+        });
 
-            Route::post('/update/{id}', 'ManageConfigsController@update')->name('update');
-          });
+        // Manage Conifgs
+        Route::namespace('Configs')->name('configs.')->prefix('configs')->group(function() {
+        Route::get('/', 'ManageConfigsController@index')->name('index');
+
+        Route::post('/update/{id}', 'ManageConfigsController@update')->name('update');
+        });
     });
 });
 
@@ -170,7 +176,6 @@ Route::group([
             Route::put('/edit-availability/{id}', 'TeacherProfileController@updateAvailability')->name('updateAvailability');
 
             // sessions
-
             Route::name('sessions.')->prefix(trans('routes.sessions'))->group(function() {
                 Route::get('/list', 'MngSessionsController@index')->name('index');
 
@@ -200,6 +205,10 @@ Route::group([
 
         });
 
+        // About Us
+        Route::name('about.')->prefix(trans('routes.about'))->group(function() {
+            Route::get('/', 'AboutUsController@index')->name('index');
+        });
 
         // Sessions Guide Routes
         Route::name('sessions.')->prefix(trans('routes.sessions'))->group(function() {

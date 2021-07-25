@@ -88,6 +88,23 @@
                     </ul>
                 </li>
 
+                {{-- About Us --}}
+                <li>
+                    <a href="#" class="{{ isset($info['title']) ? ($info['title'] == trans('menu.about') ? 'mm-active' : '') : '' }}">
+                        <i class="metismenu-icon pe-7s-user"></i>
+                        {{ trans('menu.about') }}
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{ route('backend.about.edit') }}">
+                                <i class="metismenu-icon"></i>
+                                Modifier
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 {{-- Configs --}}
                 <li>
                     <a href="{{ route('backend.configs.index') }}" class="{{ isset($info['title']) ? ($info['title'] == trans('menu.configs') ? 'mm-active' : '') : '' }}">

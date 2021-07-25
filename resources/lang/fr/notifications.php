@@ -16,6 +16,7 @@ return [
     'attend_completed' => "",
     'marked_comp' => "La séance est marquée comme terminée",
     'marked_canc' => "La séance est marquée comme annulée",
+    'about_updated' => "Les informations sont mises à jour!",
 
 
     // errors

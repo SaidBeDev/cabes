@@ -215,6 +215,9 @@ a.badge-alternate:focus {
 .fs-14 {
     font-size: 14px !important
 }
+.fs-17 {
+    font-size: 19px !important
+}
 
 .btn-secondary {
     background-color: #333;
@@ -317,9 +320,12 @@ a.badge-alternate:focus {
 
 /**/
 /* Footer styles */
+footer {
+    padding-top: 35px;
+}
 footer.dark-footer{
-    background-image: linear-gradient(to top, #ac40e8, #a434fc, #d367ef) !important;
-    padding-top: 10px;
+    /* background-image: linear-gradient(to top, #ac40e8, #a434fc, #d367ef) !important; */
+    /* padding-top: 10px; */
 }
 .skin-dark-footer .footer-bottom{
     background: unset;

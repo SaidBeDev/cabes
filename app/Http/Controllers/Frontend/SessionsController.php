@@ -48,9 +48,11 @@ class SessionsController extends FrontendBaseController
 
                 $d1 =  Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->periods->first()->hour_from);
                 $now = Carbon::now();
-                return $session;
+
+                return $now->lte($d1);
             })
         ];
+
 
         return view($this->base_view . 'index', ['data' => array_merge($this->data, $data)]);
     }
