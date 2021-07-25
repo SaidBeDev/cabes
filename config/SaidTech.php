@@ -12,5 +12,10 @@ return [
             'height' => 450,
             'width'  => 770
         ],
+        'about' => [
+            'upload_path' => 'uploads/images/about/',
+            'height' => 482,
+            'width'  => 570
+        ]
     ]
 ];

@@ -14,4 +14,5 @@ return [
     'add_course' => "Créer une séance",
     'all_courses' => "Toutes les séances",
     'my_courses' => "Mes séances",
+    'about' => "À propos de nous",
 ];

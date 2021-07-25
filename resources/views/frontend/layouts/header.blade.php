@@ -4,7 +4,7 @@
     <div class="container">
         <nav id="navigation" class="navigation navigation-landscape">
             <div class="nav-header">
-                <a class="nav-brand" href="#">
+                <a class="nav-brand" href="{{ route('frontend.index') }}">
                     <img src="{{ asset('frontend/images/logo2.png') }}" class="logo" alt="" />
                 </a>
                 <div class="nav-toggle"></div>
@@ -13,6 +13,8 @@
                 <ul class="nav-menu">
 
                     <li class="active"><a href="{{ route('frontend.index') }}">{{ trans('menu.homepage') }}</a></li>
+
+                    <li><a href="{{ route('frontend.about.index') }}">{{ trans('menu.about') }}</a></li>
 
                     <li><a href="{{ route('frontend.teachers.index') }}">{{ trans('frontend.find_tutor') }}<span class="submenu-indicator"></span></a>
                         <ul class="nav-dropdown nav-submenu">

@@ -568,7 +568,7 @@ class MngSessionsController extends FrontendBaseController
             'title_fr' => 'required',
             'desc_fr'  => 'required',
             'objectives_fr' => 'required',
-            'link'  => 'required|url',
+            'link'  => 'required',
             'date' => 'required|date',
             'teacher_id' => 'required|numeric',
             'module_id' => 'required|numeric',
@@ -582,7 +582,7 @@ class MngSessionsController extends FrontendBaseController
             'title_fr' => 'required',
             'desc_fr'  => 'required',
             'objectives_fr' => 'required',
-            'link'  => 'required|url',
+            'link'  => 'required',
             'teacher_id' => 'required|numeric',
             'module_id' => 'required|numeric',
             'study_year_id' => 'required|numeric'

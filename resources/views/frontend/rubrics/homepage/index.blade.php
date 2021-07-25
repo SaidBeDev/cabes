@@ -166,11 +166,12 @@
                                                 <div class="path-img"><a href="{{ route('frontend.sessions.show', ['slug' => $session->slug]) }}" target="_blank"><img src="{{ asset('frontend/assets/img/user-5.jpg') }}" class="img-fluid" alt=""></a></div>
                                                 <h5><a href="{{ route('frontend.teachers.show', ['id' => $session->teacher->user->id]) }}" target="_blank">{{ $session->teacher->user->full_name }}</a></h5>
                                             </div>
-                                            <div class="cources_info_style3">
+                                            <span class="education_block_time"><i class="ti-calendar mr-1"></i>{{ $session->date }}</span>
+                                            {{-- <div class="cources_info_style3">
                                                 <ul>
                                                     <li><a href="{{ route('frontend.sessions.show', ['slug' => $session->slug]) }}" target="_blank"><div class="foot_lecture"><i class="ti-control-skip-forward mr-2"></i>Continue</div></a></li>
                                                 </ul>
-                                            </div>
+                                            </div> --}}
                                         </div>
 
                                     </div>
