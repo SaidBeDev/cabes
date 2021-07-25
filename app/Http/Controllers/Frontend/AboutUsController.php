@@ -6,7 +6,7 @@ use App\Http\Controllers\Frontend\FrontendBaseController;
 
 use App\SaidTech\Repositories\AboutUsRepository\AboutUsRepository;
 
-use App\SaidTech\Traits\Files\uploadImageTrait as uploadImage;
+use App\SaidTech\Traits\Files\UploadImageTrait as uploadImage;
 
 class AboutUsController extends FrontendBaseController
 {

@@ -6,7 +6,7 @@ use App\Http\Controllers\Backend\BackendBaseController;
 
 use App\SaidTech\Repositories\AboutUsRepository\AboutUsRepository;
 
-use App\SaidTech\Traits\Files\uploadImageTrait as uploadImage;
+use App\SaidTech\Traits\Files\UploadImageTrait as uploadImage;
 use Illuminate\Http\Request;
 use JsValidator;
 
