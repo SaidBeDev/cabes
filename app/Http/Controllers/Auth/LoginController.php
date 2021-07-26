@@ -170,9 +170,16 @@ class LoginController extends Controller
     }
 
     public function logout() {
-        Sentinel::logout();
+        if (!empty(Auth::user())) {
+            Auth::logout();
 
-        return redirect()->route('auth.loginForm');
+            $response = [
+                'success' => true,
+                'message' => trans('notifications.logged_out')
+            ];
+
+            return redirect()->route('frontend.index')->with($response);
+        }
     }
 
     public function getLoginRules() {

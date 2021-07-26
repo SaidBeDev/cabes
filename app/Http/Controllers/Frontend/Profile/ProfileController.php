@@ -359,6 +359,22 @@ class ProfileController extends FrontendBaseController
     }
 
 
+    /**
+     * @return JsonResponse
+     */
+    public function logout() {
+        if (!empty(Auth::user())) {
+            Auth::logout();
+
+            $response = [
+                'success' => true,
+                'message' => trans('notifications.logged_out')
+            ];
+
+            return redirect()->route('frontend.index')->with($response);
+        }
+    }
+
     public function isSetContact($request) {
 
         if (!empty($request->facebook) || !empty($request->linkedin) || !empty($request->whatsapp) || !empty($request->viber))

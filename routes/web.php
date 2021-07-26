@@ -212,7 +212,6 @@ Route::group([
              * Error of 3emek Slimane le 22/02/2021 à Maubeuge
              */
 
-
         });
 
         // About Us
