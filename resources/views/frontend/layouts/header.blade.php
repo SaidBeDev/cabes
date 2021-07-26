@@ -91,7 +91,7 @@
                                 <div class="dropdown-item unclickable">{{ trans('frontend.credits') .': '. Auth::user()->credit }}</div>
                                 <a class="dropdown-item" href="{{ route('frontend.profile.edit', ['id' => Auth::user()->id]) }}">Dashboard</a>
                                 <a class="dropdown-item" href="{{ route('frontend.profile.edit', ['id' => Auth::user()->id]) }}">Edit Profile</a>
-                                <a class="dropdown-item" href="#">Log Out</a>
+                                <a class="dropdown-item" href="{{ route('auth.logout') }}">{{ trans('frontend.logout') }}</a>
                             </div>
                           </li>
                         </ul>
