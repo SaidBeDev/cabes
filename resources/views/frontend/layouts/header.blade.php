@@ -54,7 +54,7 @@
                         </ul>
                     </li>
 
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="{{ route('frontend.contact.index') }}">{{ trans('menu.contact') }}</a></li>
 
                 </ul>
 
@@ -62,10 +62,10 @@
                     <ul class="nav-menu nav-menu-social align-to-right">
 
                         <li class="login_click light">
-                            <a href="{{ route('auth.loginForm') }}">{{ trans('menu.login') }}</a>
+                            <a href="{{ route('auth.loginForm') }}" data-toggle="tooltip" data-placement="top" title="{{ trans('frontend.login') }}"><i class="fas fa-sign-in-alt m9-show-inline d-lg-none"></i><span class="m9-hide-d" style="display: inline">{{ trans('menu.login') }}</span></a>
                         </li>
                         <li class="login_click theme-bg">
-                            <a href="{{ route('auth.registerForm') }}">{{ trans('menu.register') }}</a>
+                            <a href="{{ route('auth.registerForm') }}" data-toggle="tooltip" data-placement="top" title="{{ trans('menu.register') }}"><i class="fas fa-user-plus m9-show-inline d-lg-none"></i> <span class="m9-hide-d" style="display: inline">{{ trans('menu.register') }}</span></a>
                         </li>
                     </ul>
                 @else

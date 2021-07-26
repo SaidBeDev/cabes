@@ -105,6 +105,14 @@
                     </ul>
                 </li>
 
+                {{-- Contacts --}}
+                <li>
+                    <a href="{{ route('backend.contact.index') }}" class="{{ isset($info['title']) ? ($info['title'] == trans('menu.contact') ? 'mm-active' : '') : '' }}">
+                        <i class="metismenu-icon pe-7s-settings"></i>
+                        Contacts
+                    </a>
+                </li>
+
                 {{-- Configs --}}
                 <li>
                     <a href="{{ route('backend.configs.index') }}" class="{{ isset($info['title']) ? ($info['title'] == trans('menu.configs') ? 'mm-active' : '') : '' }}">

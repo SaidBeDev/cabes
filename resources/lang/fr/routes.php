@@ -13,6 +13,7 @@ return [
     'teachers' => "trouver-un-enseignant",
     'by_module' => "par-module",
     'by_year' => "par-niveau",
-    'about' => 'à-propos-de-nous'
+    'about' => 'à-propos-de-nous',
+    'contact' => "contactez-nous"
 
 ];
