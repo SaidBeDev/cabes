@@ -15,4 +15,5 @@ return [
     'all_courses' => "Toutes les séances",
     'my_courses' => "Mes séances",
     'about' => "À propos de nous",
+    'contact' => "Contactez-nous",
 ];

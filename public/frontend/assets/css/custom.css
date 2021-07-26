@@ -200,6 +200,7 @@ a.badge-alternate:focus {
 }
 
 /* Responsive */
+
 @media (min-width: 992px) {
     .multi-col {
         column-count: 3;
@@ -207,6 +208,31 @@ a.badge-alternate:focus {
     .duo-col {
         column-count: 2;
     }
+}
+
+
+
+@media (max-width: 992px) {
+    .nav-menu.nav-menu-social>li.login_click a{
+        padding: 10px 10px !important;
+    }
+}
+
+
+@media (min-width: 1200px) {
+    .m9-hide-u {
+        display: none !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .m9-show-inline {
+        display: inline !important;
+    }
+    .m9-hide-d {
+        display: none !important;
+    }
+
 }
 
 .fs-10 {
@@ -300,6 +326,10 @@ a.badge-alternate:focus {
 
 }
 
+/* Contact Us */
+.contact .property_block_title {
+    text-transform: uppercase;
+}
 /* aside */
 .dashboard-navbar, .dashboard-wraper{
     background-image: linear-gradient(to right, #0f2027, #203a43, #2c5364) !important

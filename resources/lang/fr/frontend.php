@@ -70,6 +70,8 @@ return [
     'enrolled_nb' => "Participants",
     'famous' => "Populaires",
     'recomended' => "recommandés",
+    'subject' => "Sujet",
+    'message' => "Message",
 
     // Profile
     'mng_profile' => "Gestion du profil",
@@ -98,6 +100,9 @@ return [
     'avatar' => "avatar",
     'confirm_email' => "E-mail de confirmation",
     'dear_client' => "Cher :type de CABES Academy",
+    'reach_us' => "Rejoins-nous",
+    'need_help' => "Besoin d'aide?",
+    'fill_form' => "Remplir le formulaire",
 
     // Texts
     'welcome_txt' => "Vous avez bien été inscrit!",
@@ -107,6 +112,7 @@ return [
     'edit_avai_txt' => "Veuillez remplir seulement les heures pendant lesquelles vous êtes disponible",
     'confirm_email_txt' => "Veuillez cliquer sur le bouton ci-dessous pour confirmer votre email",
     'copyright_footer' => "Tous droits réservés",
+    'contact_txt' => "Une équipe d'assistance client conviviale pour les créateurs à portée de clic.",
 
     // Rules
     'auth_rule' => "Veuillez vous connecter à votre compte!",
@@ -146,6 +152,7 @@ return [
     'confirm_btn' => "Confirmer",
     'go_session' => "Allez a séance",
     'session_link' => "Lien de Meeting",
+    'send' => "Envoyer",
 
 
     // Days

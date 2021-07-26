@@ -104,10 +104,20 @@ Route::group([
         Route::post('mark-canceled/{id}', 'ManageSessionsController@markAsCanceled')->name('markAsCanceled');
         });
 
-          // About Us
+        // About Us
         Route::namespace('About')->name('about.')->prefix(trans('routes.about'))->group(function() {
             Route::get('/edit', 'AboutUsController@edit')->name('edit');
             Route::put('/update', 'AboutUsController@update')->name('update');
+        });
+
+        // Contact Us
+        Route::namespace('Contact')->name('contact.')->prefix(trans('routes.contact'))->group(function() {
+            Route::get('/', 'ContactUsController@index')->name('index');
+
+            Route::get('/{id}/edit', 'ContactUsController@edit')->name('edit');
+
+            Route::put('/{id}/update', 'ContactUsController@update')->name('update');
+
         });
 
         // Manage Conifgs
@@ -208,6 +218,14 @@ Route::group([
         // About Us
         Route::name('about.')->prefix(trans('routes.about'))->group(function() {
             Route::get('/', 'AboutUsController@index')->name('index');
+        });
+
+        // Contact Us
+        Route::name('contact.')->prefix(trans('routes.contact'))->group(function() {
+            Route::get('/', 'ContactController@index')->name('index');
+
+            Route::post('/send', 'ContactController@store')->name('store');
+
         });
 
         // Sessions Guide Routes
