@@ -21,6 +21,7 @@ class CreateSessionsTable extends Migration
             $table->string('hour_from');
             $table->string('hour_to');
             $table->string('link')->default(null);
+            $table->string('g_link')->default(null);
             $table->string('image')->default(null);
             $table->date('date');
 

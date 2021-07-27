@@ -24,10 +24,21 @@ function getSessionLen($session) {
 /**
  * Calculate the difference between two hours
  */
-function getDiffHours($h) {
-    $d1 = Carbon::createFromFormat('H:i', $h);
-    $now = Carbon::now();
+function getDiffHours($h1, $h2) {
+    $d1 = Carbon::createFromFormat('H:i', $h1);
+    $d2 = Carbon::createFromFormat('H:i', $h2);
+    $diff_h = 0;
+    $diff_m = 0;
 
+    $diff = $d2->diffInMinutes($d1);
+
+    $quot = intdiv($diff, 60);
+
+    $diff_h = $quot;
+
+    $diff_m = (($diff / 60) - $quot) * 60;
+
+    return ($diff_h != 0 ? $diff_h .'h ' : ''). ($diff_m != 0 ? $diff_m .'min' : '');
 }
 
 /**

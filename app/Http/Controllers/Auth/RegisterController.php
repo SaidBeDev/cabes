@@ -378,7 +378,7 @@ class RegisterController extends Controller
                    if ($res) {
                        $response = [
                            'success' => true,
-                           'message' => "Account verified successfully!"
+                           'message' => trans('notifications.account_verified')
                        ];
                    }
                    else {
@@ -398,19 +398,6 @@ class RegisterController extends Controller
                 return redirect()->route('frontend.index')->with($response);
             }
         } else {
-            // Resend verification email.
-            /* Activation::removeExpired();
-
-            $new_act = Activation::create($user);
-
-            $this->sendConfirmMail($user, $new_act->code);
-
-            $response = [
-                'success' => true,
-                'message' => "A new activation email was sent, please check your email"
-            ];
-
-            return redirect()->route('frontend.index')->with($response); */
 
             throw new \LogicException('Activation not exist');
         }
@@ -443,6 +430,7 @@ class RegisterController extends Controller
             'diploma'    => "nullable",
             'experience' => "nullable",
             'video_link' => "nullable",
+            'portfolio'  => "nullable"
         ];
     }
 }

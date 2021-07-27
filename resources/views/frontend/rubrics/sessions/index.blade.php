@@ -45,7 +45,7 @@
                                     <div class="cources_info_first">
                                         <ul>
                                             <li><strong>{{ $session->students->count() .' '. trans('frontend.enrolled_nb') }}</strong></li>
-                                            <li class="theme-cl">3h 30min</li>
+                                            <li class="theme-cl">{{ getDiffHours($session->periods->first()->hour_from, $session->periods->last()->hour_to) }}</li>
                                         </ul>
                                     </div>
                                     @if (!empty(Auth::user()))
@@ -57,7 +57,11 @@
 
                                 <div class="education_block_footer">
                                     <div class="education_block_author">
-                                        <div class="path-img"><a href="#"><img src="{{ asset('frontend/assets/img/user-1.jpg') }}" class="img-fluid" alt=""></a></div>
+                                        <div class="path-img">
+                                            <a href="{{ route('frontend.teachers.show', ['id' => $session->teacher->user->id]) }}" target="_blank">
+                                                <img src="{{ asset(!empty($session->teacher->user->avatar) ? 'frontend/images/avatars/' . $session->teacher->user->avatar : ($session->teacher->user->gender == 'male' ? 'frontend/images/default/user-m.png' : 'frontend/images/default/user-f.png')) }}" class="img-fluid" alt="" />
+                                            </a>
+                                        </div>
                                         <h5><a href="{{ route('frontend.teachers.show', ['id' => $session->teacher->user->id]) }}">{{ $session->teacher->user->full_name }}</a></h5>
                                     </div>
                                     <span class="education_block_time"><i class="ti-calendar mr-1"></i>{{ $session->date }}</span>

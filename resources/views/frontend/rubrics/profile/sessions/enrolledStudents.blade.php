@@ -36,6 +36,8 @@
                                             <li class="badge badge-success fs-10"><i class="ti-tag"></i>{{ $student->study_year->name }}</li>
                                             <li class="badge badge-light fs-10" style="color: #555"><i class="fa fa-hourglass"></i>{{ $student->user->total_hours .' '. trans('frontend.studied_hours') }}</li>
                                         </ul>
+
+                   {{--
                                         <p>
                                             <ul>
                                                 <li><b>{{ trans('frontend.address') }}: </b>{{ $student->user->address .', '. $student->user->commune->name .' '. $student->user->commune->daira->wilaya->name }}</li>
@@ -43,7 +45,7 @@
 
                                             </ul>
                                         </p>
-                                        {{-- <ul class="social_info">
+                                         <ul class="social_info">
                                             <li><a href="#"><i class="ti-facebook"></i></a></li>
                                             <li><a href="#"><i class="ti-twitter"></i></a></li>
                                             <li><a href="#"><i class="ti-linkedin"></i></a></li>

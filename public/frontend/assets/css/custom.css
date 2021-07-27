@@ -403,6 +403,10 @@ footer.skin-dark-footer .footer-widget ul li a, footer.skin-dark-footer, footer.
     /* background-color: #7065ef;
     border-color: #7065ef !important; */
 }
+.nav-dropdown .nav-dropdown {
+    left: 25%;
+    top: 143%;
+}
 
 /* Back to top btn */
 #back2Top{

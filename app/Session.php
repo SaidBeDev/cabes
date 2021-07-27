@@ -15,7 +15,7 @@ class Session extends Model
      */
     public $translatedAttributes = ['title', 'desc', 'slug', 'objectives'];
     protected $fillable = [
-        'slug', 'capacity', 'nbr_hours', 'credit_cost', 'link', 'image', 'date', 'is_canceled', 'is_completed', 'teacher_id', 'module_id', 'period_id', 'study_year_id'
+        'slug', 'capacity', 'nbr_hours', 'credit_cost', 'link', 'g_link', 'image', 'date', 'is_canceled', 'is_completed', 'teacher_id', 'module_id', 'period_id', 'study_year_id'
     ];
 
     /**

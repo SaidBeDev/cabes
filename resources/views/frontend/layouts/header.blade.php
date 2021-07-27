@@ -69,31 +69,22 @@
                         </li>
                     </ul>
                 @else
-                   {{--  <ul class="nav-menu nav-menu-social align-to-right">
-
-                        <li class="login_click theme-bg">
-                            <a href="#">{{ Auth::user()->credit }}</a>
-                        </li>
-                        <li class="login_click theme-bg">
-                            <a href="{{ route('frontend.profile.edit', ['id' => Auth::user()->id]) }}">{{ trans('frontend.profile') }}</a>
-                        </li>
-                    </ul> --}}
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                       </button>
                       <div class="collapse navbar-collapse d-none d-md-block" id="navbar-list-4">
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <img src="{{ !empty(Auth::user()->avatar) ? asset('frontend/images/avatars/' . Auth::user()->avatar) : asset('frontend/images/default/user-m.png') }}" width="40" height="40" class="rounded-circle">
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <div class="dropdown-item unclickable">{{ trans('frontend.credits') .': '. Auth::user()->credit }}</div>
-                                <a class="dropdown-item" href="{{ route('frontend.profile.edit', ['id' => Auth::user()->id]) }}">Dashboard</a>
-                                <a class="dropdown-item" href="{{ route('frontend.profile.edit', ['id' => Auth::user()->id]) }}">Edit Profile</a>
-                                <a class="dropdown-item" href="{{ route('auth.logout') }}">{{ trans('frontend.logout') }}</a>
-                            </div>
-                          </li>
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="{{ !empty(Auth::user()->avatar) ? asset('frontend/images/avatars/' . Auth::user()->avatar) : asset('frontend/images/default/user-m.png') }}" width="40" height="40" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <div class="dropdown-item unclickable">{{ trans('frontend.credits') .': '. Auth::user()->credit }}</div>
+                                    <a class="dropdown-item" href="{{ route('frontend.profile.show', ['id' => Auth::user()->id]) }}">{{ trans('menu.profile') }}</a>
+                                    <a class="dropdown-item" href="{{ route('frontend.profile.edit', ['id' => Auth::user()->id]) }}">{{ trans('frontend.settings') }}</a>
+                                    <a class="dropdown-item" href="{{ route('auth.logout') }}">{{ trans('frontend.logout') }}</a>
+                                </div>
+                            </li>
                         </ul>
 
                         {{-- Cart --}}

@@ -29,8 +29,12 @@ return [
     'create_session' => "Créer une séance",
     'edit_session' => "Modifier la séance",
     'desc' => "Description",
+    'support' => "Supports",
     'objectives' => "Objectifs du séance",
     'link' => "Lien URL",
+    'drive_link' => "Lien de Google Drive",
+    'port_link' => "Lien du portefeuille Google",
+    'go_drive' => "Aller à Google Drive",
     'present_video' => "Lien URL vidéo de présentation",
     'diploma' => "Diplôme ou année universitaire",
     'note' => "Remarque",
@@ -89,7 +93,7 @@ return [
     'by_study_year' => "Par l'année d'étude",
 
     // Labels
-    'multiple' => "(Choix multiple)",
+    'multiple' => "(Choix multiples)",
     'optional' => "(Optionnel)",
     'price' => "Prix",
     'lesson_objectives' => "Objectifs de la séance",
