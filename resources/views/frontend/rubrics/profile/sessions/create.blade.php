@@ -65,7 +65,7 @@
                                     </div>
 
                                     <div class="form-group col-md-12">
-                                        <label>{{ trans('frontend.desc') }} ({{ trans('frontend.fr') }})</label>
+                                        <label>{{ trans('frontend.support') }} ({{ trans('frontend.fr') }})</label>
                                         <textarea name="desc_fr" class="form-control"></textarea>
                                     </div>
 
@@ -82,13 +82,20 @@
                                     </div>
 
                                     <div class="form-group col-md-12">
-                                        <label>{{ trans('frontend.desc') }} ({{ trans('frontend.ar') }})</label>
+                                        <label>{{ trans('frontend.support') }} ({{ trans('frontend.ar') }})</label>
                                         <textarea name="desc_ar" class="form-control"></textarea>
                                     </div>
 
                                     <div class="form-group col-md-12">
                                         <label>{{ trans('frontend.objectives') }} ({{ trans('frontend.ar') }})</label>
                                         <textarea name="objectives_ar" class="form-control"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-row mb-2">
+                                    <div class="form-group col-md-12">
+                                        <label>{{ trans('frontend.drive_link') }}</label>
+                                        <input type="text" name="g_link" class="form-control">
                                     </div>
                                 </div>
 

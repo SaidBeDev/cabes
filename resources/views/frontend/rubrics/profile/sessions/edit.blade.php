@@ -95,6 +95,14 @@
                                     </div>
                                 </div>
 
+
+                                <div class="form-row mb-2">
+                                    <div class="form-group col-md-12">
+                                        <label>{{ trans('frontend.drive_link'). ' '. trans('frontend.optional') }}</label>
+                                        <input type="text" name="g_link" class="form-control" value="{{ $session->g_link }}">
+                                    </div>
+                                </div>
+
                                 <div class="form-row mb-2">
                                     <div class="form-group col-md-6">
                                         <label class="d-block">{{ trans('frontend.image') }}</label>

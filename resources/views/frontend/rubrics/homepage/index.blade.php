@@ -10,10 +10,10 @@
 					<div class="row align-items-center">
 						<div class="col-lg-6 col-md-6 col-sm-12">
 							<div class="banner-search-2 transparent">
-								<h1 class="big-header-capt cl_2 mb-2 f_2">Learning Experience Made Easy, Social and Interactive</h1>
+								<h1 class="big-header-capt cl_2 mb-2 f_2">L'expérience d'apprentissage rendue facile, sociale et interactive</h1>
 								<p>Study any topic, anytime. Choose from thousands of expert-led courses now.</p>
 								<div class="mt-4">
-									<a href="#" class="btn btn-modern dark">Enroll Now<span><i class="ti-arrow-right"></i></span></a>
+									<a href="#" class="btn btn-modern dark">Inscrivez-vous Maintenant<span><i class="ti-arrow-right"></i></span></a>
 								</div>
 							</div>
 						</div>
@@ -148,7 +148,7 @@
                                 <div class="education_block_list_layout">
 
                                     <div class="education_block_thumb n-shadow">
-                                        <a href="course-detail.html"><img src="{{ asset(!empty($session->image) ? config('SaidTech.images.sessions.upload_path') . $session->image : 'frontend/assets/img/co-5.jpg') }}" class="img-fluid" alt=""></a>
+                                        <a href="{{ route('frontend.sessions.show', ['slug' => $session->slug]) }}"><img src="{{ asset(!empty($session->image) ? config('SaidTech.images.sessions.upload_path') . $session->image : 'frontend/assets/img/co-5.jpg') }}" class="img-fluid" alt=""></a>
                                     </div>
 
                                     <div class="list_layout_ecucation_caption">
@@ -163,7 +163,10 @@
 
                                         <div class="education_block_footer mt-3">
                                             <div class="education_block_author">
-                                                <div class="path-img"><a href="{{ route('frontend.sessions.show', ['slug' => $session->slug]) }}" target="_blank"><img src="{{ asset('frontend/assets/img/user-5.jpg') }}" class="img-fluid" alt=""></a></div>
+                                                <div class="path-img"><a href="{{ route('frontend.sessions.show', ['slug' => $session->slug]) }}" target="_blank">
+                                                    <img src="{{ asset(!empty($session->teacher->user->avatar) ? 'frontend/images/avatars/' . $session->teacher->user->avatar : ($session->teacher->user->gender == 'male' ? 'frontend/images/default/user-m.png' : 'frontend/images/default/user-f.png')) }}" class="img-fluid" alt="" />
+                                                </a>
+                                            </div>
                                                 <h5><a href="{{ route('frontend.teachers.show', ['id' => $session->teacher->user->id]) }}" target="_blank">{{ $session->teacher->user->full_name }}</a></h5>
                                             </div>
                                             <span class="education_block_time"><i class="ti-calendar mr-1"></i>{{ $session->date }}</span>

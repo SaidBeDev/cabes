@@ -196,6 +196,12 @@
                                                     <input type="text" name="video_link" class="form-control" value="{{ $user->teacher->video_link }}">
                                                 </div>
 
+
+                                                <div class="form-group col-md-6 teacher">
+                                                    <label for="">{{ trans('frontend.port_link'). ' '. trans('frontend.optional') }}</label>
+                                                    <input type="text" name="portfolio" class="form-control" value="{{ $user->teacher->portfolio }}">
+                                                </div>
+
                                                 <div class="form-group col-md-6 teacher">
                                                     <label for="" class="d-block">{{ trans('frontend.sector'). ' '. trans('frontend.multiple') }}</label>
                                                     <select name="sector[]" class="module-select form-control selectpicker" multiple data-width="auto" required>

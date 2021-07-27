@@ -101,18 +101,18 @@
                             <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                 <!-- Overview -->
                                 <div class="edu_wraper">
-                                    <h4 class="edu_title">{{ trans('frontend.course_overview') }}</h4>
+                                    <h6 class="edu_title">{{ trans('frontend.course_overview') }}</h6>
                                     <p>{{ $session->desc }}</p>
 
                                     <h6>{{ trans('frontend.lesson_objectives') }}</h6>
-                                    {{-- <ul class="lists-3">
-                                        <li>At vero eos et accusamus et iusto odio dignissimos ducimus</li>
-                                    </ul> --}}
+
                                     <p>
                                         {!! nl2br(e($session->objectives)) !!}
                                     </p>
-                                </div>
 
+                                    <h6>{{ trans('frontend.drive_link') }}</h6>
+                                    <a href="{{ $session->g_link }}" class="btn btn-info" target="_blank">{{ trans('frontend.go_drive') }}</a>
+                                </div>
                             </div>
 
                             <!-- Instructor Detail -->
@@ -163,7 +163,7 @@
                         @endif
 
                         <div class="ed_view_short pl-4 pr-4 pb-2">
-                            <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                            {{-- <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p> --}}
                         </div>
 
                         <div class="ed_view_features half_list pl-4 pr-3">
@@ -171,7 +171,7 @@
                             <ul>
 
                                 <li><i class="ti-user"></i>{{ $session->capacity .' '. trans('frontend.students') }}</li>
-                                <li><i class="ti-time"></i>2 hour 30 min</li>
+                                <li><i class="ti-time"></i>{{ getDiffHours($session->periods->first()->hour_from, $session->periods->last()->hour_to) }}</li>
                             </ul>
                         </div>
                         <div class="ed_view_link">

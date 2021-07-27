@@ -14,7 +14,7 @@ class TeacherProfile extends Model
      */
     protected $fillable = [
         'desc', 'is_checked', 'module_id', 'hour_price', 'group_price',
-        'availability_hours'
+        'availability_hours', 'portfolio'
     ];
 
     public function user() {

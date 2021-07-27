@@ -19,6 +19,7 @@ class CreateTeacherProfilesTable extends Migration
             $table->string('hour_price')->nullable();
             $table->string('group_price')->nullable();
             $table->text('availability_hours')->nullable();
+            $table->string('portfolio')->nullable();
 
             $table->boolean('is_checked')->default(0);
 

@@ -164,6 +164,11 @@
                                     </div>
 
                                     <div class="form-group col-md-6 teacher">
+                                        <label for="">{{ trans('frontend.port_link'). ' '. trans('frontend.optional') }}</label>
+                                        <input type="text" name="portfolio" class="form-control">
+                                    </div>
+
+                                    <div class="form-group col-md-6 teacher">
                                         <label for="" class="d-block">{{ trans('frontend.teaching_years'). ' '. trans('frontend.multiple') }}</label>
                                         <select name="teaching_years[]" class="module-select form-control selectpicker" multiple data-width="auto">
                                             @foreach ($data['study_years'] as $year)

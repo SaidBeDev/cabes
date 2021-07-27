@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Statuses;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\Builder;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\Http\Controllers\Frontend\FrontendBaseController;
 use App\SaidTech\Repositories\UsersRepository\UserRepository;
 use App\SaidTech\Repositories\ModulesRepository\ModuleRepository;
+use App\SaidTech\Repositories\PeriodsRepository\PeriodRepository;
 use App\SaidTech\Repositories\SessionsRepository\SessionRepository;
 use App\SaidTech\Repositories\StudyYearsRepository\StudyYearRepository;
 use App\SaidTech\Repositories\ProfileTypesRepository\ProfileTypeRepository;
@@ -27,7 +29,8 @@ class TeachersController extends FrontendBaseController
         ProfileTypeRepository $profileTypesRepository,
         ModuleRepository $moduleRepository,
         StudyYearRepository $studyYearsRepository,
-        SessionRepository $sessionRepository
+        SessionRepository $sessionRepository,
+        PeriodRepository $periodsRepository
     )
     {
         $this->repositories['UsersRepository'] = $userRepository;
@@ -35,6 +38,7 @@ class TeachersController extends FrontendBaseController
         $this->repositories['ModulesRepository'] = $moduleRepository;
         $this->repositories['SessionRepository'] = $sessionRepository;
         $this->repositories['StudyYearsRepository'] = $studyYearsRepository;
+        $this->repositories['PeriodsRepository'] = $periodsRepository;
 
         $this->setRubricConfig('teachers');
     }
@@ -54,7 +58,9 @@ class TeachersController extends FrontendBaseController
     public function show($id) {
 
         $data = [
-            'user' => $this->repositories['UsersRepository']->find($id)
+            'user' => $this->repositories['UsersRepository']->find($id),
+            'list_status' => Statuses::all(),
+            'list_periods' => $this->repositories['PeriodsRepository']->all()
         ];
 
         return view($this->base_view . 'show', ['data' => array_merge($this->data, $data)]);

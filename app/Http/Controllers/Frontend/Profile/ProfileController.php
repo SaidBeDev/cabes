@@ -434,7 +434,8 @@ class ProfileController extends FrontendBaseController
             'desc' => 'nullable',
             'diploma' => "nullable",
             'experience' => "nullable",
-            'video_link' => "nullable"
+            'video_link' => "nullable",
+            'portfolio' => "nullable"
         ];
     }
 
