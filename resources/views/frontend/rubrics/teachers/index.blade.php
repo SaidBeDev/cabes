@@ -7,7 +7,8 @@
         <div class="row">
             <div class="col-lg-12 col-md-12">
 
-                @include('frontend._partials.breadcrumbs', ['title' => trans('menu.teachers')])
+                <h2 class="edu_title">{{ trans('menu.teachers') }}</h2>
+                {!! Breadcrumbs::render('teachers') !!}
 
             </div>
         </div>
@@ -31,7 +32,9 @@
                             <!-- Single Instructor -->
                             <div class="single_instructor border">
                                 <div class="single_instructor_thumb">
-                                    <a href="{{ route('frontend.teachers.show', ['id' => $user->id]) }}"><img src="{{ asset( !empty($user->image) ? $user->image : ($user->gender == 'male' ? 'frontend/images/default/user-m.png' : 'frontend/images/default/user-f.png')) }}" class="img-fluid" alt=""></a>
+                                    <a href="{{ route('frontend.teachers.show', ['id' => $user->id]) }}">
+                                        <img src="{{ asset(!empty($user->avatar) ? 'frontend/images/avatars/' . $user->avatar : ($user->gender == 'male' ? 'frontend/images/default/user-m.png' : 'frontend/images/default/user-f.png')) }}" class="img-fluid" alt="">
+                                    </a>
                                 </div>
                                 <div class="single_instructor_caption">
                                     <h4><a href="{{ route('frontend.teachers.show', ['id' => $user->id]) }}">{{ $user->full_name }}</a></h4>
@@ -46,11 +49,6 @@
 
                                     <p>
                                         {{ $user->teacher->desc }}
-                                       {{-- <ul>
-                                            <li><b>{{ trans('frontend.address') }}: </b>{{ $user->address .', '. $user->commune->name .' '. $user->commune->daira->wilaya->name }}</li>
-                                            <li><b>{{ trans('frontend.email') }}: </b>{{ $user->email }}</li>
-
-                                        </ul> --}}
                                     </p>
                                     <ul class="social_info">
                                         @foreach ($user->getSocialCntacts() as $contact)

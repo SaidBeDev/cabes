@@ -12,7 +12,7 @@
             <div class="col-lg-6 col-md-12">
                 <div class="viewer_detail_wraps">
                     <div class="viewer_detail_thumb">
-                        <img src="{{ asset( !empty($user->image) ? $user->image : ($user->gender == 'male' ? 'frontend/images/default/user-m.png' : 'frontend/images/default/user-f.png')) }}" class="img-fluid" alt="" />
+                        <img src="{{ asset(!empty($user->avatar) ? 'frontend/images/avatars/' . $user->avatar : ($user->gender == 'male' ? 'frontend/images/default/user-m.png' : 'frontend/images/default/user-f.png')) }}" class="img-fluid" alt="">
                         {{-- <div class="viewer_status"><i class="fas fa-check-circle"></i></div> --}}
                     </div>
                     <div class="caption">
@@ -68,6 +68,11 @@
                             <div class="edu_wraper">
                                 <h4 class="edu_title">{{ trans('frontend.desc') }}</h4>
                                 <p class="fs-17">{{ $user->teacher->desc }}</p>
+
+                                @if (!empty($user->teacher->portfolio))
+                                    <h4 class="mt-3">{{ trans('frontend.port_link') }}</h4>
+                                    <a href="{{ $user->teacher->portfolio }}" class="btn btn-info p-2"><i class="fab fa-google"></i></a>
+                                @endif
                             </div>
 
                         </div>
@@ -229,6 +234,13 @@
                 right: -65px !important;
             }
         }
+
+        @media (max-width: 448px) {
+            .table-container .hours-tbl {
+                width: 55% !important;
+            }
+        }
+
         .table-container .hours-tbl{
             width: 15%;
             position: absolute;

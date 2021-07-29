@@ -66,3 +66,25 @@ Breadcrumbs::for('enrolled_students', function ($trail) {
     $trail->parent('sessions');
     $trail->push(ucfirst(trans('frontend.enrolled_list')), '#');
 });
+
+
+/**
+ * Front Breads
+ */
+
+// Homepage
+Breadcrumbs::for('homepage', function ($trail) {
+    $trail->push(ucfirst(trans('menu.homepage')), route('frontend.index'));
+});
+
+// Home > Teachers
+Breadcrumbs::for('teachers', function ($trail) {
+    $trail->parent('homepage');
+    $trail->push(ucfirst(trans('frontend.find_tutor')), route('frontend.teachers.index'));
+});
+
+// Home > Sessions
+Breadcrumbs::for('h_sessions', function ($trail) {
+    $trail->parent('homepage');
+    $trail->push(ucfirst(trans('frontend.find_session')), route('frontend.sessions.index'));
+});

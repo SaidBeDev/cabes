@@ -14,12 +14,14 @@
 
                     <li class="active"><a href="{{ route('frontend.index') }}">{{ trans('menu.homepage') }}</a></li>
 
-                    <li><a href="{{ route('frontend.about.index') }}">{{ trans('menu.about') }}</a></li>
-
                     <li><a href="{{ route('frontend.teachers.index') }}">{{ trans('frontend.find_tutor') }}<span class="submenu-indicator"></span></a>
                         <ul class="nav-dropdown nav-submenu">
                             <li><a href="#">{{ trans('frontend.by_module') }}<span class="submenu-indicator"></span></a>
                                 <ul class="nav-dropdown nav-submenu duo-col">
+                                    @foreach ($menu['spec_modules'] as $mod)
+                                        <li><a style="font-weight: bold" href="{{ route('frontend.teachers.getByModule', ['slug' => $mod->slug]) }}">{{ $mod->name }}</a></li>
+                                    @endforeach
+
                                     @foreach ($menu['list_modules'] as $module)
                                         <li><a href="{{ route('frontend.teachers.getByModule', ['slug' => $module->slug]) }}">{{ $module->name }}</a></li>
                                     @endforeach
@@ -27,6 +29,9 @@
                             </li>
                             <li><a href="#">{{ trans('frontend.by_study_year') }}<span class="submenu-indicator"></span></a>
                                 <ul class="nav-dropdown nav-submenu multi-col">
+                                    @foreach ($menu['spec_years'] as $year)
+                                        <li><a style="font-weight: bold" href="{{ route('frontend.teachers.getByYear', ['slug' => $year->slug]) }}">{{ $year->name }}</a></li>
+                                    @endforeach
                                     @foreach ($menu['study_years'] as $year)
                                         <li><a href="{{ route('frontend.teachers.getByYear', ['slug' => $year->slug]) }}">{{ $year->name }}</a></li>
                                     @endforeach
@@ -39,6 +44,10 @@
                         <ul class="nav-dropdown nav-submenu">
                             <li><a href="#">{{ trans('frontend.by_module') }}<span class="submenu-indicator"></span></a>
                                 <ul class="nav-dropdown nav-submenu duo-col">
+                                    @foreach ($menu['spec_modules'] as $mod)
+                                        <li><a style="font-weight: bold" href="{{ route('frontend.sessions.getByModule', ['slug' => $mod->slug]) }}">{{ $mod->name }}</a></li>
+                                    @endforeach
+
                                     @foreach ($menu['list_modules'] as $module)
                                         <li><a href="{{ route('frontend.sessions.getByModule', ['slug' => $module->slug]) }}">{{ $module->name }}</a></li>
                                     @endforeach
@@ -46,6 +55,9 @@
                             </li>
                             <li><a href="#">{{ trans('frontend.by_study_year') }}<span class="submenu-indicator"></span></a>
                                 <ul class="nav-dropdown nav-submenu duo-col">
+                                    @foreach ($menu['spec_years'] as $year)
+                                        <li><a style="font-weight: bold" href="{{ route('frontend.sessions.getByYear', ['slug' => $year->slug]) }}">{{ $year->name }}</a></li>
+                                    @endforeach
                                     @foreach ($menu['study_years'] as $year)
                                         <li><a href="{{ route('frontend.sessions.getByYear', ['slug' => $year->slug]) }}">{{ $year->name }}</a></li>
                                     @endforeach
@@ -53,6 +65,8 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li><a href="{{ route('frontend.about.index') }}">{{ trans('menu.about') }}</a></li>
 
                     <li><a href="{{ route('frontend.contact.index') }}">{{ trans('menu.contact') }}</a></li>
 
@@ -72,12 +86,15 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                       </button>
-                      <div class="collapse navbar-collapse d-none d-md-block" id="navbar-list-4">
+                      <div class="collapse navbar-collapse d-md-block" id="navbar-list-4">
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src="{{ !empty(Auth::user()->avatar) ? asset('frontend/images/avatars/' . Auth::user()->avatar) : asset('frontend/images/default/user-m.png') }}" width="40" height="40" class="rounded-circle">
                                 </a>
+                                {{-- <a href="#" class="nav-link dropdown-toggle btn btn-outline-theme"  id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+                                 --}}
+
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <div class="dropdown-item unclickable">{{ trans('frontend.credits') .': '. Auth::user()->credit }}</div>
                                     <a class="dropdown-item" href="{{ route('frontend.profile.show', ['id' => Auth::user()->id]) }}">{{ trans('menu.profile') }}</a>

@@ -23,7 +23,7 @@
                     <div class="footer-widget">
                         <h4 class="widget-title">Navigations</h4>
                         <ul class="footer-menu">
-                            <li><a href="#">A propos de nous</a></li>
+                            <li><a href="{{ route('frontend.about.index') }}">A propos de nous</a></li>
                             <li><a href="{{ route('frontend.sessions.index') }}">{{ trans('frontend.find_session') }}</a></li>
                             <li><a href="{{ route('frontend.teachers.index') }}">{{ trans('frontend.find_tutor') }}</a></li>
                             <li><a href="#">Contactez-nous</a></li>

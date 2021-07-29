@@ -201,6 +201,7 @@ a.badge-alternate:focus {
 
 /* Responsive */
 
+
 @media (min-width: 992px) {
     .multi-col {
         column-count: 3;
@@ -297,6 +298,11 @@ a.badge-alternate:focus {
 .edu_cat_2.cat-3 h4>a {
     text-transform: initial;
 }
+/* Header */
+.nav-menu>li .nav-dropdown{
+    padding: 10px;
+}
+
 /* Homepage */
 .light-colors .trips_icons {
     background: rgb(134 42 181 / 10%);
@@ -404,8 +410,8 @@ footer.skin-dark-footer .footer-widget ul li a, footer.skin-dark-footer, footer.
     border-color: #7065ef !important; */
 }
 .nav-dropdown .nav-dropdown {
-    left: 25%;
-    top: 143%;
+    left: 45%;
+    top: 100%;
 }
 
 /* Back to top btn */
@@ -445,6 +451,9 @@ footer.skin-dark-footer .footer-widget ul li a, footer.skin-dark-footer, footer.
 }
 
 /* Footer */
+footer {
+    z-index: 0;
+}
 footer.skin-dark-footer .footer-widget ul li a:hover, footer.skin-dark-footer .footer-widget ul li a:focus{
     color: #e2cdf3;
     /* color: #7065ef; */

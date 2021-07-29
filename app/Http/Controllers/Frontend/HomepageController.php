@@ -24,6 +24,7 @@ use App\SaidTech\Repositories\UsersRepository\UserRepository;
 use App\SaidTech\Repositories\ModulesRepository\ModuleRepository;
 use App\SaidTech\Repositories\SessionsRepository\SessionRepository;
 use App\SaidTech\Repositories\ProfileTypesRepository\ProfileTypeRepository;
+use App\SaidTech\Repositories\StudyYearsRepository\StudyYearRepository;
 
 class HomepageController extends FrontendBaseController
 {
@@ -39,23 +40,37 @@ class HomepageController extends FrontendBaseController
         UserRepository $userRepository,
         ProfileTypeRepository $profileTypesRepository,
         ModuleRepository $moduleRepository,
-        SessionRepository $sessionRepository
+        SessionRepository $sessionRepository,
+        StudyYearRepository $stdYearRepository
     )
     {
         $this->repositories['UsersRepository'] = $userRepository;
         $this->repositories['ProfileTypesRepository'] = $profileTypesRepository;
         $this->repositories['ModulesRepository'] = $moduleRepository;
         $this->repositories['SessionRepository'] = $sessionRepository;
+        $this->repositories['stdYearRepository'] = $stdYearRepository;
 
         $this->setRubricConfig('homepage');
     }
 
     public function index() {
-        /* $user = Sentinel::findById(Auth::user()->id);
-        $act = Activation::completed($user);
+       /*  $m = [
 
-         $res = $this->sendConfirmMail($user, $act->code); */
+        ];
 
+        $trans = [
+            'fr' => [
+                'name' => "5e année universitaire"
+            ],
+            'ar' => [
+                'name' => "السنة الخامسة جامعي"
+            ]
+        ];
+
+        $res = $this->repositories['stdYearRepository']->create(array_merge($m, $trans));
+
+        dd($res);
+ */
         $data = [
             'list_teachers' => $this->repositories['UsersRepository']->whereHas('profile_type', function(Builder $query){
                 $query->where('name', '=', 'teacher');

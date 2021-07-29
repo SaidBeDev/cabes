@@ -98,8 +98,19 @@ class MngSessionsController extends FrontendBaseController
 
         $data =  [
             'uri' => "add_course",
-            'list_modules' => $this->repositories['ModuleRepository']->all(),
-            'study_years' => $this->repositories['StudyYearsRepository']->all(),
+            'list_modules' => $this->repositories['ModuleRepository']->all()->filter(function($module) {
+                return !in_array($module->translate('fr')->slug, ['formations-universitaires', 'formations-professionnelles']);
+            }),
+            'spec_modules' => $this->repositories['ModuleRepository']->all()->filter(function($module) {
+                return in_array($module->translate('fr')->slug, ['formations-universitaires', 'formations-professionnelles']);
+            }),
+            'spec_years' => $this->repositories['StudyYearsRepository']->all()->filter(function($module) {
+                return in_array($module->translate('fr')->slug, ['formations-professionnelles']);
+            }),
+            'study_years' => $this->repositories['StudyYearsRepository']->all()->filter(function($module) {
+                return !in_array($module->translate('fr')->slug, ['formations-professionnelles']);
+            }),
+
             'list_periods' => $this->repositories['PeriodsRepository']->all(),
             'default_capacity' => $this->repositories['ConfigsRepository']->findWhere(['name' => "group_capacity"])->first()->content,
             'validator' => JsValidator::make($this->getSessionRules())
@@ -114,8 +125,31 @@ class MngSessionsController extends FrontendBaseController
      */
     public function store(Request $request) {
 
-        $request->validate($this->getSessionRules());
+        /* Check if date is valid */
+        $minDate = null;
+        $maxDate = null;
+
+        $d1 = Carbon::createFromTimestamp(strtotime("+1 weeks"));
+        $now = Carbon::now();
+
+        if ($now->format('l') != "Thursday") {
+            $d2 = Carbon::createFromTimestamp(strtotime($d1->format('d-m-Y') . " next thursday"));
+        }else {
+            $d2 = Carbon::createFromTimestamp(strtotime("next thursday"));
+        }
+
+        $minDate = $now->format('Y-m-d');
+        $maxDate = $d2->format('Y-m-d');
+
+        $request->validate(array_merge($this->getSessionRules(), [
+            'date' => "before_or_equal:" . $maxDate . "|after_or_equal:" . $minDate
+        ]
+        ));
+
         $session = $request->except(['title_fr', 'title_ar', 'desc_fr', 'desc_ar', 'objectives_ar', 'objectives_fr']);
+
+
+
 
         $teacher = $this->repositories['TeacherRepository']->find($request->teacher_id);
 
@@ -211,8 +245,19 @@ class MngSessionsController extends FrontendBaseController
     public function edit($id) {
         $data = [
             'uri' => 'my_courses',
-            'study_years' => $this->repositories['StudyYearsRepository']->all(),
-            'list_modules' => $this->repositories['ModuleRepository']->all(),
+            'list_modules' => $this->repositories['ModuleRepository']->all()->filter(function($module) {
+                return !in_array($module->translate('fr')->slug, ['formations-universitaires', 'formations-professionnelles']);
+            }),
+            'spec_modules' => $this->repositories['ModuleRepository']->all()->filter(function($module) {
+                return in_array($module->translate('fr')->slug, ['formations-universitaires', 'formations-professionnelles']);
+            }),
+            'spec_years' => $this->repositories['StudyYearsRepository']->all()->filter(function($module) {
+                return in_array($module->translate('fr')->slug, ['formations-professionnelles']);
+            }),
+            'study_years' => $this->repositories['StudyYearsRepository']->all()->filter(function($module) {
+                return !in_array($module->translate('fr')->slug, ['formations-professionnelles']);
+            }),
+
             'session' => $this->repository->find($id)
         ];
 

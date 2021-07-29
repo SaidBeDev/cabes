@@ -110,8 +110,11 @@
                                         {!! nl2br(e($session->objectives)) !!}
                                     </p>
 
-                                    <h6>{{ trans('frontend.drive_link') }}</h6>
-                                    <a href="{{ $session->g_link }}" class="btn btn-info" target="_blank">{{ trans('frontend.go_drive') }}</a>
+                                    {{-- Google drive link --}}
+                                    @if (!empty(Auth::user()) && $session->students->contains(Auth::user()->id))
+                                        <h6>{{ trans('frontend.drive_link') }}</h6>
+                                        <a href="{{ $session->g_link }}" class="btn btn-info" target="_blank">{{ trans('frontend.go_drive') }}</a>
+                                    @endif
                                 </div>
                             </div>
 
@@ -119,7 +122,9 @@
                             <div class="tab-pane fade" id="instructor" role="tabpanel" aria-labelledby="instructor-tab">
                                 <div class="single_instructor">
                                     <div class="single_instructor_thumb">
-                                        <a href="#"><img src="{{ asset(!empty($session->teacher->user->avatar) ? 'frontend/images/avatars/' . $session->teacher->user->avatar : ($session->teacher->user->gender == 'male' ? 'frontend/images/default/user-m.png' : 'frontend/images/default/user-f.png')) }}" class="img-fluid" alt=""></a>
+                                        <a href="#">
+                                            <img src="{{ asset(!empty($session->teacher->user->avatar) ? 'frontend/images/avatars/' . $session->teacher->user->avatar : ($session->teacher->user->gender == 'male' ? 'frontend/images/default/user-m.png' : 'frontend/images/default/user-f.png')) }}" class="img-fluid" alt="">
+                                        </a>
                                     </div>
                                     <div class="single_instructor_caption">
                                         <h4><a href="#">{{ $session->teacher->user->full_name }}</a></h4>

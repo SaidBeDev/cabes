@@ -172,6 +172,9 @@
                                                 <div class="form-group col-md-6 teacher">
                                                     <label for="" class="d-block">{{ trans('frontend.modules'). ' '. trans('frontend.multiple') }}</label>
                                                     <select name="module_id[]" class="module-select form-control selectpicker" multiple data-width="auto" required>
+                                                        @foreach ($data['spec_modules'] as $module)
+                                                            <option style="font-weight: bold" value="{{ $module->id }}" {{ !empty($user->teacher->modules) ? ($user->teacher->modules->contains($module) ? 'selected' : '') : 1 }}>{{ $module->name }}</option>
+                                                        @endforeach
                                                         @foreach ($data['list_modules'] as $module)
                                                             <option value="{{ $module->id }}" {{ !empty($user->teacher->modules) ? ($user->teacher->modules->contains($module) ? 'selected' : '') : 1 }}>{{ $module->name }}</option>
                                                         @endforeach
@@ -181,6 +184,9 @@
                                                 <div class="form-group col-md-6 teacher">
                                                     <label for="" class="d-block">{{ trans('frontend.teaching_years'). ' '. trans('frontend.multiple') }}</label>
                                                     <select name="teaching_years[]" class="module-select form-control selectpicker" multiple data-width="auto" required>
+                                                        @foreach ($data['spec_years'] as $year)
+                                                            <option style="font-weight: bold" value="{{ $year->id }}" {{ !empty($user->teacher->teaching_years) ? ($user->teacher->teaching_years->contains($year) ? 'selected' : '') : 1 }}>{{ $year->name }}</option>
+                                                        @endforeach
                                                         @foreach ($data['study_years'] as $year)
                                                             <option value="{{ $year->id }}" {{ !empty($user->teacher->teaching_years) ? ($user->teacher->teaching_years->contains($year) ? 'selected' : '') : 1 }}>{{ $year->name }}</option>
                                                         @endforeach
@@ -222,6 +228,9 @@
                                                 <div class="form-group student">
                                                     <label for="" class="d-block">{{ trans('frontend.study_year') }}</label>
                                                     <select name="study_year_id" class="module-select form-control selectpicker" data-style="btn-info" data-width="auto">
+                                                        @foreach ($data['spec_years'] as $year)
+                                                            <option style="font-weight: bold" value="{{ $year->id }}" {{ !empty($user->student->study_year) ? ($user->student->study_year_id == $year->id ? 'selected' : '') : 1 }}>{{ $year->name }}</option>
+                                                        @endforeach
                                                         @foreach ($data['study_years'] as $year)
                                                             <option value="{{ $year->id }}" {{ !empty($user->student->study_year) ? ($user->student->study_year_id == $year->id ? 'selected' : '') : 1 }}>{{ $year->name }}</option>
                                                         @endforeach
