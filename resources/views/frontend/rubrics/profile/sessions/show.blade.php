@@ -69,16 +69,19 @@
                                                 <ul>
 
                                                     <li><i class="ti-user"></i>{{ $session->capacity .' '. trans('frontend.students') }}</li>
-                                                    <li><i class="ti-time"></i>{{ getSessionLen($session) .'h'. ' 00' }}</li>
+                                                    <li><i class="ti-time"></i>{{ getDiffHours($session->periods->first()->hour_from, $session->periods->last()->hour_to) }}</li>
                                                 </ul>
 
                                             </div>
 
                                             @php
                                                 $d1 = Carbon::createFromFormat('H:i', $session->periods->first()->hour_from);
+                                                $d2 = Carbon::createFromFormat('H:i', $session->periods->last()->hour_to);
                                                 $now = Carbon::now();
+
+                                                $diff = $now->gte($d1) ? (0-$d1->diffInMinutes($now)) : $d1->diffInMinutes($now);
                                             @endphp
-                                            @if (($now->diffInMinutes($d1) <= 15 && $now->lt($d1)) or ($now->gte($d1)))
+                                            @if (($diff <= 15) and ($now->lte($d2)))
                                                 <div class="ed_view_features pl-4">
                                                     <h6 class="fs-14">{{ trans('frontend.session_link') }}</h6>
                                                     <a href="{{ $session->link }}" class="btn btn-info" target="_blank"

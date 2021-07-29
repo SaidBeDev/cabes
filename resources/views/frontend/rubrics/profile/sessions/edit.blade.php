@@ -68,7 +68,7 @@
                                     </div>
 
                                     <div class="form-group col-md-12">
-                                        <label>{{ trans('frontend.desc') }} ({{ trans('frontend.fr') }})</label>
+                                        <label>{{ trans('frontend.support') }} ({{ trans('frontend.fr') }})</label>
                                         <textarea name="desc_fr" class="form-control">{{ $session->translate('fr')->desc }}</textarea>
                                     </div>
 
@@ -85,7 +85,7 @@
                                     </div>
 
                                     <div class="form-group col-md-12">
-                                        <label>{{ trans('frontend.desc') }} ({{ trans('frontend.ar') }})</label>
+                                        <label>{{ trans('frontend.support') }} ({{ trans('frontend.ar') }})</label>
                                         <textarea name="desc_ar" class="form-control">{{ $session->translate('ar')->title }}</textarea>
                                     </div>
 
@@ -117,6 +117,9 @@
                                     <div class="form-group col-md-6">
                                         <label class="d-block">{{ trans('frontend.study_year') }}</label>
                                         <select name="study_year_id" class="form-control selectpicker" data-width="auto" required>
+                                            @foreach ($data['spec_years'] as $year)
+                                                <option style="font-weight: bold" value="{{ $year->id }}" {{ $year->id == $session->study_year_id ? 'selected' : '' }}>{{ $year->name }}</option>
+                                            @endforeach
                                             @foreach ($data['study_years'] as $year)
                                                 <option value="{{ $year->id }}" {{ $year->id == $session->study_year_id ? 'selected' : '' }}>{{ $year->name }}</option>
                                             @endforeach
@@ -126,6 +129,9 @@
                                     <div class="form-group col-md-6">
                                         <label class="d-block">{{ trans('frontend.module') }}</label>
                                         <select name="module_id" class="form-control selectpicker" data-width="auto" required>
+                                            @foreach ($data['spec_modules'] as $module)
+                                                <option style="font-weight: bold" value="{{ $module->id }}" {{ $module->id == $session->module_id ? 'selected' : '' }}>{{ $module->name }}</option>
+                                            @endforeach
                                             @foreach ($data['list_modules'] as $module)
                                                 <option value="{{ $module->id }}" {{ $module->id == $session->module_id ? 'selected' : '' }}>{{ $module->name }}</option>
                                             @endforeach

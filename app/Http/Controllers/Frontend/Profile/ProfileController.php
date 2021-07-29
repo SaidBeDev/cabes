@@ -108,9 +108,21 @@ class ProfileController extends FrontendBaseController
             'uri' => "edit_profile",
             'user' => $user,
             'profile_types' => $this->repositories['ProfileTypesRepository']->all(),
-            'list_modules' => $this->repositories['ModulesRepository']->all(),
+
+            'list_modules' => $this->repositories['ModulesRepository']->all()->filter(function($module) {
+                return !in_array($module->translate('fr')->slug, ['formations-universitaires', 'formations-professionnelles']);
+            }),
+            'spec_modules' => $this->repositories['ModulesRepository']->all()->filter(function($module) {
+                return in_array($module->translate('fr')->slug, ['formations-universitaires', 'formations-professionnelles']);
+            }),
+            'spec_years' => $this->repositories['StudyYearsRepository']->all()->filter(function($module) {
+                return in_array($module->translate('fr')->slug, ['formations-professionnelles']);
+            }),
+            'study_years' => $this->repositories['StudyYearsRepository']->all()->filter(function($module) {
+                return !in_array($module->translate('fr')->slug, ['formations-professionnelles']);
+            }),
+
             'list_sectors' => Sector::all(),
-            'study_years' => $this->repositories['StudyYearsRepository']->all(),
             'list_wilayas' => $this->repositories['WilayasRepository']->all(),
             'list_dairas' => $this->repositories['DairasRepository']->all(),
             'list_avatars' => $this->getAvatars()
@@ -310,6 +322,7 @@ class ProfileController extends FrontendBaseController
                 $teacher->diploma = $request->diploma;
                 $teacher->experience = $request->experience;
                 $teacher->video_link = $request->video_link;
+                $teacher->portfolio = $request->portfolio;
 
                 $teacher->save();
 

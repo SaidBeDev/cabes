@@ -139,7 +139,7 @@
                                 {{-- Teacher's inputs --}}
                                 <div class="form-group teacher">
                                     <label for="" class="d-block">{{ trans('frontend.modules') }}</label>
-                                    <select name="module_id[]" class="module-select form-control selectpicker" multiple data-style="btn-info" data-width="auto">
+                                    <select name="module_id[]" class="module-select form-control selectpicker" multiple data-style="btn-info" data-width="auto"{{--  data-live-search="true"  --}}>
                                         @foreach ($data['list_modules'] as $module)
                                             <option value="{{ $module->id }}" {{ $loop->index == 0 ? 'selected' : '' }}>{{ $module->name }}</option>
                                         @endforeach

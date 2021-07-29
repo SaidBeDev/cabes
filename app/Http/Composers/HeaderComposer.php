@@ -38,8 +38,19 @@ class HeaderComposer
     public function compose(View $view)
     {
         $menu = [
-            'list_modules' => $this->modules->all(),
-            'study_years' => $this->study_years->all()
+            'list_modules' => $this->modules->all()->filter(function($module) {
+                return !in_array($module->translate('fr')->slug, ['formations-universitaires', 'formations-professionnelles']);
+            }),
+            'spec_modules'    => $this->modules->all()->filter(function($module) {
+                return in_array($module->translate('fr')->slug, ['formations-universitaires', 'formations-professionnelles']);
+            }),
+
+            'spec_years' => $this->study_years->all()->filter(function($module) {
+                return in_array($module->translate('fr')->slug, ['formations-professionnelles']);
+            }),
+            'study_years' => $this->study_years->all()->filter(function($module) {
+                return !in_array($module->translate('fr')->slug, ['formations-professionnelles']);
+            })
         ];
 
         $view->with('menu', $menu);

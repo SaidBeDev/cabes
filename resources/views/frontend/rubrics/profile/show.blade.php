@@ -107,16 +107,17 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="dashboard_container">
-                    <div class="dashboard_container_header">
-                        <div class="dashboard_fl_1">
-                            <h4 class="uc"><i class="fa fa-cogs"></i> {{ trans('frontend.available_table') }} <a href="{{ route('frontend.profile.editAvailability', ['id' => $user->id]) }}" class="btn btn-outline-theme"><i class="fa fa-edit"></i> {{ trans('menu.edit_availability') }}</a></h4>
+        @if ($user->profile_type->name == "teacher")
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="dashboard_container">
+                        <div class="dashboard_container_header">
+                            <div class="dashboard_fl_1">
+                                <h4 class="uc"><i class="fas fa-calendar-alt"></i> {{ trans('frontend.available_table') }} <a href="{{ route('frontend.profile.editAvailability', ['id' => $user->id]) }}" class="btn btn-outline-theme"><i class="fa fa-edit"></i> {{ trans('menu.edit_availability') }}</a></h4>
+                            </div>
                         </div>
-                    </div>
-                    <div class="dashboard_container_body p-4">
-                        @if ($user->profile_type->name == "teacher")
+                        <div class="dashboard_container_body p-4">
+
                             <div class="form-row mt-3 pl-3">
 
                                 <div class="table-container">
@@ -199,11 +200,11 @@
                                 </div>
 
                             </div>
-                        @endif
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 </section>
 
@@ -250,6 +251,13 @@
                 right: -65px !important;
             }
         }
+
+        @media (max-width: 448px) {
+            .table-container .hours-tbl {
+                width: 55% !important;
+            }
+        }
+
         .table-container .hours-tbl{
             width: 15%;
             position: absolute;
