@@ -23,14 +23,15 @@ use App\Http\Controllers\Backend\BackendBaseController;
 use App\SaidTech\Repositories\UsersRepository\UserRepository;
 use App\SaidTech\Repositories\DairasRepository\DairaRepository;
 use App\SaidTech\Repositories\ConfigsRepository\ConfigRepository;
-use App\SaidTech\Repositories\SessionsRepository\SessionRepository;
 use App\SaidTech\Repositories\ModulesRepository\ModuleRepository;
+use App\SaidTech\Repositories\PeriodsRepository\PeriodRepository;
 use App\SaidTech\Repositories\WilayasRepository\WilayaRepository;
+
+use  App\SaidTech\Traits\Data\businessHoursTrait as businessHours;
+use App\SaidTech\Repositories\SessionsRepository\SessionRepository;
 
 use App\SaidTech\Repositories\TeachersRepository\TeacherRepository;
 use App\SaidTech\Repositories\ProfileTypesRepository\ProfileTypeRepository;
-
-use  App\SaidTech\Traits\Data\businessHoursTrait as businessHours;
 
 class ManageTeachersController extends BackendBaseController
 {
@@ -50,7 +51,8 @@ class ManageTeachersController extends BackendBaseController
         WilayaRepository $wilayaRepository,
         ConfigRepository $configRepository,
         ModuleRepository $moduleRepository,
-        SessionRepository $sessionRepository
+        SessionRepository $sessionRepository,
+        PeriodRepository $periodsRepository
     )
     {
         $this->repository = $repository;
@@ -61,6 +63,7 @@ class ManageTeachersController extends BackendBaseController
         $this->repositories['ConfigsRepository'] = $configRepository;
         $this->repositories['ModulesRepository'] = $moduleRepository;
         $this->repositories['SessionRepository'] = $sessionRepository;
+        $this->repositories['PeriodsRepository'] = $periodsRepository;
 
         $this->setRubricConfig('teachers');
     }
@@ -83,10 +86,9 @@ class ManageTeachersController extends BackendBaseController
 
         $user = $this->repositories['UsersRepository']->find($id);
 
-
         $data = [
             'user' => $user,
-            'available_hours' => $this->getBusinessPeriods()
+            'list_periods' => $this->repositories['PeriodsRepository']->all(),
         ];
 
         return view($this->base_view . 'show', ['data' => array_merge($this->data, $data)]);
@@ -100,7 +102,7 @@ class ManageTeachersController extends BackendBaseController
             'user' => $user,
             'profile_types' => $this->repositories['ProfileTypesRepository']->all(),
             'list_modules' => $this->repositories['ModulesRepository']->all(),
-            'list_wilayas' => $this->repositories['WilayasRepository']->all(),
+            'list_periods' => $this->repositories['PeriodsRepository']->all(),
             'list_dairas' => $this->repositories['DairasRepository']->all(),
             'validator' => jsValidator::make(array_merge($this->getUsersRules(), $this->getTeacherRules()))
         ];
@@ -178,7 +180,7 @@ class ManageTeachersController extends BackendBaseController
      */
     public function toggleCheck(Request $request, $id) {
 
-        if ($this->isBoolean($request->is_blocked)) {
+        if ($this->isBoolean($request->is_checked)) {
             $teacher = $this->repository->find($id);
             $teacher->is_checked = $request->is_checked;
             $teacher->save();

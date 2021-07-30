@@ -86,7 +86,6 @@ class ManageStudentsController extends BackendBaseController
             'user' => $user,
             'profile_types' => $this->repositories['ProfileTypesRepository']->all(),
             'study_years' => $this->repositories['StudyYearsRepository']->all(),
-            'list_wilayas' => $this->repositories['WilayasRepository']->all(),
             'list_dairas' => $this->repositories['DairasRepository']->all(),
             'validator' => jsValidator::make(array_merge($this->getUsersRules(), $this->getStudentRules()))
         ];

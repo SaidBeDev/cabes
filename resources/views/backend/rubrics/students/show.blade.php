@@ -6,7 +6,7 @@
 @extends('backend.layouts.master')
 
 @section('content')
-    <a href="{{ route('backend.teachers.index') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> {{ trans('frontend.back') }}</a>
+    <a href="{{ route('backend.students.index') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> {{ trans('frontend.back') }}</a>
     <div class="main-card mb-3 card">
         <div class="card-body">
             <h5 class="card-title">Profile</h5>
@@ -37,22 +37,23 @@
                         </ul>
 
                         @if ($user->contacts->isNotEmpty())
-                            <ul class="social" style="list-style: none">
-                                @switch($user->contact->contact_type->name)
-                                    @case('facebook')
-                                        <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-facebook-square"></i> Facebook</a> </li>
-                                        @break
-                                    @case('twitter')
-                                        <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-info btn-sm"><i class="fa fa-twitter"></i> Twitter</a> </li>
-                                        @break
-                                    @case('instagram')
-                                        <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-alternate btn-sm"><i class="fa fa-instagram"></i> Instagram</a> </li>
-                                        @break
-                                    @case('youtube')
-                                        <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-alternate btn-sm"><i class="fa fa-youtube-play"></i> Youtube</a> </li>
-                                        @break
-                                    @default
-                                @endswitch
+                            <ul class="soc" style="list-style: none">
+                                @foreach ($user->contacts as $contact)
+                                    @switch($contact->contact_type->name)
+                                        @case('facebook')
+                                            <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-primary btn-sm"><i class="icofont-facebook"></i> {{ trans('frontend.facebook') }}</a> </li>
+                                            @break
+                                        @case('twitter')
+                                            <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-info btn-sm"><i class="icofont-twitter"></i> {{ trans('frontend.twitter') }}</a> </li>
+                                            @break
+                                        @case('instagram')
+                                            <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-alternate btn-sm"><i class="icofont-instagram"></i> {{ trans('frontend.instagram') }}</a> </li>
+                                            @break
+                                        @case('linkedin')
+                                            <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-info btn-sm"><i class="icofont-linkedin"></i> {{ trans('frontend.linkedin') }}</a> </li>
+                                            @break
+                                    @endswitch
+                                @endforeach
                             </ul>
                         @endif
                     </div>

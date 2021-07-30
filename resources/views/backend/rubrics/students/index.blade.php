@@ -36,7 +36,7 @@
                             </div>
                         </td>
                         <td class="text-center">{{ $user->email }}</td>
-                        <td class="text-center">{{ $user->daira->name . ', ' . $user->daira->wilaya->name }}</td>
+                        <td class="text-center">{{ $user->commune->daira->name . ', ' . $user->commune->daira->wilaya->name }}</td>
                         {{-- <td class="text-center">
                             <div class="badge badge-warning">Pending</div>
                         </td> --}}
@@ -45,8 +45,8 @@
                             <a href="{{ route('backend.students.edit', ['id' => $user->id]) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></a>
                             <div style="display: inline-block; cursor: pointer" data-toggle="tooltip" data-placement="top" title="Bloquer">
                                 <p class="custom-control custom-switch custom-switch-lg m-0">
-                                    <input data-userId={{ $user->id }} data-isBlocked={{ $user->is_blocked }} class="custom-control-input custom-control-input-danger block" id="customSwitch10" type="checkbox" {{ $user->is_blocked == 1 ? "checked" : "" }}>
-                                    <label class="custom-control-label font-italic" for="customSwitch10"></label>
+                                    <input data-userId={{ $user->id }} data-isBlocked={{ $user->is_blocked }} class="custom-control-input custom-control-input-danger block" id="customSwitch{{ $user->id }}" type="checkbox" {{ $user->is_blocked == 1 ? "checked" : "" }}>
+                                    <label class="custom-control-label font-italic" for="customSwitch{{ $user->id }}"></label>
                                 </p>
                             </div>
                         </td>
@@ -182,7 +182,8 @@
 
     <script>
         $(document).ready(function() {
-            $(document).on('click', 'input.block', function(e) {
+            $('input.block').click(function(e) {
+
                 msg = $(this).attr('data-isBlocked') == "0" ? 'Voulez vous vraiment bloquer ce compte?' : 'Voulez vous vraiment débloquer ce compte?';
                 status = window.confirm(msg);
 
@@ -190,7 +191,7 @@
                 if(status === 'true') {
                     elem      = $(this);
                     userId  = elem.attr('data-userId');
-                    isBlocked = elem.attr('data-isBlocked') == "1" ? 0 : 1;
+                    isBlocked = elem.attr('data-isBlocked') == 1 ? 0 : 1;
 
                     // CSRF TOKEN Setup
                     jQuery.ajaxSetup({
@@ -201,7 +202,7 @@
 
                     // Ajax requests
                     $.ajax({
-                        url: "{{ route('backend.students.toggleBlock', ['id' => 'userID']) }}".replace('userID', userId),
+                        url: "{{ route('backend.teachers.toggleBlock', ['id' => 'userID']) }}".replace('userID', userId),
                         method: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',
@@ -209,6 +210,7 @@
                         }
                     }).done(function(response) {
                         if (response.success) {
+                            elem.attr('data-isBlocked', isBlocked);
 
                             new Noty({
                                 timeout: 5000,
@@ -231,9 +233,10 @@
                     e.preventDefault();
                     return false;
                 }
-            });
+                });
 
-            $(document).on('click', 'a.status', function() {
+                $(document).on('click', 'a.status', function(e) {
+                e.preventDefault();
                 elem = $(this);
                 userId  = elem.attr('data-userId');
                 isChecked = elem.attr('data-isChecked') == "1" ? 0 : 1;

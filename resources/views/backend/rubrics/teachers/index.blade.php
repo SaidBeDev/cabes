@@ -47,12 +47,12 @@
                         <td class="text-center">
                             <a href="{{ route('backend.teachers.editCredit', ['id' => $user->id]) }}" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Modifier le credit"><i class="fa fa-plus"></i></a>
                             <a href="{{ route('backend.teachers.editHourPrices', ['id' => $user->id]) }}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Modifier le prix unitaire"><i class="fa fa-clock"></i></a>
-                            <a href="{{ route('backend.teachers.edit', ['id' => $user->id]) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></a>
+                            <a href="{{ route('backend.teachers.edit', ['id' => $user->id]) }}" data-userId="{{ $user->id }}" class="btn btn-primary btn-sm edit" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></a>
                             {{-- <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal"  data-placement="top" title="Bloquer"><i class="fa fa-trash"></i></a> --}}
                             <div style="display: inline-block; cursor: pointer" data-toggle="tooltip" data-placement="top" title="Bloquer">
                                 <p class="custom-control custom-switch custom-switch-lg m-0">
-                                    <input data-userId={{ $user->id }} data-isBlocked={{ $user->is_blocked }} class="custom-control-input custom-control-input-danger block" id="customSwitch10" type="checkbox" {{ $user->is_blocked == 1 ? "checked" : "" }}>
-                                    <label class="custom-control-label font-italic" for="customSwitch10"></label>
+                                    <input data-userId={{ $user->id }} data-isBlocked={{ $user->is_blocked }} class="custom-control-input custom-control-input-danger block" id="customSwitch{{ $user->id }}" type="checkbox" {{ $user->is_blocked == 1 ? "checked" : "" }}>
+                                    <label class="custom-control-label font-italic" for="customSwitch{{ $user->id }}"></label>
                                 </p>
                             </div>
                         </td>
@@ -157,35 +157,15 @@
 @endsection
 
 @section('scripts')
-    <script>
-        $(document).ready(function(){
-            @if(!empty(session()->has('success')))
-                @if(session('success') == true)
-                    new Noty({
-                        type: 'success',
-                        theme: 'sunset',
-                        text: "{{ session('message') }}"
-                    }).show();
-                @elseif(session('success') == false)
-                    new Noty({
-                            type: 'error',
-                            theme: 'sunset',
-                            text: "{{ session('message') }}"
-                        }).show();
-                @endif
-            @elseif(session()->has('error'))
-                new Noty({
-                        type: 'error',
-                        theme: 'sunset',
-                        text: "Une erreur est survenue"
-                    }).show();
-            @endif
-        });
-    </script>
+    @include('frontend._partials.notif')
+
 
     <script>
+
         $(document).ready(function() {
-            $(document).on('click', 'input.block', function(e) {
+
+            $('input.block').click(function(e) {
+
                 msg = $(this).attr('data-isBlocked') == "0" ? 'Voulez vous vraiment bloquer ce compte?' : 'Voulez vous vraiment débloquer ce compte?';
                 status = window.confirm(msg);
 
@@ -193,7 +173,7 @@
                 if(status === 'true') {
                     elem      = $(this);
                     userId  = elem.attr('data-userId');
-                    isBlocked = elem.attr('data-isBlocked') == "1" ? 0 : 1;
+                    isBlocked = elem.attr('data-isBlocked') == 1 ? 0 : 1;
 
                     // CSRF TOKEN Setup
                     jQuery.ajaxSetup({
@@ -212,6 +192,7 @@
                         }
                     }).done(function(response) {
                         if (response.success) {
+                            elem.attr('data-isBlocked', isBlocked);
 
                             new Noty({
                                 timeout: 5000,
@@ -236,7 +217,9 @@
                 }
             });
 
-            $(document).on('click', 'a.status', function() {
+            $(document).on('click', 'a.status', function(e) {
+                e.preventDefault();
+
                 elem = $(this);
                 userId  = elem.attr('data-userId');
                 isChecked = elem.attr('data-isChecked') == "1" ? 0 : 1;
