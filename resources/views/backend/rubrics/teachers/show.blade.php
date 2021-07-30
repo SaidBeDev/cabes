@@ -43,29 +43,28 @@
                         </ul>
 
                         @if ($user->contacts->isNotEmpty())
-                            <ul class="social" style="list-style: none">
+                            <ul class="soc" style="list-style: none">
                                 @foreach ($user->contacts as $contact)
                                     @switch($contact->contact_type->name)
                                         @case('facebook')
-                                            <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-facebook-square"></i> Facebook</a> </li>
+                                            <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-primary btn-sm"><i class="icofont-facebook"></i> {{ trans('frontend.facebook') }}</a> </li>
                                             @break
                                         @case('twitter')
-                                            <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-info btn-sm"><i class="fa fa-twitter"></i> Twitter</a> </li>
+                                            <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-info btn-sm"><i class="icofont-twitter"></i> {{ trans('frontend.twitter') }}</a> </li>
                                             @break
                                         @case('instagram')
-                                            <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-alternate btn-sm"><i class="fa fa-instagram"></i> Instagram</a> </li>
+                                            <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-alternate btn-sm"><i class="icofont-instagram"></i> {{ trans('frontend.instagram') }}</a> </li>
                                             @break
-                                        @case('youtube')
-                                            <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-alternate btn-sm"><i class="fa fa-youtube-play"></i> Youtube</a> </li>
+                                        @case('linkedin')
+                                            <li><a href="{{ $contact->content }}" target="_blank" class="btn btn-info btn-sm"><i class="icofont-linkedin"></i> {{ trans('frontend.linkedin') }}</a> </li>
                                             @break
-                                        @default
                                     @endswitch
                                 @endforeach
                             </ul>
                         @endif
                     </div>
                 </div>
-                <div class="form-row mt-3 pl-3">
+                {{-- <div class="form-row mt-3 pl-3">
                     <h4>Table de disponibilité </h4>
                     <div class="table-container">
                         <table class="table table-striped table-bordered hours-tbl">
@@ -159,14 +158,126 @@
                         </table>
                     </div>
 
+                </div> --}}
+
+    @if ($user->profile_type->name == "teacher"){{--
+        <div class="row">
+            <div class="col-md-12">
+                <div class="dashboard_container">
+                    <div class="dashboard_container_header">
+                        <div class="dashboard_fl_1">
+                            <h4 class="uc"><i class="fas fa-calendar-alt"></i> {{ trans('frontend.available_table') }} <a href="{{ route('frontend.profile.editAvailability', ['id' => $user->id]) }}" class="btn btn-outline-theme"><i class="fa fa-edit"></i> {{ trans('menu.edit_availability') }}</a></h4>
+                        </div>
+                    </div>
+                    <div class="dashboard_container_body p-4">
+ --}}
+                        <div class="form-row mt-3 pl-3">
+
+                            <div class="table-container">
+                                <table class="table table-striped table-bordered hours-tbl">
+                                    <tbody>
+                                        @foreach ($data['list_periods'] as $period)
+                                            <tr class="h_height">
+                                                <td>{{ $period->hour_from .'-'. $period->hour_to }}</td>
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+                                <table class="table table-striped table-bordered days-tbl">
+                                    <thead>
+                                        <th>{{ trans('frontend.sat') }}</th>
+                                        <th>{{ trans('frontend.sun') }}</th>
+                                        <th>{{ trans('frontend.mon') }}</th>
+                                        <th>{{ trans('frontend.tue') }}</th>
+                                        <th>{{ trans('frontend.wed') }}</th>
+                                        <th>{{ trans('frontend.thur') }}</th>
+                                        <th>{{ trans('frontend.fri') }}</th>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $days = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+                                        @endphp
+
+                                        @foreach ($data['list_periods'] as $period)
+                                        @php
+                                            $ind = $loop->index;
+                                        @endphp
+                                            <tr>
+                                                @for ($i = 0; $i < count($days); $i++)
+                                                    @php
+                                                        $contained = [];
+                                                        $status = [];
+                                                        $nextDate = Carbon::createFromTimestamp(strtotime('next '.$days[$i]));
+
+                                                        foreach ($user->teacher->shedules as $shedule) {
+                                                            $contained[$shedule->day][$shedule->period_id] = ($shedule->period_id == $period->id) && ($shedule->day == $days[$i]);
+                                                            $status[$shedule->day][$shedule->period_id] = $shedule->status_id;
+                                                        }
+                                                    @endphp
+                                                    @if (isset($contained[$days[$i]][$period->id]) && $contained[$days[$i]][$period->id])
+                                                        @if ($status[$days[$i]][$period->id] == 3)
+                                                            @php
+                                                                $shedule = null;
+
+                                                                foreach ($user->teacher->shedules as $sh) {
+                                                                    if ($sh->day == $days[$i] && $sh->period_id == $period->id && $sh->status->id == 3) {
+                                                                        $shedule = $sh;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            @endphp
+                                                            {{-- Check if session is overdate or canceled --}}
+                                                            @if ((!empty($shedule->session) and $shedule->session->is_canceled == 1) || Carbon::now()->gte(Carbon::createFromFormat('Y-m-d H:i', $shedule->date .' '. $period->hour_from)))
+                                                                <td class="bg-light">.{{-- ucfirst(trans('frontend.occupied')) --}}</td>
+                                                            {{-- Check if session is occupied --}}
+                                                            @elseif (!empty($shedule->session) ? ((int)$shedule->session->students->count() == (int)$shedule->session->capacity) : false)
+                                                                <td class="bg-grey">{{ ucfirst(trans('frontend.out_capacity')) }}</td>
+                                                            @else
+                                                                <td class="bg-blue"><a style="color: #03a9f4;display: block" data-toggle="tooltip" data-html="true" data-template='<div class="tooltip" role="tooltip"><div class="tooltip-inner alert alert-primary"></div></div>' title="<b><i class='fa fa-info-circle'></i> {{ trans('frontend.title') .': '. $shedule->session->title }}</b><br/><b><i class='fab fa-leanpub'></i> {{ trans('frontend.objectives') .': ' }}</b>{!! nl2br(e($shedule->session->objectives)) !!}" target="_blank" href="{{ route('frontend.sessions.show', ['slug' => $shedule->session->slug]) }}">.{{-- ucfirst(trans('frontend.session')) --}}</a></td>
+                                                            @endif
+
+                                                        @else
+                                                            <td class="bg-green">{{-- ucfirst(trans('frontend.available')) --}}</td>
+                                                        @endif
+
+                                                    @else
+                                                        <td class="bg-light">.{{-- ucfirst(trans('frontend.occupied')) --}}</td>
+                                                    @endif
+                                                @endfor
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    {{-- </div>
                 </div>
             </div>
+        </div> --}}
+    @endif
+
         </div>
     </div>
+</div>
+
 @endsection
 
-@section('styles')
+@section('styles'){{--
+    {!! Html::style('frontend/assets/css/plugins/bootstrap.min.css') !!}
+    {!! Html::style('node_modules/fortawesome/fontawesome-free/css/all.css') !!} --}}
+    {!! Html::style('frontend/assets/css/plugins/iconfont.css') !!}
+
     <style>
+        html body .bg-blue {
+            background-color: #03a9f4;
+        }
+
+        .min-h {
+            min-height: 900px;
+        }
         .dtl-section {
             padding-top: 15px;
         }
@@ -181,32 +292,41 @@
             margin-left: 10px
         }
 
-        .coordinates ul li{
-            margin-bottom: 10px
-        }
-
-        .coordinates .social li{
-            display: inline-block;
+        ul.soc li{
+            display: inline-block !important;
         }
 
         .table-container{
             width: 100%;
             display: block;
             position: relative;
-            height: 500px;
+            height: 620px;
+            overflow: scroll;
         }
 
         @media (max-width: 1140px) {
             .table-container .hours-tbl{
-                width: 20% !important
+                width: 35% !important
+            }
+            .table-container .days-tbl{
+                display: block;
+                width: 82% !important;
+                right: -65px !important;
             }
         }
+
+        @media (max-width: 448px) {
+            .table-container .hours-tbl {
+                width: 55% !important;
+            }
+        }
+
         .table-container .hours-tbl{
             width: 15%;
             position: absolute;
             left: 0;
             bottom: 0;
-            top: 10%;
+            top: 9%;
         }
         .table-container .days-tbl{
             width: 85%;
@@ -223,19 +343,30 @@
         .bg-green{
             background-color: forestgreen
         }
+        .bg-grey{
+            background-color: gray
+        }
         .bg-danger {
             background-color: orangered
         }
-        .bg-blue {
-            background-color: cornflowerblue
-        }
         .bg-yellow {
             background-color: orange
+        }
+
+        .bg-blue a, .bg-blue a:hover{
+            color: #fff
+        }
+
+        .tooltip-inner{
+            text-align: start;
+            background: #fff;
+            color: #03a9f4;
         }
     </style>
 @endsection
 
 @section('scripts')
+
     <script>
         $(document).ready(function(){
             @if(!empty(session()->has('success')))

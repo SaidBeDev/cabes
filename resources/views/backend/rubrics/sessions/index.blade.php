@@ -13,7 +13,7 @@
                 <th>Titre</th>
                 <th>Date/Heure</th>
                 <th>Module</th>
-                <th class="text-center">Status</th>
+                <th class="text-center">Module</th>
                 <th class="text-center">Actions</th>
             </tr>
             </thead>
@@ -30,7 +30,7 @@
                                         </div>
                                     </div>
                                     <div class="widget-content-left flex2">
-                                        <div class="widget-heading"><a href="{{ route('backend.sessions.show', ['id' => $session->id]) }}">{{ $session->title }}</a></div>
+                                        <div class="widget-heading"><a href="{{ route('frontend.sessions.show', ['id' => $session->slug]) }}">{{ $session->title }}</a></div>
                                         <div class="widget-subheading opacity-7">{{ "" }}</div>
                                     </div>
                                 </div>
@@ -39,15 +39,21 @@
                         <td class="tex-center">{{ $session->date .' '. $session->hour_from }}</td>
                         <td class="tex-center">{{ $session->module->name }}</td>
                         <td class="tex-center">{{ $session->study_year->name }}</td>
+                        @php
+                            $d1 = Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->periods->last()->hour_to);
+                            $d2 = Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->periods->first()->hour_from);
+                            $now = Carbon::now();
+                        @endphp
                         <td class="text-center">
-                            <div class="badge badge-primary">Pending</div>
+                            @if ($now->lte($d2))
+                                <div class="badge badge-primary">En attente</div>
+                            @elseif ($now->gt($d1))
+                                <div class="badge badge-secondary">Passé</div>
+                            @endif
+
                         </td>
                         <td class="text-center">
-                            @php
-                                $d1 = Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->hour_to);
-                                $d2 = Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->hour_from);
-                                $now = Carbon::now();
-                            @endphp
+
                             @if ($now->gt($d1))
                                 <a href="#" class="btn btn-outline-success rounded-circle btn-sm mark-btn" data-action="mark_comp" data-sessionId="{{ $session->id }}" data-isCompleted="{{ $session->is_completed }}" data-toggle="tooltip" data-placement="top" title="{{ trans('frontend.mark_completed') }}"><i class="fa fa-check"></i></a>
                             @endif

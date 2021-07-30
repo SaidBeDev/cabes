@@ -67,11 +67,12 @@ $user = $data['user'];
 
                     <div class="col-md-4 mb-3">
                         <label for="validationCustom03" style="display: block">Ville/Wilaya</label>
-                        <select name="daira_id" class="daira-select form-control selectpicker" data-live-search="true"  data-style="btn-info" data-width="auto">
-                            @foreach ($data['list_wilayas'] as $wilaya)
-                                <optgroup label="{{ $wilaya->name }}">
-                                    @foreach ($wilaya->dairas as $daira)
-                                        <option value="{{ $daira->id }}" {{ $user->daira_id == $daira->id ? 'selected' : '' }}>{{ $daira->name }}</option>
+                        <select name="commune_id" class="daira-select form-control selectpicker" data-live-search="true" data-width="auto">
+
+                            @foreach ($data['list_dairas'] as $daira)
+                                <optgroup label="{{ $daira->name }}">
+                                    @foreach ($daira->communes as $commune)
+                                        <option value="{{ $commune->id }}" {{ (!empty($user->commune->id) and $user->commune->id == $commune->id) ? 'selected' : '' }}>{{ $commune->name }}</option>
                                     @endforeach
                                 </optgroup>
                             @endforeach
