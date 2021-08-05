@@ -3,35 +3,36 @@
 namespace App\Http\Controllers\Auth;
 
 use Sentinel;
+use Exception;
 use App\Sector;
 use jsValidator;
 use Illuminate\View\View;
-use Illuminate\Support\Arr;
 
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-
 use Spatie\OpeningHours\OpeningHours;
 use Illuminate\Support\Facades\Validator;
 use App\SaidTech\Traits\Data\avatarsTrait;
 use App\SaidTech\Traits\Auth\RegisterTrait;
+use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use App\SaidTech\Repositories\UsersRepository\UserRepository;
 use App\SaidTech\Traits\Files\UploadImageTrait as UploadImage;
 use App\SaidTech\Repositories\DairasRepository\DairaRepository;
+
 use App\SaidTech\Repositories\ConfigsRepository\ConfigRepository;
 use App\SaidTech\Repositories\ModulesRepository\ModuleRepository;
 use App\SaidTech\Repositories\WilayasRepository\WilayaRepository;
-
 use App\SaidTech\Repositories\StudentsRepository\StudentRepository;
 use App\SaidTech\Repositories\TeachersRepository\TeacherRepository;
 use App\SaidTech\Repositories\StudyYearsRepository\StudyYearRepository;
 use App\SaidTech\Repositories\ContactTypesRepository\ContactTypeRepository;
 use App\SaidTech\Repositories\ProfileTypesRepository\ProfileTypeRepository;
-use Cartalyst\Sentinel\Laravel\Facades\Activation;
-use Exception;
 
 class RegisterController extends Controller
 {
@@ -125,7 +126,10 @@ class RegisterController extends Controller
             'study_years' => $this->repositories['StudyYearsRepository']->all(),
             'list_dairas' => $this->repositories['DairasRepository']->all(),
             'list_avatars' => $this->getAvatars(),
-            'validator' => jsValidator::make(array_merge($this->getUsersRules(), $this->getTeacherRules(), $this->getStudentRules()))
+            'validator' => jsValidator::make(array_merge($this->getUsersRules(), $this->getTeacherRulesJs(), $this->getStudentRulesJs())),
+            'user_rules' => $this->getUsersRules(),
+            'student_rules' => $this->getStudentRulesJs(),
+            'teacher_rules' => $this->getTeacherRulesJs(),
         ];
 
         return view($this->base_view . '.register', ['data' => array_merge($this->data, $data)]);
@@ -148,10 +152,10 @@ class RegisterController extends Controller
         $user = $request->validate($this->getUsersRules());
 
         if ($profile_type->name == 'student'){
-            $request->validate($this->getStudentRules());
+            $request->validate($this->getStudentRules($request));
         }
         else if ($profile_type->name == 'teacher'){
-            $request->validate($this->getTeacherRules());
+            $request->validate($this->getTeacherRules($request));
         }
 
         //Hash the password
@@ -252,7 +256,7 @@ class RegisterController extends Controller
 
             case 'teacher':
 
-                $credentials = $request->validate($this->getTeacherRules());
+                $credentials = $request->validate($this->getTeacherRules($request));
 
                 $teacher = new \App\TeacherProfile;
                 $teacher->desc = !empty($request->desc) ? $request->desc : null;
@@ -384,7 +388,7 @@ class RegisterController extends Controller
                    else {
                         $response = [
                             'success' => false,
-                            'message' => "An error was occured!"
+                            'message' => "Un erreur est survenue!"
                         ];
                    }
                    return redirect()->route('frontend.index')->with($response);
@@ -408,7 +412,7 @@ class RegisterController extends Controller
             'avatar'          => 'required',
             'full_name'       => 'required',
             'email'           => 'required|email|unique:users',
-            'password'        => 'required|string|min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x]).*$/',
+            'password'        => 'required|confirmed|string|min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x]).*$/',
             'birthday'        => "required|date",
             'tel'             => 'required',
             'address'         => 'required',
@@ -418,19 +422,35 @@ class RegisterController extends Controller
         ];
     }
 
-    public function getStudentRules() {
+    public function getStudentRules($request) {
         return [
-            'study_year_id' => 'required'
+            'study_year_id' => Rule::requiredIf($request->profile_type_id == 3),
         ];
     }
 
-    public function getTeacherRules() {
+    public function getTeacherRules($request) {
         return [
-            'desc'       => 'nullable',
-            'diploma'    => "nullable",
-            'experience' => "nullable",
-            'video_link' => "nullable",
-            'portfolio'  => "nullable"
+            'desc'       => Rule::requiredIf($request->profile_type_id == 2),
+            'diploma'    => Rule::requiredIf($request->profile_type_id == 2),
+            'experience' => Rule::requiredIf($request->profile_type_id == 2),
+            'video_link' => Rule::requiredIf($request->profile_type_id == 2),
+            'portfolio'  => Rule::requiredIf($request->profile_type_id == 2)
+        ];
+    }
+
+    public function getStudentRulesJs() {
+        return [
+            'study_year_id' => "nullable|required_if:profile_type_id,==,3"
+        ];
+    }
+
+    public function getTeacherRulesJs() {
+        return [
+            'desc'       => "nullable|required_if:profile_type_id,==,2",
+            'diploma'    => "nullable|required_if:profile_type_id,==,2",
+            'experience' => "nullable|required_if:profile_type_id,==,2",
+            'video_link' => "nullable|required_if:profile_type_id,==,2",
+            'portfolio'  => "nullable|required_if:profile_type_id,==,2"
         ];
     }
 }

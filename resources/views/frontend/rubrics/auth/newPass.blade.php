@@ -1,3 +1,6 @@
+@php
+    $user = $data['user'];
+@endphp
 
 @extends('frontend.layouts.master')
 
@@ -11,19 +14,10 @@
                     <div class="log_wrap">
                         <h4>{{ trans('frontend.login_page_txt') }}</h4>
 
-                       {{--  <div class="social-login light single mb-3">
-                            <ul>
-                                <li><a href="#" class="btn connect-fb"><i class="ti-facebook"></i>Login with Facebook</a></li>
-                                <li><a href="#" class="btn connect-google"><i class="ti-google"></i>Login with Google</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="modal-divider"><span>{{ trans('frontend.or') }}</span></div> --}}
-
                         <div class="login-form">
                             {!! Form::open([
                                 'method' => 'POST',
-                                'url' => route('auth.login'),
+                                'url' => route('auth.resetPassword'),
                                 'name' => 'login',
                                 'id' => 'login'
                             ]) !!}
@@ -47,27 +41,17 @@
                                 @endif
 
                                 <div class="form-group">
-                                    <label>{{ trans('frontend.email') }}</label>
-                                    <input type="email" name="email" class="form-control" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>{{ trans('frontend.password') }}</label>
+                                    <label>{{ trans('frontend.new_password') }}</label>
+                                    <input type="hidden" name="code" value="{{ $data['code'] }}">
+                                    <input type="hidden" name="email" value="{{ $user->email }}">
                                     <input type="password" name="password" class="form-control" required>
+                                    <label for="">{{ trans('frontend.confirm_password') }}</label>
+                                    <input type="password" name="password_confirmation" class="form-control" required>
                                 </div>
 
-                                <div class="social-login mb-3">
-                                    <ul>
-                                        <li style="flex: 2 !important">
-                                            <input id="reg" class="checkbox-custom" name="reg" type="checkbox">
-                                            <label for="reg" class="checkbox-custom-label">{{ trans('frontend.save_pass') }}</label>
-                                        </li>
-                                        <li class="right"><a href="{{ route('auth.resetPasswordForm') }}" class="theme-cl">{{ trans('frontend.forget_pass') }}</a></li>
-                                    </ul>
-                                </div>
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-md full-width pop-login">{{ trans('frontend.login') }}</button>
+                                    <button type="submit" class="btn btn-md full-width pop-login">{{ trans('frontend.save') }}</button>
                                 </div>
 
                             {!! Form::close() !!}
@@ -81,23 +65,9 @@
     </section>
 @endsection
 
- @section('styles')
-     <style>
-         label {
-             font-weight: 600
-         }
-
-        @media (min-width: 485px) {
-            .social-login ul li {
-                flex: unset;
-                width: unset !important;
-            }
-        }
-     </style>
- @endsection
-
  @section('scripts')
     {{-- {!! Html::script('vendor/jsvalidation/js/jsvalidation.min.js') !!} --}}
+    {!! $data['validator']->selector('#login') !!}
 
     @include('frontend._partials.notif')
  @endsection

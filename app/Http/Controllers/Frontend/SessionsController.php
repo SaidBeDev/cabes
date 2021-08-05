@@ -67,6 +67,13 @@ class SessionsController extends FrontendBaseController
         $data = [
             'list_sessions' => $module->sessions->filter(function($session) {
                 return $session->is_completed == 0 && $session->is_canceled == 0;
+            })
+            ->filter(function($session) {
+
+                $d1 =  Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->periods->first()->hour_from);
+                $now = Carbon::now();
+
+                return $now->lte($d1);
             }),
             'title' => trans('frontend.find_session')
         ];

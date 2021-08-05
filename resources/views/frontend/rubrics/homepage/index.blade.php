@@ -13,7 +13,11 @@
 								<h1 class="big-header-capt cl_2 mb-2 f_2">L'expérience d'apprentissage rendue facile, sociale et interactive</h1>
 								<p>Study any topic, anytime. Choose from thousands of expert-led courses now.</p>
 								<div class="mt-4">
-									<a href="#" class="btn btn-modern dark">Inscrivez-vous Maintenant<span><i class="ti-arrow-right"></i></span></a>
+									@if (empty(Auth::user()))
+										<a href="{{ route('auth.registerForm') }}" class="btn btn-modern dark">Inscrivez-vous Maintenant<span><i class="ti-arrow-right"></i></span></a>
+									@else
+										<a href="{{ route('auth.loginForm') }}" class="btn btn-modern dark">Connectez-vous Maintenant<span><i class="ti-arrow-right"></i></span></a>
+									@endif
 								</div>
 							</div>
 						</div>
@@ -107,10 +111,10 @@
                             <div class="col-lg-4 col-md-4 col-sm-6">
                                 <div class="edu_cat_2 cat-{{ $loop->index + 1 }}" style="background-color: unset{{-- $module->bg_color --}}">
                                     <div class="edu_cat_icons">
-                                        <a class="pic-main" href="#"><img src="{{ asset('frontend/assets/img/' . (!empty($module->image) ? $module->image : 'briefcase.png')) }}" class="img-fluid" alt="" /></a>
+                                        <a class="pic-main" href="{{ route('frontend.teachers.getByModule', ['slug' => $module->slug]) }}"><img src="{{ asset('frontend/assets/img/' . (!empty($module->image) ? $module->image : 'briefcase.png')) }}" class="img-fluid" alt="" /></a>
                                     </div>
                                     <div class="edu_cat_data">
-                                        <h4 class="title"><a href="#" style="color: #00adb6{{-- $module->color --}}">{{ ucfirst($module->name) }}</a></h4>
+                                        <h4 class="title"><a href="{{ route('frontend.teachers.getByModule', ['slug' => $module->slug]) }}" style="color: #00adb6{{-- $module->color --}}">{{ ucfirst($module->name) }}</a></h4>
                                         <ul class="meta">
                                             <li class="video"><i class="ti-video-clapper"></i>{{ (!empty($module->teachers) ? $module->teachers->count() : '') .' '. trans('frontend.teacher') }}</li>
                                         </ul>
@@ -118,8 +122,6 @@
                                 </div>
                             </div>
                         @endforeach
-
-
 					</div>
 
 				</div>

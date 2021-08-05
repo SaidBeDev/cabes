@@ -13,6 +13,7 @@ return [
     'password' => "Mot de passe",
     'old_password' => "Ancien mot de passe",
     'new_password' => "Nouveau mot de passe",
+    'confirm_password' => "Confirmer le mot de passe",
     'change_password' => "Changer le mot de passe",
     'tel' => "N° Téléphone",
     'gender' => "Genre",
@@ -117,6 +118,7 @@ return [
     'confirm_email_txt' => "Veuillez cliquer sur le bouton ci-dessous pour confirmer votre email",
     'copyright_footer' => "Tous droits réservés",
     'contact_txt' => "Une équipe d'assistance client conviviale pour les créateurs à portée de clic.",
+    'reset_pass_txt' => "Veuillez cliquer sur le bouton ci-dessous pour changer votre mot de passe",
 
     // Rules
     'auth_rule' => "Veuillez vous connecter à votre compte!",
@@ -144,6 +146,9 @@ return [
     'register_btn' => "Joindre",
     'create' => "Créer",
     'save' => "Enregistrer",
+    'save_pass' => "Sauvegarder le mot de passe",
+    'forget_pass' => "Mot de passe oublié?",
+    'reset_pass' => "Réinitialiser le mot de passe",
     'browse' => "Parcourir",
     'edit' => "Modifier",
     'logout' => "Se déconnecter",
@@ -157,6 +162,7 @@ return [
     'go_session' => "Allez a séance",
     'session_link' => "Lien de Meeting",
     'send' => "Envoyer",
+    'send_link' => "Envoyer le lien",
 
 
     // Days

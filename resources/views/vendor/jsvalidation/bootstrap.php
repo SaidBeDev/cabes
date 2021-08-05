@@ -25,11 +25,11 @@
                 <?php endif; ?>
 
                 /*
-                 // Uncomment this to mark as validated non required fields
-                 unhighlight: function(element) {
-                 $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
-                 },
-                 */
+                // Uncomment this to mark as validated non required fields
+                unhighlight: function(element) {
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+                },
+                */
                 success: function (element) {
                     $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // remove the Boostrap error class from the control group
                 },
@@ -51,6 +51,7 @@
 
                 rules: <?= json_encode($validator['rules']); ?>
             });
+            /** */
         });
     });
 </script>

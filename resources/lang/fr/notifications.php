@@ -18,9 +18,14 @@ return [
     'marked_comp' => "La séance est marquée comme terminée",
     'marked_canc' => "La séance est marquée comme annulée",
     'about_updated' => "Les informations sont mises à jour!",
+    'reset_pass_sent' => "E-mail de réinitialisation du mot de passe a été envoyé!",
+    'pass_updated'  => "Le mot de passe a été changé avec succès!",
 
 
     // errors
     'error_occured' => "Un erreur est survenue",
+    'unexpected_email' => "Email non trouvé",
+    'unexpected_link' => "Lien indéterminé, veuillez réessayer pour réinitialiser votre mot de passe",
+    'expired_link' => "Lien expiré, veuillez réessayer à nouveau",
 
 ];
