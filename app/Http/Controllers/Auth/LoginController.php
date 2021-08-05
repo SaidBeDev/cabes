@@ -6,16 +6,21 @@ use Auth;
 use Hash;
 
 use Sentinel;
+use Reminder;
+use Activation;
 
 use jsValidator;
+
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
-use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use App\SaidTech\Repositories\UsersRepository\UserRepository;
+
+use App\SaidTech\Traits\Auth\RegisterTrait;
 
 class LoginController extends Controller
 {
+    use RegisterTrait;
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -169,6 +174,145 @@ class LoginController extends Controller
         }
     }
 
+    /**
+     * Send reset email page
+     */
+    public function resetPasswordForm() {
+
+        $validator = JsValidator::make([
+            'email' => "required|email"
+        ]);
+
+        $data = [
+            'validator' => $validator
+        ];
+
+        return view($this->base_view . '.forgetPass', ['data' => array_merge($this->data, $data)]);
+    }
+
+    /**
+     * Send Reset Mail
+     */
+    public function SendResetMail(Request $request) {
+        $request->validate(['email' => "required|email"]);
+
+        $user = $this->repository->findWhere(['email' => $request->email])->first();
+
+        if ($user) {
+            $user = Sentinel::findById($user->id);
+
+            // Remove expired reminders
+            Reminder::removeExpired();
+
+            // Send Reminder
+            $rem = Reminder::create($user);
+
+            // Send email
+            $res = $this->sendResetPassMail($user, $rem->code);
+
+            if ($res) {
+
+                $response = [
+                    'success' => true,
+                    'message' => trans('notifications.reset_pass_sent')
+                ];
+
+                return redirect()->route('auth.resetPasswordForm')->with($response);
+            }
+
+        } else {
+            $response = [
+                'success' => false,
+                'message' => trans('notifications.unexpected_email')
+            ];
+
+            return redirect()->route('auth.resetPasswordForm')->with($response);
+        }
+    }
+
+    /**
+     * New password form
+     */
+    public function newPasswordForm($code, $id) {
+        $user = Sentinel::findById($id);
+
+        $rem = Reminder::exists($user);
+
+        if (!$rem->is_completed) {
+
+            if ($rem && ($rem->user_id == $id) && ($rem->code == $code)) {
+                $validator = JsValidator::make([
+                    'email' => "required|email",
+                    'password' => 'required|string|confirmed|min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x]).*$/',
+                    'code' => "required"
+                ]);
+
+                $data = [
+                    'user' => $user,
+                    'code' => $rem->code,
+                    'validator' => $validator
+                ];
+
+                return view('frontend.rubrics.auth.newPass', ['data' => array_merge($this->data, $data)]);
+
+            } else {
+                $response = [
+                    'success' => false,
+                    'message' => trans('notifications.unexpected_link')
+                ];
+
+                return redirect()->route('auth.resetPasswordForm')->with($response);
+            }
+        } else {
+            $response = [
+                'success' => false,
+                'message' => trans('notifications.expired_link')
+            ];
+
+            return redirect()->route('auth.resetPasswordForm')->with($response);
+        }
+    }
+
+    /**
+     * Attempt to complete reset password
+     */
+    public function resetPassword(Request $request) {
+
+        $request->validate([
+            'email' => "required|email",
+            'password' => 'required|string|confirmed|min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x]).*$/',
+            'code' => "required"
+
+        ]);
+
+        $user = $this->repository->findWhere(['email' => $request->email])->first();
+        $user = Sentinel::findById($user->id);
+
+        if ($user) {
+            // Send Reminder
+            $rem = Reminder::exists($user);
+
+            if ($rem) {
+                $res = Reminder::complete($user, $request->code, $request->password);
+
+                if ($res) {
+
+                    $response = [
+                        'success' => true,
+                        'message' => trans('notifications.pass_updated')
+                    ];
+
+                    return redirect()->route('auth.loginForm')->with($response);
+                } else {
+                    throw new \LogicException("Reminder not complete due to error");
+                }
+            }
+        }
+    }
+
+    /**
+     * Logout
+     */
     public function logout() {
         if (!empty(Auth::user())) {
             Auth::logout();

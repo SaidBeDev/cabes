@@ -70,6 +70,11 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>{{ trans('frontend.confirm_password') }}</label>
+                                    <input type="password" name="password_confirmation" class="form-control" autocomplete="new-password" required>
+                                </div>
+
+                                <div class="form-group">
                                     <label>{{ trans('frontend.tel') }}</label>
                                     <input type="text" name="tel" class="form-control" required>
                                 </div>
@@ -252,17 +257,20 @@
  @section('styles')
      <style>
          label {
-             font-weight: 600
+            font-weight: 600
          }
      </style>
  @endsection
 
  @section('scripts')
-    {!! Html::script('vendor/jsvalidation/js/jsvalidation.min.js') !!}
+     {{-- Validator --}}
+     {!! $data['validator']->selector('#register') !!}
+
 
 
      <script>
          $(document).ready(function() {
+
             if ($('input[name="profile_type_id"]').val() == "3") {
                 $('.teacher').css('display', 'none');
                 $('.student').css('display', 'block');

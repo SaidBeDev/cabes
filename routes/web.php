@@ -150,7 +150,15 @@ Route::group([
         Route::get('/'. Laravellocalization::transRoute('routes.login'), 'LoginController@create')->name('loginForm');
         Route::post('/auth', 'LoginController@login')->name('login');
 
-        Route::get('/verify/{code}/{id}', 'RegisterController@verify')->name('verifyEmail');
+        // Reset Password
+        Route::get(trans('routes.reset_pass'), 'LoginController@resetPasswordForm')->name('resetPasswordForm');
+        Route::post('/send-mail', 'LoginController@SendResetMail')->name('SendResetMail');
+        Route::get(trans('routes.new_pass') . '/{code}/{id}', 'LoginController@newPasswordForm')->name('newPasswordForm');
+        Route::post('/save-password', 'LoginController@resetPassword')->name('resetPassword');
+
+        // Verify account
+        Route::get('/verify/{code}/{id}', 'ٌRegisterController@verify')->name('verifyEmail');
+
 
         Route::get('/logout', 'LoginController@logout')->name('logout');
 
@@ -168,6 +176,18 @@ Route::group([
 ], function() {
     Route::name('frontend.')->group(function() {
         Route::name('sessionIndex')->get('/sessions', 'MngSessionsController@create');
+
+        Route::get('/ts', function () {
+            $data = [
+                'name' => '',
+                'user_id' => '',
+                'profile_type' => '',
+                'code' => ''
+            ];
+
+            return view('emails.resetPassword', ['data' => $data]);
+        });
+
         // Homepage Index Route
         Route::get('/', 'HomepageController@index')->name('index');
 
