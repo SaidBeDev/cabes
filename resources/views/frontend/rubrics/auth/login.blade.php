@@ -59,8 +59,8 @@
                                 <div class="social-login mb-3">
                                     <ul>
                                         <li style="flex: 2 !important">
-                                            <input id="reg" class="checkbox-custom" name="reg" type="checkbox">
-                                            <label for="reg" class="checkbox-custom-label">{{ trans('frontend.save_pass') }}</label>
+                                            <input id="reg" class="checkbox-custom" name="remember" type="checkbox">
+                                            <label for="reg" class="checkbox-custom-label">{{ trans('frontend.remember_me') }}</label>
                                         </li>
                                         <li class="right"><a href="{{ route('auth.resetPasswordForm') }}" class="theme-cl">{{ trans('frontend.forget_pass') }}</a></li>
                                     </ul>

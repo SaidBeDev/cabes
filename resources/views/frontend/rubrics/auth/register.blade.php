@@ -42,7 +42,7 @@
                                         </div>
                                     @endif
                                     <div class="col-md-12">
-                                        <label for="">{{ ucfirst(trans('frontend.avatar')) }}</label>
+                                        <label for="" class="d-block">{{ ucfirst(trans('frontend.avatar')) }}</label>
                                         <select name="avatar" class="selectpicker">
                                             @foreach ($data['list_avatars'] as $avatar)
                                                 <option value="{{ $avatar['uri'] }}" data-content="<img height=30 src='{{ asset('frontend/images/avatars/' .$avatar['uri']) }}' /> <span class=''>{{  trans('frontend.avatar') .' '. $avatar['id'] }}</span>">{{ $avatar['uri'] }}</option>

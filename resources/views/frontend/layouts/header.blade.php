@@ -82,7 +82,7 @@
                             <a href="{{ route('auth.registerForm') }}" data-toggle="tooltip" data-placement="top" title="{{ trans('menu.register') }}"><i class="fas fa-user-plus m9-show-inline d-lg-none"></i> <span class="m9-hide-d" style="display: inline">{{ trans('menu.register') }}</span></a>
                         </li>
                     </ul>
-                @else
+                @elseif (!empty(Auth::user()) and Auth::user()->profile_type->name != "admin")
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                       </button>

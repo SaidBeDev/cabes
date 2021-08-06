@@ -33,7 +33,7 @@
                                         </div>
                                     </div>
                                     <div class="widget-content-left flex2">
-                                        <div class="widget-heading"><a href="{{ route('backend.sessions.show', ['id' => $session->id]) }}">{{ $session->title }}</a></div>
+                                        <div class="widget-heading"><a href="{{ route('frontend.sessions.show', ['slug' => $session->slug]) }}" target="_blank">{{ $session->title }}</a></div>
                                         <div class="widget-subheading opacity-7">{{ "" }}</div>
                                     </div>
                                 </div>
@@ -46,7 +46,7 @@
                             <div class="badge badge-success">Confirmée</div>
                         </td>
                         <td class="text-center">
-                            <a href="{{ route('backend.sessions.show', ['id' => $session->id]) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Consulter"><i class="fa fa-arrow-right"></i></a>
+                            <a href="{{ route('frontend.sessions.show', ['slug' => $session->slug]) }}" target="_blank" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Consulter"><i class="fa fa-arrow-right"></i></a>
                             {{-- <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal"  data-placement="top" title="Bloquer"><i class="fa fa-trash"></i></a> --}}
                         </td>
                     </tr>

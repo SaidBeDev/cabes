@@ -136,8 +136,8 @@
 					<div class="row justify-content-center">
 						<div class="col-lg-5 col-md-6 col-sm-12">
 							<div class="sec-heading center">
-								<p>Hot & Trending</p>
-								<h2><span class="theme-cl">{{ trans('menu.sessions') }}</span> {{ trans('frontend.recomended') }}</h2>
+								{{-- <p>Hot & Trending</p> --}}
+								<h2><span class="theme-cl">{{ trans('menu.sessions') }}</span> {{ trans('frontend.planned') }}</h2>
 							</div>
 						</div>
 					</div>

@@ -12,8 +12,11 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Backend\BackendBaseController;
 use App\SaidTech\Repositories\UsersRepository\UserRepository;
 use App\SaidTech\Repositories\ConfigsRepository\ConfigRepository;
+use App\SaidTech\Repositories\ModulesRepository\ModuleRepository;
+use App\SaidTech\Repositories\PeriodsRepository\PeriodRepository;
 use App\SaidTech\Repositories\SessionsRepository\SessionRepository;
 use App\SaidTech\Repositories\StudentsRepository\StudentRepository;
+use App\SaidTech\Repositories\StudyYearsRepository\StudyYearRepository;
 use App\SaidTech\Repositories\ProfileTypesRepository\ProfileTypeRepository;
 
 class ManageSessionsController extends BackendBaseController
@@ -29,13 +32,19 @@ class ManageSessionsController extends BackendBaseController
         SessionRepository $repository,
         UserRepository $userRepository,
         ProfileTypeRepository $profileTypesRepository,
-        ConfigRepository $configRepository
+        ConfigRepository $configRepository,
+        ModuleRepository $moduleRepository,
+        StudyYearRepository $studyYearsRepository,
+        PeriodRepository $periodsRepository
     )
     {
         $this->repository = $repository;
         $this->repositories['UsersRepository'] = $userRepository;
         $this->repositories['ProfileTypesRepository'] = $profileTypesRepository;
         $this->repositories['ConfigsRepository'] = $configRepository;
+        $this->repositories['PeriodsRepository'] = $periodsRepository;
+        $this->repositories['ModuleRepository'] = $moduleRepository;
+        $this->repositories['StudyYearsRepository'] = $studyYearsRepository;
 
         $this->setRubricConfig('sessions');
     }
@@ -61,6 +70,81 @@ class ManageSessionsController extends BackendBaseController
         return view($this->base_view . 'index', ['data' => array_merge($this->data, $data)]);
     }
 
+    /**
+     * Edit a session
+     */
+    public function edit($id) {
+        $data = [
+            'list_modules' => $this->repositories['ModuleRepository']->all()->filter(function($module) {
+                return !in_array($module->translate('fr')->slug, ['formations-universitaires', 'formations-professionnelles']);
+            }),
+            'spec_modules' => $this->repositories['ModuleRepository']->all()->filter(function($module) {
+                return in_array($module->translate('fr')->slug, ['formations-universitaires', 'formations-professionnelles']);
+            }),
+            'spec_years' => $this->repositories['StudyYearsRepository']->all()->filter(function($module) {
+                return in_array($module->translate('fr')->slug, ['formations-professionnelles']);
+            }),
+            'study_years' => $this->repositories['StudyYearsRepository']->all()->filter(function($module) {
+                return !in_array($module->translate('fr')->slug, ['formations-professionnelles']);
+            }),
+
+            'session' => $this->repository->find($id)
+        ];
+
+        return view($this->base_view . 'edit', ['data' => array_merge($this->data, $data)]);
+    }
+
+
+    /**
+     * Update an existing Session
+     * @param Request $request
+     */
+    public function update(Request $request, $id) {
+        $oldSession = $this->repository->find($id);
+        $session = $request->validate($this->getSessionUpdateRules());
+        $session = $request->except(['title_fr', 'title_ar', 'desc_fr', 'desc_ar']);
+
+        $session['teacher_id'] = $oldSession->teacher_id;
+
+        $teacher = $oldSession->teacher;
+
+        if (empty($teacher) || Auth::user()->teacher->id != $oldSession->teacher_id) {
+            throw new \LogicException('Unexpected teacher profile');
+        }
+        elseif ($teacher->is_blocked == 1) {
+            $response = [
+                'success' => false,
+                'message' => trans('notifications.account_blocked')
+            ];
+
+            return response()->json($response);
+        }
+
+
+         // Upload image
+         if (isset($request->image)) {
+            $image = $this->uploadImageAndMove($request->image, $oldSession->image, 'sessions', 'sessions', 'image');
+            $session['image'] = $image;
+        }
+
+        $translations = [
+            'ar' => ['title' => !empty($request->title_ar) ? $request->title_ar : $request->title_fr . ' 1', 'desc' => !empty($request->desc_ar) ? $request->desc_ar : $request->desc_fr, 'objectives' => !empty($request->objectives_ar) ? $request->objectives_ar : $request->objectives_fr],
+            'fr' => ['title' => $request->title_fr, 'desc' => $request->desc_fr, 'objectives' => $request->objectives_fr]
+        ];
+
+        $this->repository->update(array_merge($session, $translations), $id);
+
+        $response = [
+            'success' => true,
+            'message' => trans('notifications.session_updated')
+        ];
+
+        return redirect()->route('frontend.profile.sessions.index')->with($response);
+    }
+
+    /**
+     *
+     */
     public function show($id) {
         $data = [
             'session' => $this->repository->find($id)

@@ -63,7 +63,7 @@
                                 <div class="form-row fr">
                                     <div class="form-group col-md-12 fr">
                                         <label>{{ trans('frontend.title') }} ({{ trans('frontend.fr') }})</label>
-                                        <input type="hidden" name="teacher_id" value="{{ Auth::user()->teacher->id }}">
+                                        <input type="hidden" name="teacher_id" value="{{ $session->teacher->id }}">
                                         <input type="text" name="title_fr" class="form-control" value="{{ $session->translate('fr')->title }}" required>
                                     </div>
 

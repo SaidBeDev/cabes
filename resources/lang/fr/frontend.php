@@ -75,6 +75,7 @@ return [
     'enrolled_nb' => "Participants",
     'famous' => "Populaires",
     'recomended' => "recommandés",
+    'planned' => "programmées",
     'subject' => "Sujet",
     'message' => "Message",
 
@@ -147,6 +148,7 @@ return [
     'create' => "Créer",
     'save' => "Enregistrer",
     'save_pass' => "Sauvegarder le mot de passe",
+    'remember_me' => "Se souvenir de moi",
     'forget_pass' => "Mot de passe oublié?",
     'reset_pass' => "Réinitialiser le mot de passe",
     'browse' => "Parcourir",

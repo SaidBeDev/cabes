@@ -125,7 +125,7 @@ class LoginController extends Controller
                     ];
 
                     if (Hash::check($request->password, $user->password)) {
-                        $res = Auth::attempt($credentials);
+                        $res = Auth::attempt($credentials, $request->remember);
 
                         session()->regenerate();
 

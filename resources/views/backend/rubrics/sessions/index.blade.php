@@ -11,9 +11,10 @@
             <tr>
                 <th class="text-center">#</th>
                 <th>Titre</th>
+                <th>Lien de Meeting</th>
                 <th>Date/Heure</th>
                 <th>Module</th>
-                <th class="text-center">Module</th>
+                <th class="text-center">Niveau</th>
                 <th class="text-center">Actions</th>
             </tr>
             </thead>
@@ -36,6 +37,8 @@
                                 </div>
                             </div>
                         </td>
+
+                        <td><a href="{{ $session->link }}" class="btn btn-info" target="_blank"><i class="fa fa-google"></i></a></td>
                         <td class="tex-center">{{ $session->date .' '. $session->hour_from }}</td>
                         <td class="tex-center">{{ $session->module->name }}</td>
                         <td class="tex-center">{{ $session->study_year->name }}</td>
@@ -58,8 +61,11 @@
                                 <a href="#" class="btn btn-outline-success rounded-circle btn-sm mark-btn" data-action="mark_comp" data-sessionId="{{ $session->id }}" data-isCompleted="{{ $session->is_completed }}" data-toggle="tooltip" data-placement="top" title="{{ trans('frontend.mark_completed') }}"><i class="fa fa-check"></i></a>
                             @endif
                             @if ($now->lt($d2))
+
                                 <a href="#" class="btn btn-outline-danger rounded-circle btn-sm mark-btn" data-action="mark_canc" data-sessionId="{{ $session->id }}" data-isCompleted="{{ $session->is_canceled }}" data-toggle="tooltip" data-placement="top" title="{{ trans('frontend.mark_canceled') }}"><i class="fa fa-times"></i></a>
+                                <a href="{{ route('backend.sessions.edit', ['id' => $session->id]) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></a>
                             @endif
+
                             <a href="{{ route('backend.sessions.edit', ['id' => $session->id]) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></a>
                             {{-- <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal"  data-placement="top" title="Bloquer"><i class="fa fa-trash"></i></a> --}}
                         </td>

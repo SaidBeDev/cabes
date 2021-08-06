@@ -3,6 +3,8 @@
 return [
 
     // Auth
+    'login_success' => "heureux de vous revoir sur ".trans('frontend.main_site'). '!',
+    /* 'login_success' => "Vous êtes connecté à votre compte", */
     'unmatched_credentials' => "Email ou mot de passe erronée",
     'register_success' => "Vous êtes bien inscrit!",
     'account_blocked' => "Votre compte est bloqué",
