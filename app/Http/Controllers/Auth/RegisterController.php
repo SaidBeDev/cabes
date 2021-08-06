@@ -127,9 +127,6 @@ class RegisterController extends Controller
             'list_dairas' => $this->repositories['DairasRepository']->all(),
             'list_avatars' => $this->getAvatars(),
             'validator' => jsValidator::make(array_merge($this->getUsersRules(), $this->getTeacherRulesJs(), $this->getStudentRulesJs())),
-            'user_rules' => $this->getUsersRules(),
-            'student_rules' => $this->getStudentRulesJs(),
-            'teacher_rules' => $this->getTeacherRulesJs(),
         ];
 
         return view($this->base_view . '.register', ['data' => array_merge($this->data, $data)]);
@@ -233,7 +230,7 @@ class RegisterController extends Controller
 
             case 'student':
 
-                $credentials = $request->validate($this->getStudentRules());
+                $credentials = $request->validate($this->getStudentRules($request));
 
                 $student = new \App\StudentProfile;
 

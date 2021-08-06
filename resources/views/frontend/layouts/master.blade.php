@@ -53,11 +53,10 @@
     {{-- Preloader --}}
     <div id="preloader"><div class="preloader"><span></span><span></span></div></div>
 
-    <div id="main-wrapper" style="min-height: 300px;margin-bottom: 25px">
+    <div id="main-wrapper" style="min-height: 300px">
         @include('frontend.layouts.header')
 
         @yield('content')
-
 
         <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
     </div>

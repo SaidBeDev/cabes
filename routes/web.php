@@ -157,7 +157,7 @@ Route::group([
         Route::post('/save-password', 'LoginController@resetPassword')->name('resetPassword');
 
         // Verify account
-        Route::get('/verify/{code}/{id}', 'ٌRegisterController@verify')->name('verifyEmail');
+        Route::get('/verify/{code}/{id}', 'RegisterController@verify')->name('verifyEmail');
 
         Route::get('/logout', 'LoginController@logout')->name('logout');
 
