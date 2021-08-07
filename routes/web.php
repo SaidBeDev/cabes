@@ -94,7 +94,7 @@ Route::group([
 
         Route::get('/{id}', 'ManageSessionsController@show')->name('show');
         Route::get('/{id}/edit', 'ManageSessionsController@edit')->name('edit');
-        Route::post('/{id}/update', 'ManageSessionsController@update')->name('update');
+        Route::put('/{id}/update', 'ManageSessionsController@update')->name('update');
 
         Route::get('joined-students/{id}', 'ManageSessionsController@getEnrolledStudents')->name('getEnrolledStudents');
         Route::get('completed-sessions/{id}', 'ManageSessionsController@getCompletedSessions')->name('getCompletedSessions');

@@ -108,7 +108,7 @@ class ManageSessionsController extends BackendBaseController
 
         $teacher = $oldSession->teacher;
 
-        if (empty($teacher) || Auth::user()->teacher->id != $oldSession->teacher_id) {
+        if (empty($teacher)) {
             throw new \LogicException('Unexpected teacher profile');
         }
         elseif ($teacher->is_blocked == 1) {
@@ -139,7 +139,7 @@ class ManageSessionsController extends BackendBaseController
             'message' => trans('notifications.session_updated')
         ];
 
-        return redirect()->route('frontend.profile.sessions.index')->with($response);
+        return redirect()->route('backend.sessions.index', ['id' => $teacher->id])->with($response);
     }
 
     /**
@@ -226,5 +226,33 @@ class ManageSessionsController extends BackendBaseController
         ];
 
         return view($this->base_view . 'canceledSessions', ['data' => array_merge($this->data, $data)]);
+    }
+
+    public function getSessionRules() {
+        return [
+            'title_fr' => 'required',
+            'desc_fr'  => 'required',
+            'objectives_fr' => 'required',
+            'link'  => 'required',
+            'g_link'  => 'nullable',
+            'date' => 'required|date',
+            'teacher_id' => 'required|numeric',
+            'module_id' => 'required|numeric',
+            'period_id' => 'required',
+            'study_year_id' => 'required|numeric'
+        ];
+    }
+
+    public function getSessionUpdateRules() {
+        return [
+            'title_fr' => 'required',
+            'desc_fr'  => 'required',
+            'objectives_fr' => 'required',
+            'link'  => 'required',
+            'g_link'  => 'nullable',
+            'teacher_id' => 'required|numeric',
+            'module_id' => 'required|numeric',
+            'study_year_id' => 'required|numeric'
+        ];
     }
 }
