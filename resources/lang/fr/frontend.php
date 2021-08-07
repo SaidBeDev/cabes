@@ -16,6 +16,7 @@ return [
     'confirm_password' => "Confirmer le mot de passe",
     'change_password' => "Changer le mot de passe",
     'tel' => "N° Téléphone",
+    'phone' => "Téléphone",
     'gender' => "Genre",
     'male' => "Mâle",
     'female' => "Femelle",
@@ -73,7 +74,7 @@ return [
     'how_m' => "Combien?",
     'enrolled' => "Inscrit",
     'enrolled_nb' => "Participants",
-    'famous' => "Populaires",
+    'famous' => "favoris",
     'recomended' => "recommandés",
     'planned' => "programmées",
     'subject' => "Sujet",
@@ -165,6 +166,8 @@ return [
     'session_link' => "Lien de Meeting",
     'send' => "Envoyer",
     'send_link' => "Envoyer le lien",
+    'log_now' => "Connectez-vous Maintenant",
+    'reg_now' => "Inscrivez-vous Maintenant",
 
 
     // Days

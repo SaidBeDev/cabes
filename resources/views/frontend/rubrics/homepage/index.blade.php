@@ -10,13 +10,13 @@
 					<div class="row align-items-center">
 						<div class="col-lg-6 col-md-6 col-sm-12">
 							<div class="banner-search-2 transparent">
-								<h1 class="big-header-capt cl_2 mb-2 f_2">L'expérience d'apprentissage rendue facile, sociale et interactive</h1>
-								<p>Study any topic, anytime. Choose from thousands of expert-led courses now.</p>
+								<h1 class="big-header-capt cl_2 mb-2 f_2">Se former à distance, une autre façon de goûter au plaisir d'apprendre</h1>
+								<p>Choisis ton cours, ton prof préféré et travaille à ton aise!</p>
 								<div class="mt-4">
 									@if (empty(Auth::user()))
-										<a href="{{ route('auth.registerForm') }}" class="btn btn-modern dark">Inscrivez-vous Maintenant<span><i class="ti-arrow-right"></i></span></a>
+										<a href="{{ route('auth.registerForm') }}" class="btn btn-modern dark">{{ trans('frontend.reg_now') }}<span><i class="ti-arrow-right"></i></span></a>
 									@else
-										<a href="{{ route('auth.loginForm') }}" class="btn btn-modern dark">Connectez-vous Maintenant<span><i class="ti-arrow-right"></i></span></a>
+										<a href="{{ route('auth.loginForm') }}" class="btn btn-modern dark">{{ trans('frontend.log_now') }}<span><i class="ti-arrow-right"></i></span></a>
 									@endif
 								</div>
 							</div>
@@ -41,11 +41,11 @@
 						<div class="col-lg-4 col-md-4 col-sm-12">
 							<div class="trips">
 								<div class="trips_icons">
-									<i class="ti-video-camera"></i>
+									<i class="fas fa-chalkboard-teacher"></i>
 								</div>
 								<div class="trips_detail">
-									<h4>100,000 online courses</h4>
-									<p>Nor again is there anyone who loves or pursues or desires</p>
+									<h4>Formateurs qualifiés</h4>
+									<p>Un accompagnement continu de nos élèves par des formateurs certifiés</p>
 								</div>
 							</div>
 						</div>
@@ -53,11 +53,11 @@
 						<div class="col-lg-4 col-md-4 col-sm-12">
 							<div class="trips">
 								<div class="trips_icons">
-									<i class="ti-medall"></i>
+									<i class="fas fa-book"></i>
 								</div>
 								<div class="trips_detail">
-									<h4>Expert instruction</h4>
-									<p>Nam libero tempore, cum soluta and nobis est eligendi optio</p>
+									<h4>Contenu riche</h4>
+									<p>Un contenu pédagogique riche, varié et conforme aux programmes scolaires</p>
 								</div>
 							</div>
 						</div>
@@ -65,11 +65,11 @@
 						<div class="col-lg-4 col-md-4 col-sm-12">
 							<div class="trips none">
 								<div class="trips_icons">
-									<i class="ti-infinite"></i>
+									<i class="fas fa-graduation-cap"></i>
 								</div>
 								<div class="trips_detail">
-									<h4>Lifetime access</h4>
-									<p>These cases are perfectly simple and easy to distinguish</p>
+									<h4>Formations pratiques</h4>
+									<p>Des formations pratiques pour développer les compétences de nos  apprenants</p>
 								</div>
 							</div>
 						</div>

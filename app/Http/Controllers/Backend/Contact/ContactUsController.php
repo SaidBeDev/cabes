@@ -41,7 +41,7 @@ class ContactUsController extends BackendBaseController
         ];
 
         $data = [
-            'list_contacts' => $this->repository->orderBy('contact_type_id')->all(),
+            'list_contacts' => $this->repository->orderBy('contact_type_id')->findWhere(['add_homepage' => 1])->all(),
             'contact_types' => $this->repositories['ContactTypesRepository']->all()
         ];
 
@@ -60,8 +60,7 @@ class ContactUsController extends BackendBaseController
         ];
 
         $data = [
-            'contact_types' => $this->repositories['ContactTypesRepository']->all(),
-            'validator'     => jsValidator::make($this->getContactRules())
+            'contact_types' => $this->repositories['ContactTypesRepository']->all()
         ];
 
         return view($this->base_view . 'create', ['data' => array_merge($this->data, $data)]);
@@ -76,11 +75,28 @@ class ContactUsController extends BackendBaseController
     public function store(Request $request)
     {
 
-        $newContact = $request->validate($this->getContactRules());
+        $contact = $request->validate($this->getContactRules($request));
 
-        $this->repository->create($newContact);
+        $contact['add_homepage'] = 1;
 
-        return redirect()->route('backend.contact.index')->with(['success' => true,'message' => trans('notifications.contact_added')]);
+        $res = $this->repository->create($contact);
+
+        if ($res) {
+            $response = [
+                'success' => true,
+                'message' => trans('notifications.contact_added')
+            ];
+
+
+        }else {
+            $response = [
+                'success' => false,
+                'message' => trans('notifications.error_occured')
+            ];
+        }
+
+        return redirect()->route('backend.contact.index')->with($response);
+
     }
 
     /**
@@ -108,8 +124,7 @@ class ContactUsController extends BackendBaseController
 
         $data = [
             'contact'       => $this->repository->find($id),
-            'contact_types' => $this->repositories['ContactTypesRepository']->all(),
-            'validator'     => jsValidator::make($this->getContactUpdateRules())
+            'contact_types' => $this->repositories['ContactTypesRepository']->all()
         ];
 
         return view($this->base_view . 'edit', ['data' => array_merge($this->data, $data)]);
@@ -147,10 +162,22 @@ class ContactUsController extends BackendBaseController
         return response()->json(['success' => true,'message' => trans('notifications.contact_deleted')]);
     }
 
-    public function getContactRules() {
+    public function getContactRules($req) {
+        $str = "required";
+        $type = $this->repositories['ContactTypesRepository']->find($req->contact_type_id)->name;
+
+        if (in_array($type, ['facebook', 'linkedin', 'youtube', 'twitter'])) {
+            $str = "required|link";
+        }
+
+        if ($type == "email") {
+            $str = "required|email";
+        }
+
         return [
-            'content' => 'required',
+            'content' => $str,
             'contact_type_id' => 'required',
+
         ];
     }
     public function getContactUpdateRules() {

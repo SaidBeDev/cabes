@@ -56,12 +56,3 @@
     </div>
 @endsection
 
-@section('scripts')
-    {!! $data['validator']->selector('form') !!}
-
-    <script>
-        $(document).ready(function() {
-
-        });
-    </script>
-@endsection

@@ -3,7 +3,10 @@
 
 @section('content')
 <div class="main-card mb-3 card">
-    <div class="card-header">Liste des Contactes</div>
+    <div class="card-header d-block pt-3">
+        <i class="fa fa-cogs"></i> Liste des Contactes
+        <a href="{{ route('backend.contact.create') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Ajouter</a>
+    </div>
     <div class="table-responsive">
         <table class="align-middle mb-0 table table-borderless table-striped table-hover">
             <thead>
@@ -30,7 +33,7 @@
                         </td>
                         <td class="text-center">
                             <a href="{{ route('backend.contact.edit', ['id' => $contact->id]) }}" class="btn btn-success mb-md-1"><i class="fas fa-pen"></i></a>
-                            {{-- <a href="#" class="btn btn-danger delete" data-contactId="{{ $contact->id }}"><i class="fa fa-trash-alt"></i></a> --}}
+                            <a href="#" class="btn btn-danger delete" data-contactId="{{ $contact->id }}"><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
                 @endforeach
@@ -46,7 +49,7 @@
 
 @section('scripts')
     @include('frontend._partials.notif')
-{{--
+
     <script>
         $(document).ready(function() {
             /* Delete a box confirmation */
@@ -66,8 +69,8 @@
 
                     // Ajax requests
                     $.ajax({
-                        url: "{{ route('admin.contacts.destroy', ['id' => 'codeX']) }}".replace('codeX', contactId),
-                        method: 'DELETE',
+                        url: "{{ route('backend.contact.destroy', ['id' => 'codeX']) }}".replace('codeX', contactId),
+                        method: 'post',
                         data: {
                             _token: '{{ csrf_token() }}'
                         }
@@ -95,5 +98,5 @@
                 }
             });
         });
-    </script>--}}
+    </script>
 @endsection

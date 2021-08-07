@@ -27,5 +27,8 @@ class ViewServiceProvider extends ServiceProvider
         View::composer(
             'frontend.layouts.header', 'App\Http\Composers\HeaderComposer'
         );
+        View::composer(
+            'frontend.layouts.footer', 'App\Http\Composers\FooterComposer'
+        );
     }
 }

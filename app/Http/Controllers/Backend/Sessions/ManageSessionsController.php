@@ -143,7 +143,7 @@ class ManageSessionsController extends BackendBaseController
     }
 
     /**
-     *
+     * Detail of session
      */
     public function show($id) {
         $data = [

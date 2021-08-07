@@ -115,9 +115,13 @@ Route::group([
         Route::namespace('Contact')->name('contact.')->prefix(trans('routes.contact'))->group(function() {
             Route::get('/', 'ContactUsController@index')->name('index');
 
-            Route::get('/{id}/edit', 'ContactUsController@edit')->name('edit');
+            Route::get('/create', 'ContactUsController@create')->name('create');
+            Route::post('/store', 'ContactUsController@store')->name('store');
 
+            Route::get('/{id}/edit', 'ContactUsController@edit')->name('edit');
             Route::put('/{id}/update', 'ContactUsController@update')->name('update');
+
+            Route::post('/{id}/destroy', 'ContactUsController@destroy')->name('destroy');
 
         });
 
