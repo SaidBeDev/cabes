@@ -338,7 +338,7 @@ class MngSessionsController extends FrontendBaseController
         elseif (Auth::user()->profile_type->name == "student") {
             $list_sessions = Auth::user()->student->sessions->filter(function($session) {
                 return $session->is_completed == 1;
-            });
+            })->groupBy('id');
         }
 
 
@@ -380,7 +380,7 @@ class MngSessionsController extends FrontendBaseController
         }elseif (Auth::user()->profile_type->name == "student") {
             $list_sessions = Auth::user()->student->sessions->filter(function($session) {
                 return $session->is_canceled == 1;
-            });
+            })->groupBy('id');
         }
 
         $cancel_pen  = (int)$this->repositories['ConfigsRepository']->findWhere(['name' => 'session_cancel_penality'])->first()->content;

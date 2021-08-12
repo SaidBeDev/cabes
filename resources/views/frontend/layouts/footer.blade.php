@@ -31,7 +31,7 @@
                         </ul>
                     </div>
                 </div>
-
+{{--
                 <div class="col-lg-2 col-md-3">
                     <div class="footer-widget">
                         <h4 class="widget-title">Lien utiles</h4>
@@ -41,7 +41,7 @@
                             <li><a href="#">Faqs</a></li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
         </div>
