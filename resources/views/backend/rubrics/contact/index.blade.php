@@ -5,7 +5,7 @@
 <div class="main-card mb-3 card">
     <div class="card-header d-block pt-3">
         <i class="fa fa-cogs"></i> Liste des Contactes
-        <a href="{{ route('backend.contact.create') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Ajouter</a>
+       {{--  <a href="{{ route('backend.contact.create') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Ajouter</a> --}}
     </div>
     <div class="table-responsive">
         <table class="align-middle mb-0 table table-borderless table-striped table-hover">

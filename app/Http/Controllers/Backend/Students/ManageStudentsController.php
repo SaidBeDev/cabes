@@ -119,7 +119,7 @@ class ManageStudentsController extends BackendBaseController
 
                 $response = [
                     'success' => true,
-                    'message' => trans('notifications.student_profile_updated')
+                    'message' => trans('notifications.profile_updated')
                 ];
 
                 return redirect()->route('backend.students.index')->with($response);

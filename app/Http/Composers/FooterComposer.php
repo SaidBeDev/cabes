@@ -35,8 +35,10 @@ class FooterComposer
     public function compose(View $view)
     {
         $menu = [
-            'social_accounts' => $this->contacts->all()->filter(function ($contact) {
+            'social_accounts' => $this->contacts->findWhere(['add_homepage' => true])->filter(function ($contact) {
                 return in_array($contact->contact_type->name, ['facebook', 'twitter', 'instagram', 'linkedin', 'youtube']);
+            })->sortBy(function($item){
+                return array_search($item->contact_type->name, ['facebook', 'twitter', 'linkedin', 'youtube', 'instagram']);
             })
         ];
 

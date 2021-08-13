@@ -86,7 +86,7 @@ class HomepageController extends FrontendBaseController
                 return $module->teachers->count();
             }, SORT_REGULAR, true)->filter(function($module) {
                 return $module->teachers->count() != 0;
-            })
+            }),
         ];
 
         return view($this->base_view . 'index', ['data' => array_merge($this->data, $data)]);

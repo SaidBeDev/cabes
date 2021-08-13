@@ -70,7 +70,7 @@
                                 <p class="fs-17">{{ $user->teacher->desc }}</p>
 
                                 @if (!empty($user->teacher->portfolio))
-                                    <h4 class="mt-3">{{ trans('frontend.port_link') }}</h4>
+                                    <h4 class="edu_title mt-3">{{ trans('frontend.port_link') }}</h4>
                                     <a href="{{ $user->teacher->portfolio }}" class="btn btn-info p-2"><i class="fab fa-google"></i></a>
                                 @endif
                             </div>

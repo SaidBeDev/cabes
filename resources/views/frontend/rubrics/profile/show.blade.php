@@ -108,7 +108,7 @@
         </div>
 
         @if ($user->profile_type->name == "teacher")
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-md-12">
                     <div class="dashboard_container">
                         <div class="dashboard_container_header">

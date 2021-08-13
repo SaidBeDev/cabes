@@ -379,6 +379,7 @@ footer.skin-dark-footer ul.footer-bottom-social li a
     color: #fff;
 }
 .footer-add p{
+    text-align: justify;
     font-size: 16px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
