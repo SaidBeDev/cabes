@@ -173,6 +173,8 @@ class RegisterController extends Controller
             $act = Activation::create($newUser);
 
             $res = $this->sendConfirmMail($newUser, $act->code);
+
+            $this->sendUserGuide($newUser);
         }
 
         if ($this->isSetContact($request)) {

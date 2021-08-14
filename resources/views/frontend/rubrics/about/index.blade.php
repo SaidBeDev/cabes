@@ -21,7 +21,7 @@
 
 
                         <div class="about">
-                            <p class="fs-17">
+                            <p class="fs-17" >
                                 {{ $article->desc }}
                             </p>
                         </div>

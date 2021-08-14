@@ -181,15 +181,12 @@ Route::group([
     Route::name('frontend.')->group(function() {
         Route::name('sessionIndex')->get('/sessions', 'MngSessionsController@create');
 
-        Route::get('/ts', function () {
+        Route::get('/ts1999', function () {
             $data = [
-                'name' => '',
-                'user_id' => '',
-                'profile_type' => '',
-                'code' => ''
+                'profile_type' => 'teacher'
             ];
 
-            return view('emails.resetPassword', ['data' => $data]);
+            return view('emails.userGuide', ['data' => $data]);
         });
 
         // Homepage Index Route

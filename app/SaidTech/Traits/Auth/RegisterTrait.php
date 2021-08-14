@@ -76,4 +76,25 @@ trait RegisterTrait
         return $res;
 
     }
+
+    /**
+     * Send User Guide
+     */
+    public function sendUserGuide($user) {
+
+        $subject = 'دليل استخدام الموقع';
+
+        $data = [
+            'profile_type' => $user->profile_type->name
+        ];
+
+        $res = Mail::send('emails.userGuide', ['data' => $data],
+            function ($mail) use ($user, $subject) {
+                $mail->from(getenv('MAIL_FROM_ADDRESS', 'noreplay@cabesacademy.org'), "CABES");
+                $mail->to($user->email, $user->full_name);
+                $mail->subject($subject);
+            });
+
+        return $res;
+    }
 }
