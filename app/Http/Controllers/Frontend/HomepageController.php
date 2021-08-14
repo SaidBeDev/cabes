@@ -54,23 +54,25 @@ class HomepageController extends FrontendBaseController
     }
 
     public function index() {
-       /*  $m = [
-
+     /*  $m = [
+           'color' => '',
+           'bg_color' => '',
+           'image' => "ita.png"
         ];
 
         $trans = [
             'fr' => [
-                'name' => "5e année universitaire"
+                'name' => "Italien"
             ],
             'ar' => [
-                'name' => "السنة الخامسة جامعي"
+                'name' => "لغة إيطالية"
             ]
         ];
 
-        $res = $this->repositories['stdYearRepository']->create(array_merge($m, $trans));
+        $res = $this->repositories['ModulesRepository']->create(array_merge($m, $trans));
 
-        dd($res);
- */
+        dd($res); */
+
         $data = [
             'list_teachers' => $this->repositories['UsersRepository']->whereHas('profile_type', function(Builder $query){
                 $query->where('name', '=', 'teacher');

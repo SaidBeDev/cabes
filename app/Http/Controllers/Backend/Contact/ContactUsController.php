@@ -166,8 +166,8 @@ class ContactUsController extends BackendBaseController
         $str = "required";
         $type = $this->repositories['ContactTypesRepository']->find($req->contact_type_id)->name;
 
-        if (in_array($type, ['facebook', 'linkedin', 'youtube', 'twitter'])) {
-            $str = "required|link";
+        if (in_array($type, ['facebook', 'linkedin', 'instagram', 'youtube', 'twitter'])) {
+            $str = "required|url";
         }
 
         if ($type == "email") {

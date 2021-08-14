@@ -33,7 +33,7 @@
                         </td>
                         <td class="text-center">
                             <a href="{{ route('backend.contact.edit', ['id' => $contact->id]) }}" class="btn btn-success mb-md-1"><i class="fas fa-pen"></i></a>
-                            <a href="#" class="btn btn-danger delete" data-contactId="{{ $contact->id }}"><i class="fas fa-trash-alt"></i></a>
+                           {{--  <a href="#" class="btn btn-danger delete" data-contactId="{{ $contact->id }}"><i class="fas fa-trash-alt"></i></a> --}}
                         </td>
                     </tr>
                 @endforeach
