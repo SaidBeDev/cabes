@@ -48,7 +48,9 @@ class TeachersController extends FrontendBaseController
         $data = [
             'list_teachers' => $this->repositories['UsersRepository']->whereHas('profile_type', function(Builder $query){
                 $query->where('name', '=', 'teacher');
-            })->findWhere(['is_blocked' => 0, 'is_checked' => 1])->all(),
+            })->whereHas('teacher', function(Builder $query){
+                $query->where('is_checked', '=', 1);
+            })->findWhere(['is_blocked' => 0])->all(),
             'title' => trans('frontend.find_tutor')
         ];
 
