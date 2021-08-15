@@ -48,7 +48,7 @@ class TeachersController extends FrontendBaseController
         $data = [
             'list_teachers' => $this->repositories['UsersRepository']->whereHas('profile_type', function(Builder $query){
                 $query->where('name', '=', 'teacher');
-            })->all(),
+            })->findWhere(['is_blocked' => 0, 'is_checked' => 1])->all(),
             'title' => trans('frontend.find_tutor')
         ];
 
@@ -63,6 +63,16 @@ class TeachersController extends FrontendBaseController
             'list_periods' => $this->repositories['PeriodsRepository']->all()
         ];
 
+        if ($data['user']->is_blocked && $data['user']->is_checked == 0) {
+
+            $response = [
+                'success' => false,
+                'message' => trans('notifications.account_blocked')
+            ];
+
+            return redirect()->back()->whith($response);
+        }
+
         return view($this->base_view . 'show', ['data' => array_merge($this->data, $data)]);
     }
 
@@ -76,7 +86,10 @@ class TeachersController extends FrontendBaseController
         $list_teachers = [];
 
         foreach ($module->teachers as $teacher) {
-            array_push($list_teachers, $teacher->user);
+            if ($teacher->user->is_blocked == 0 && $teacher->is_checked == 1) {
+                array_push($list_teachers, $teacher->user);
+            }
+
         }
 
         $data = [
@@ -96,7 +109,9 @@ class TeachersController extends FrontendBaseController
         $list_teachers = [];
 
         foreach ($year->teachers as $teacher) {
-            array_push($list_teachers, $teacher->user);
+            if ($teacher->user->is_blocked == 0 && $teacher->is_checked == 1) {
+                array_push($list_teachers, $teacher->user);
+            }
         }
 
 

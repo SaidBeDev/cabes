@@ -76,7 +76,7 @@ class HomepageController extends FrontendBaseController
         $data = [
             'list_teachers' => $this->repositories['UsersRepository']->whereHas('profile_type', function(Builder $query){
                 $query->where('name', '=', 'teacher');
-            })->all(),
+            })->findWhere(['is_blocked' => 0, 'is_checked' => 1])->all(),
             'list_sessions' => $this->repositories['SessionRepository']->orderBy('date', 'DESC')->findWhere(['is_canceled' => 0, 'is_completed' => 0])->filter(function($session) {
 
                 $d1 =  Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->periods->first()->hour_from);
