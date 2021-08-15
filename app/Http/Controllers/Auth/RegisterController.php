@@ -429,11 +429,16 @@ class RegisterController extends Controller
 
     public function getTeacherRules($request) {
         return [
-            'desc'       => Rule::requiredIf($request->profile_type_id == 2),
+            'desc'       => 'nullable',
+            'diploma'    => 'nullable',
+            'experience' => 'nullable',
+            'video_link' => 'nullable',
+            'portfolio'  => 'nullable'
+            /* 'desc'       => Rule::requiredIf($request->profile_type_id == 2),
             'diploma'    => Rule::requiredIf($request->profile_type_id == 2),
             'experience' => Rule::requiredIf($request->profile_type_id == 2),
             'video_link' => Rule::requiredIf($request->profile_type_id == 2),
-            'portfolio'  => Rule::requiredIf($request->profile_type_id == 2)
+            'portfolio'  => Rule::requiredIf($request->profile_type_id == 2) */
         ];
     }
 
@@ -445,11 +450,16 @@ class RegisterController extends Controller
 
     public function getTeacherRulesJs() {
         return [
-            'desc'       => "nullable|required_if:profile_type_id,==,2",
+            'desc'       => "nullable",
+            'diploma'    => "nullable",
+            'experience' => "nullable",
+            'video_link' => "nullable",
+            'portfolio'  => "nullable"
+            /* 'desc'       => "nullable|required_if:profile_type_id,==,2",
             'diploma'    => "nullable|required_if:profile_type_id,==,2",
             'experience' => "nullable|required_if:profile_type_id,==,2",
             'video_link' => "nullable|required_if:profile_type_id,==,2",
-            'portfolio'  => "nullable|required_if:profile_type_id,==,2"
+            'portfolio'  => "nullable|required_if:profile_type_id,==,2" */
         ];
     }
 }
