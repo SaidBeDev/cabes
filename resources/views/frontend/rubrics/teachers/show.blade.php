@@ -84,7 +84,7 @@
                 @if (!empty($user->teacher->video_link))
                     <div>
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe itemprop="video" src={{ str_replace('watch?v=', 'embed/', $user->teacher->video_link) }} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe itemprop="video" src={{ 'https://www.youtube.com/embed/' . $user->teacher->video_link }} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                     </div>
                 @endif

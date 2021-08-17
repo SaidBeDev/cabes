@@ -2,40 +2,33 @@
 
 namespace App\Http\Controllers\Backend\Teachers;
 
-use App;
-use Sentinel;
+use App\Sector;
+
 use jsValidator;
-use \Carbon\Carbon;
-use LaravelLocalization;
-
-use Illuminate\Support\Arr;
-
-
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Spatie\OpeningHours\OpeningHours;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Validator;
 
-use Illuminate\Foundation\Auth\RegistersUsers;
+
+use App\SaidTech\Traits\Auth\RegisterTrait;
+
+use App\SaidTech\Traits\Data\avatarsTrait as Avatar;
 use App\Http\Controllers\Backend\BackendBaseController;
-
 use App\SaidTech\Repositories\UsersRepository\UserRepository;
 use App\SaidTech\Repositories\DairasRepository\DairaRepository;
 use App\SaidTech\Repositories\ConfigsRepository\ConfigRepository;
 use App\SaidTech\Repositories\ModulesRepository\ModuleRepository;
 use App\SaidTech\Repositories\PeriodsRepository\PeriodRepository;
 use App\SaidTech\Repositories\WilayasRepository\WilayaRepository;
-
 use  App\SaidTech\Traits\Data\businessHoursTrait as businessHours;
-use App\SaidTech\Repositories\SessionsRepository\SessionRepository;
 
+use App\SaidTech\Repositories\SessionsRepository\SessionRepository;
 use App\SaidTech\Repositories\TeachersRepository\TeacherRepository;
+use App\SaidTech\Repositories\StudyYearsRepository\StudyYearRepository;
 use App\SaidTech\Repositories\ProfileTypesRepository\ProfileTypeRepository;
 
 class ManageTeachersController extends BackendBaseController
 {
-    use businessHours;
+    use businessHours, RegisterTrait, Avatar;
 
     /**
      * @var TeacherRepository
@@ -51,6 +44,7 @@ class ManageTeachersController extends BackendBaseController
         WilayaRepository $wilayaRepository,
         ConfigRepository $configRepository,
         ModuleRepository $moduleRepository,
+        StudyYearRepository $studyYearsRepository,
         SessionRepository $sessionRepository,
         PeriodRepository $periodsRepository
     )
@@ -62,6 +56,7 @@ class ManageTeachersController extends BackendBaseController
         $this->repositories['WilayasRepository'] = $wilayaRepository;
         $this->repositories['ConfigsRepository'] = $configRepository;
         $this->repositories['ModulesRepository'] = $moduleRepository;
+        $this->repositories['StudyYearsRepository'] = $studyYearsRepository;
         $this->repositories['SessionRepository'] = $sessionRepository;
         $this->repositories['PeriodsRepository'] = $periodsRepository;
 
@@ -101,7 +96,20 @@ class ManageTeachersController extends BackendBaseController
         $data = [
             'user' => $user,
             'profile_types' => $this->repositories['ProfileTypesRepository']->all(),
-            'list_modules' => $this->repositories['ModulesRepository']->all(),
+            'list_modules' => $this->repositories['ModulesRepository']->all()->filter(function($module) {
+                return !in_array($module->translate('fr')->slug, ['formations-universitaires', 'formations-professionnelles']);
+            }),
+            'spec_modules' => $this->repositories['ModulesRepository']->all()->filter(function($module) {
+                return in_array($module->translate('fr')->slug, ['formations-universitaires', 'formations-professionnelles']);
+            }),
+            'spec_years' => $this->repositories['StudyYearsRepository']->all()->filter(function($module) {
+                return in_array($module->translate('fr')->slug, ['formations-professionnelles']);
+            }),
+            'study_years' => $this->repositories['StudyYearsRepository']->all()->filter(function($module) {
+                return !in_array($module->translate('fr')->slug, ['formations-professionnelles']);
+            }),
+            'list_sectors' => Sector::all(),
+            'list_avatars' => $this->getAvatars(),
             'list_periods' => $this->repositories['PeriodsRepository']->all(),
             'list_dairas' => $this->repositories['DairasRepository']->all(),
             'validator' => jsValidator::make(array_merge($this->getUsersRules(), $this->getTeacherRules()))
@@ -142,11 +150,15 @@ class ManageTeachersController extends BackendBaseController
 
                 $credentials = $request->validate($this->getTeacherRules());
 
-                $credentials = $request->except(['module_id']);
+                $teacher->desc = $request->desc;
+                $teacher->diploma = $request->diploma;
+                $teacher->experience = $request->experience;
+                $teacher->video_link = $request->video_link;
+                $teacher->portfolio = $request->portfolio;
 
+                $teacher->save();
 
-                $this->repository->update($credentials, $profileId);
-
+                // Modules
                 if (!empty($teacher->modules)) {
                    for ($i = 0; $i < count($teacher->modules); $i++) {
                         $teacher->modules()->detach();
@@ -157,6 +169,28 @@ class ManageTeachersController extends BackendBaseController
                 for ($i = 0; $i < count($request->module_id); $i++) {
                     $teacher->modules()->attach($request->module_id[$i]);
                 }
+
+                 // Sectors
+                 if (!empty($teacher->sectors)) {
+                    for ($i = 0; $i < count($teacher->sectors); $i++) {
+                        $teacher->sectors()->detach();
+                    }
+                 }
+
+                 for ($i = 0; $i < count($request->sector); $i++) {
+                     $teacher->sectors()->attach($request->sector[$i]);
+                 }
+
+                // Teaching Years
+                if (!empty($teacher->teaching_years)) {
+                    for ($i = 0; $i < count($teacher->teaching_years); $i++) {
+                         $teacher->teaching_years()->detach();
+                     }
+                 }
+
+                 for ($i = 0; $i < count($request->teaching_years); $i++) {
+                     $teacher->teaching_years()->attach($request->teaching_years[$i]);
+                 }
 
                 $response = [
                     'success' => true,
@@ -392,8 +426,6 @@ class ManageTeachersController extends BackendBaseController
     public function getUsersRules() {
         return [
             'full_name'       => 'required',
-            /* 'email'           => 'required|email|unique:users',
-            'password'        => 'string|min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x]).*$/', */
             'tel'             => 'required',
             'address'         => 'required',
             'profile_type_id' => 'required',
@@ -404,6 +436,10 @@ class ManageTeachersController extends BackendBaseController
     public function getTeacherRules() {
         return [
             'desc' => 'nullable',
+            'diploma' => "nullable",
+            'experience' => "nullable",
+            'video_link' => "nullable",
+            'portfolio' => "nullable"
         ];
     }
 }

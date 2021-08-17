@@ -67,11 +67,12 @@ $user = $data['user'];
 
                 <div class="col-md-4 mb-3">
                     <label for="validationCustom03" style="display: block">Ville/Wilaya</label>
-                    <select name="daira_id" class="daira-select form-control selectpicker" data-live-search="true"  data-style="btn-info" data-width="auto">
-                        @foreach ($data['list_wilayas'] as $wilaya)
-                            <optgroup label="{{ $wilaya->name }}">
-                                @foreach ($wilaya->dairas as $daira)
-                                    <option value="{{ $daira->id }}" {{ $user->daira_id == $daira->id ? 'selected' : '' }}>{{ $daira->name }}</option>
+
+                    <select name="commune_id" class="daira-select form-control selectpicker" data-live-search="true" data-width="auto">
+                        @foreach ($data['list_dairas'] as $daira)
+                            <optgroup label="{{ $daira->name }}">
+                                @foreach ($daira->communes as $commune)
+                                    <option value="{{ $commune->id }}" {{ (!empty($user->commune->id) and $user->commune->id == $commune->id) ? 'selected' : '' }}>{{ $commune->name }}</option>
                                 @endforeach
                             </optgroup>
                         @endforeach
@@ -97,11 +98,54 @@ $user = $data['user'];
                     <textarea name="desc" class="form-control" rows="5">{{ $user->teacher->desc }}</textarea>
                 </div>
 
+                <div class="form-group col-md-6 teacher">
+                    <label for="">{{ trans('frontend.diploma') }}</label>
+                    <input type="text" name="diploma" class="form-control" value="{{ $user->teacher->diploma }}">
+                </div>
+
                 <div class="col-md-4 mb-3">
                     <label for="validationCustom01" style="display: block">Module</label>
                     <select name="module_id[]" class="module-select form-control selectpicker" multiple data-style="btn-info" data-width="auto">
+                        @foreach ($data['spec_modules'] as $module)
+                            <option style="font-weight: bold" value="{{ $module->id }}" {{ !empty($user->teacher->modules) ? ($user->teacher->modules->contains($module) ? 'selected' : '') : 1 }}>{{ $module->name }}</option>
+                        @endforeach
                         @foreach ($data['list_modules'] as $module)
                             <option value="{{ $module->id }}" {{ !empty($user->teacher->modules) ? ($user->teacher->modules->contains($module) ? 'selected' : '') : 1 }}>{{ $module->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group col-md-6 teacher">
+                    <label for="" class="d-block">{{ trans('frontend.teaching_years'). ' '. trans('frontend.multiple') }}</label>
+                    <select name="teaching_years[]" class="module-select form-control selectpicker" multiple data-width="auto" required>
+                        @foreach ($data['spec_years'] as $year)
+                            <option style="font-weight: bold" value="{{ $year->id }}" {{ !empty($user->teacher->teaching_years) ? ($user->teacher->teaching_years->contains($year) ? 'selected' : '') : 1 }}>{{ $year->name }}</option>
+                        @endforeach
+                        @foreach ($data['study_years'] as $year)
+                            <option value="{{ $year->id }}" {{ !empty($user->teacher->teaching_years) ? ($user->teacher->teaching_years->contains($year) ? 'selected' : '') : 1 }}>{{ $year->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group col-md-6 teacher">
+                    <label for="">{{ trans('frontend.experience_nb') }}</label>
+                    <input type="number" name="experience" class="form-control" value="{{ $user->teacher->experience }}">
+                </div>
+                <div class="form-group col-md-6 teacher">
+                    <label for="">{{ trans('frontend.present_video') }}</label>
+                    <input type="text" name="video_link" class="form-control" value="{{ $user->teacher->video_link }}">
+                </div>
+
+                <div class="form-group col-md-6 teacher">
+                    <label for="">{{ trans('frontend.port_link'). ' '. trans('frontend.optional') }}</label>
+                    <input type="text" name="portfolio" class="form-control" value="{{ $user->teacher->portfolio }}">
+                </div>
+
+                <div class="form-group col-md-6 teacher">
+                    <label for="" class="d-block">{{ trans('frontend.sector'). ' '. trans('frontend.multiple') }}</label>
+                    <select name="sector[]" class="module-select form-control selectpicker" multiple data-width="auto" required>
+                        @foreach ($data['list_sectors'] as $sector)
+                            <option value="{{ $sector->id }}" {{ !empty($user->teacher->sectors) ? ($user->teacher->sectors->contains($sector) ? 'selected' : '') : 1 }}>{{ $sector->name }}</option>
                         @endforeach
                     </select>
                 </div>

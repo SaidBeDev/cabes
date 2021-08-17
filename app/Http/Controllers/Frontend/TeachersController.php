@@ -103,6 +103,7 @@ class TeachersController extends FrontendBaseController
     }
 
     public function getByYear($slug) {
+        $this->slug = $slug;
 
         $year = $this->repositories['StudyYearsRepository']->whereHas('translations', function(Builder $query) {
             $query->where('slug', $this->slug);

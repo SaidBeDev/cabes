@@ -3,27 +3,16 @@
 namespace App\Http\Controllers\Frontend\Profile;
 
 use Auth;
-use App\Module;
 use App\Sector;
-use App\Session;
-use App\Shedule;
-use App\TeacherProfile;
-use App\ModuleTranslation;
-
-use App\SessionTranslation;
-use Illuminate\Support\Arr;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 
-use Illuminate\Support\Facades\Validator;
-
 use App\SaidTech\Traits\Auth\RegisterTrait;
 use App\SaidTech\Traits\Files\UploadImageTrait as UploadImage;
 use App\SaidTech\Traits\Data\avatarsTrait;
 
-use \Cviebrock\EloquentSluggable\Services\SlugService;
 use App\Http\Controllers\Frontend\FrontendBaseController;
 use App\SaidTech\Repositories\UsersRepository\UserRepository;
 
@@ -32,7 +21,6 @@ use App\SaidTech\Repositories\ConfigsRepository\ConfigRepository;
 use App\SaidTech\Repositories\ModulesRepository\ModuleRepository;
 use App\SaidTech\Repositories\PeriodsRepository\PeriodRepository;
 use App\SaidTech\Repositories\WilayasRepository\WilayaRepository;
-use App\SaidTech\Traits\Data\businessHoursTrait as businessHours;
 use App\SaidTech\Repositories\StudentsRepository\StudentRepository;
 use App\SaidTech\Repositories\TeachersRepository\TeacherRepository;
 use App\SaidTech\Repositories\StudyYearsRepository\StudyYearRepository;
