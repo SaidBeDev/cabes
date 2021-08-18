@@ -57,7 +57,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-lg-8 col-md-6 col-sm-12">
+            <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="tab_box_info mt-4">
 
                     <div class="tab-content" id="pills-tabContent">
@@ -80,11 +80,11 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="col-lg-6 col-md-6 col-sm-12">
                 @if (!empty($user->teacher->video_link))
                     <div>
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe itemprop="video" src={{ 'https://www.youtube.com/embed/' . $user->teacher->video_link }} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="embed-responsive embed-responsive-16by9" style="height: 300px">
+                            <iframe height="500" itemprop="video" src={{ 'https://www.youtube.com/embed/' . $user->teacher->video_link }} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                     </div>
                 @endif

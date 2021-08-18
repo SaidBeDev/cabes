@@ -174,7 +174,6 @@ class RegisterController extends Controller
 
             $res = $this->sendConfirmMail($newUser, $act->code);
 
-            $this->sendUserGuide($newUser);
         }
 
         if ($this->isSetContact($request)) {
@@ -231,6 +230,8 @@ class RegisterController extends Controller
         switch($profile_type->name) {
 
             case 'student':
+
+                $this->sendUserGuide($newUser);
 
                 $credentials = $request->validate($this->getStudentRules($request));
 
