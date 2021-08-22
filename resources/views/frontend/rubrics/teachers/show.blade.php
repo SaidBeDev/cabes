@@ -24,27 +24,29 @@
                                     <li class="badge badge-light fs-10"><i class="ti-tag"></i>{{ $module->name }}</li>
                                 @endforeach
                             </ul>
-                            <div class="viewer_location mb-1"><b><i class="fas fa-certificate"></i> {{ $user->teacher->diploma }}</b></div>
+                            @if (!empty($user->teacher->diploma))
+                                <div class="viewer_location mb-1"><b><i class="fas fa-certificate"></i> {{ $user->teacher->diploma }}</b></div>
+                            @endif
                             {{-- <span class="viewer_location">{{ $user->commune->name . ', ' . $user->commune->daira->wilaya->name }}</span> --}}
                             <ul>
                                 <li><strong>{{ $user->teacher->sessions->count() }}</strong> {{ trans('menu.sessions') }}</li>
                                 <li><strong>{{ $user->total_hours }}</strong> {{ trans('frontend.teacher_hrs') }}</li>
                             </ul>
                         </div>
-                        <div class="viewer_header">
+                        {{-- <div class="viewer_header">
                             <ul class="badge_info">
                                 {{-- <li class="started"><i class="ti-rocket"></i></li>
                                 <li class="medium"><i class="ti-cup"></i></li>
                                 <li class="platinum"><i class="ti-thumb-up"></i></li>
                                 <li class="elite unlock"><i class="ti-medall"></i></li>
                                 <li class="power unlock"><i class="ti-crown"></i></li> --}}
-                                @foreach ($user->getSocialCntacts() as $contact)
+                                {{-- @foreach ($user->getSocialCntacts() as $contact)
                                     @if (!in_array($contact->contact_type->name, ['viber', 'whatsapp']))
                                         <li><a href="{{ $contact->content }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ $contact->contact_type->name }}"><i class="fab fa-{{ $contact->contact_type->icon }}"></i></a></li>
                                     @endif
                                 @endforeach
                             </ul>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

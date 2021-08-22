@@ -50,13 +50,13 @@
                                     <p>
                                         {{ $user->teacher->desc }}
                                     </p>
-                                    <ul class="social_info">
+                                    {{-- <ul class="social_info">
                                         @foreach ($user->getSocialCntacts() as $contact)
                                             @if (!in_array($contact->contact_type->name, ['viber', 'whatsapp']))
                                                 <li><a href="{{ $contact->content }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ $contact->contact_type->name }}"><i class="fab fa-{{ $contact->contact_type->icon }}"></i></a></li>
                                             @endif
                                         @endforeach
-                                    </ul>
+                                    </ul> --}}
                                 </div>
                             </div>
                         @endforeach

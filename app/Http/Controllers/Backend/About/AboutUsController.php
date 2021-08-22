@@ -58,11 +58,14 @@ class AboutUsController extends BackendBaseController
         $art = $request->validate($this->getAboutRules());
         $art = $request->except(['name_fr', 'name_ar', 'desc_fr', 'desc_ar', 'detail_fr', 'detail_ar']);
 
-        $art['image'] = "edu_2.png";
+        if (!empty($request->image)) {
 
-        $image = $this->uploadImageAndMove(request()->image, $article->image, 'about', 'abouts', 'image');
+            $art['image'] = "edu_2.png";
 
-        $art['image'] = $image;
+            $image = $this->uploadImageAndMove(request()->image, $article->image, 'about', 'abouts', 'image');
+
+            $art['image'] = $image;
+        }
 
         $translations = [
             'fr' => [

@@ -91,7 +91,7 @@ return [
 
     // Header
     'find_tutor' => "Trouver un enseignant",
-    'find_session' => "Trouver un séance",
+    'find_session' => "Trouver une séance",
     'by_module' => "Par module",
     'by_study_year' => "Par l'année d'étude",
 
