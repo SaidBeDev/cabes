@@ -11,7 +11,7 @@
 
                         <div class="alert alert-info">
                             <h4 style="color: unset"><i class="fa fa-check"></i> {{ trans('frontend.welcome_txt') }}</h4>
-                            <p style="font-size: 17px"><b><i class="fa fa-hand-paper"></i></b> {{ "S'il vous plaît confirmer votre compte en allant à votre e-mail pour terminir l'inscription." }}</p>
+                            <p style="font-size: 17px"><b><i class="fa fa-hand-paper"></i></b> {{ trans('frontend.go_email_txt') }}</p>
                         </div>
 
                         {{-- <a class="btn btn-outline-theme" href="{{ route('auth.loginForm') }}">{{ trans('frontend.login') }}</a> --}}

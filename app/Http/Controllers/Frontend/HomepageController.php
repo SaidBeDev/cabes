@@ -2,21 +2,14 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\User;
 use App\Module;
-use App\StudyYear;
 
 use Carbon\Carbon;
-
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use App;
 use Illuminate\Database\Eloquent\Builder;
+
 use App\SaidTech\Traits\Auth\RegisterTrait;
-use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
-use Cartalyst\Sentinel\Laravel\Facades\Activation;
+
 use App\Http\Controllers\Frontend\FrontendBaseController;
 use App\SaidTech\Repositories\UsersRepository\UserRepository;
 
@@ -54,24 +47,7 @@ class HomepageController extends FrontendBaseController
     }
 
     public function index() {
-     /*  $m = [
-           'color' => '',
-           'bg_color' => '',
-           'image' => "ita.png"
-        ];
 
-        $trans = [
-            'fr' => [
-                'name' => "Italien"
-            ],
-            'ar' => [
-                'name' => "لغة إيطالية"
-            ]
-        ];
-
-        $res = $this->repositories['ModulesRepository']->create(array_merge($m, $trans));
-
-        dd($res); */
 
         $data = [
             'list_teachers' => $this->repositories['UsersRepository']->whereHas('profile_type', function(Builder $query){

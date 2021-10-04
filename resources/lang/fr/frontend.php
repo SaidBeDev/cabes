@@ -110,10 +110,12 @@ return [
     'reach_us' => "Rejoins-nous",
     'need_help' => "Besoin d'aide?",
     'fill_form' => "Remplir le formulaire",
+    'navigations' => "Liens utiles",
 
     // Texts
     'welcome_txt' => "Vous avez bien été inscrit!",
     'login_txt' => "Pour vous connecter à votre compte, accédez à la page de connexion à partir d'ici",
+    'go_email_txt' => "S'il vous plaît confirmer votre compte en allant à votre e-mail pour terminir l'inscription.",
     'not_verified_tlt' => "Compte pas encore vérifié",
     'not_verified_txt' => "Veuillez patienter jusqu'à ce que l'administration approuve votre compte",
     'edit_avai_txt' => "Veuillez remplir seulement les heures pendant lesquelles vous êtes disponible",
@@ -121,6 +123,23 @@ return [
     'copyright_footer' => "Tous droits réservés",
     'contact_txt' => "Une équipe d'assistance client conviviale pour les créateurs à portée de clic.",
     'reset_pass_txt' => "Veuillez cliquer sur le bouton ci-dessous pour changer votre mot de passe",
+    'banner_tl' => "Se former à distance, une autre façon de goûter au plaisir d'apprendre",
+    'banner_txt' => "Choisis ton cours, ton prof préféré et travaille à ton aise!",
+    'about_p' => "Cabes Foundation fournit des services professionnels dans le domaine de l'éducation et la formation en se servant des moyens technologiques pour mieux atteindre ses objectifs. Parmi nos services, l'enseignement et la formation à distance qui est un projet ambitieux.",
+
+    // Features (homepage)
+    'feat_tl_1' => "Formateurs qualifiés",
+    'feat_d_1' => "Un accompagnement continu de nos élèves par des formateurs certifiés",
+    'feat_tl_2' => "Contenu riche",
+    'feat_d_2' => "Un contenu pédagogique riche, varié et conforme aux programmes scolaires",
+    'feat_tl_3' => "Formations pratiques",
+    'feat_d_3' => "Des formations pratiques pour développer les compétences de nos  apprenants",
+
+    // No content texts
+    'no_desc' => "Description indisponible",
+    'no_sessions' => "Il n'y a pas de séance",
+    'no_teachers' => "il n'y a pas d'enseignant",
+
 
     // Rules
     'auth_rule' => "Veuillez vous connecter à votre compte!",

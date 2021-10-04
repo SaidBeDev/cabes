@@ -133,7 +133,7 @@
                                             <li><i class="ti-control-forward"></i>{{ $session->teacher->user->total_hours .' '. trans('frontend.teacher_hrs') }}</li>
                                             <li><i class="ti-user"></i>{{ $session->teacher->experience .' '. trans('frontend.experience_nb') }}</li>
                                         </ul>
-                                        <p>{{ $session->teacher->desc }}</p>
+                                        <p class="fs-18">{{ $session->teacher->desc }}</p>
                                         <ul class="social_info">
                                             @foreach ($session->teacher->user->getSocialCntacts() as $contact)
                                                 <li><a href="{{ $contact->content }}" target="_blank"><i class="ti-{{ $contact->contact_type->name }}"></i></a></li>
@@ -192,13 +192,13 @@
                                             {{-- Check if user can cancel the enrollement --}}
 
                                             @if ($now->lt($d1))
-                                                <a href="#" class="btn btn-danger enroll-btn" data-action="unroll" data-isEnrolled="1" data-sessionId="{{ $session->id }}">{{ trans('frontend.unroll') }}<i class="ti-angle-right"></i></a>
+                                                <a href="#" class="btn btn-danger enroll-btn" data-action="unroll" data-isEnrolled="1" data-sessionId="{{ $session->id }}">{{ trans('frontend.unroll') }}<i class="ti-angle-left"></i></a>
                                             @else
-                                                <a href="#" class="btn btn-secondary disabled enroll-btn" >{{ trans('frontend.enrolled') }}<i class="ti-angle-right"></i></a>
+                                                <a href="#" class="btn btn-secondary disabled enroll-btn" >{{ trans('frontend.enrolled') }}<i class="ti-angle-left"></i></a>
                                             @endif
                                         @else
                                             @if ((int)$session->students->count() < (int)$session->capacity)
-                                                <a href="#" class="btn btn-theme enroll-btn" data-action="enroll" data-isEnrolled="0" data-sessionId="{{ $session->id }}">{{ trans('frontend.enroll') }}<i class="ti-angle-right"></i></a>
+                                                <a href="#" class="btn btn-theme enroll-btn" data-action="enroll" data-isEnrolled="0" data-sessionId="{{ $session->id }}">{{ trans('frontend.enroll') }}<i class="ti-angle-left"></i></a>
                                             @else
                                                 <a href="#" class="btn btn-secondary disabled enroll-btn" data-toggle="tooltip" data-placement="top" title="{{ trans('frontend.atteinted_msg') }}">{{ trans('frontend.atteinted') }}<i class="ti-angle-right"></i></a>
                                             @endif

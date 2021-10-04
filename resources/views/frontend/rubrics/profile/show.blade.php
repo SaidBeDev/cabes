@@ -56,8 +56,10 @@
                                 <div class="form-row mt-3 pl-3">
                                     <div>
                                         <h5>{{ trans('frontend.desc') }}</h5>
-                                        <p>{{ !empty($user->teacher->desc) ? $user->teacher->desc : '' }}</p>
+                                        <p>{{ !empty($user->teacher->desc) ? $user->teacher->desc : trans('frontend.no_desc') }}</p>
                                     </div>
+                                </div>
+                                <div class="form-row mt-3 pl-3">
                                     <div class="coordinates">
                                         <h5>{{ trans('frontend.coordinates') }}</h5>
                                         <ul>
@@ -226,7 +228,11 @@
             display: inline-block;
         }
         .dtl-list ul li:not(:first-child) {
-            margin-left: 10px
+            @if (app()->getLocale() == "ar")
+                margin-right: 10px;
+            @else
+                margin-left: 10px
+            @endif
         }
 
         ul.soc li{

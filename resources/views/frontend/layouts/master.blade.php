@@ -19,6 +19,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital@1&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2&display=swap" rel="stylesheet">
 
+    @if (app()->getLocale() == "ar")
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@500&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500&display=swap" rel="stylesheet">
+    @endif
+
 
     {{-- Styles --}}
 
@@ -32,8 +42,8 @@
     {!! Html::style('node_modules/noty/lib/themes/sunset.css') !!}
 
     {!! Html::style('frontend/assets/css/colors.css') !!}
-    {!! Html::style('frontend/assets/css/styles.css') !!}
-    {!! Html::style('frontend/assets/css/custom.css') !!}
+    {!! Html::style('frontend/assets/css/styles'. (app()->getLocale() == "ar" ? '-rtl' : '') .'.css') !!}
+    {!! Html::style('frontend/assets/css/custom'. (app()->getLocale() == "ar" ? '-rtl' : '') .'.css') !!}
 
     <style>
         .uc {
@@ -48,7 +58,7 @@
     @yield('styles')
 
 </head>
-<body class="purple-skin">
+<body class="purple-skin" style="direction: {{ app()->getLocale() == 'ar' ? 'rtl' : '' }}">
 
     {{-- Preloader --}}
     <div id="preloader"><div class="preloader"><span></span><span></span></div></div>

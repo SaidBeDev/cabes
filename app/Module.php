@@ -12,7 +12,7 @@ class Module extends Model
      * @var array
      */
     public $translatedAttributes = ['name', 'slug'];
-    protected $fillable = ['slug', 'color', 'bg_color', 'image'];
+    protected $fillable = ['code', 'slug', 'color', 'bg_color', 'image'];
 
     /**
      * The relations to eager load on every query.

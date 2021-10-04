@@ -59,6 +59,7 @@
 
                                     @php
                                         $days = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+                                        $daySlug = ['sat', 'sun', 'mon', 'tue', 'wed', 'thur', 'fri'];
                                     @endphp
 
                                     <div class="col-md-12">
@@ -76,7 +77,7 @@
                                             <tbody>
                                                 @for ($i = 0; $i < count($days); $i++)
                                                     <tr>
-                                                        <td class=""><b>{{ ucfirst($days[$i]) }}</b></td>
+                                                        <td class=""><b>{{ ucfirst(trans('frontend.' . $daySlug[$i])) }}</b></td>
                                                         <td>
                                                             <select name="{{ $days[$i] .'[]' }}" id="" class="selectpicker" data-width="auto" multiple>
                                                                 @foreach ($data['list_periods'] as $period)

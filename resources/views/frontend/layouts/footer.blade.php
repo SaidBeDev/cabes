@@ -13,7 +13,7 @@
                         <img src="{{ asset('frontend/images/logo0.png') }}" class="img-footer" alt="" />
                         <div class="footer-add">
                             <p>
-                                Cabes Foundation fournit des services professionnels dans le domaine de l'éducation et la formation en se servant des moyens technologiques pour mieux atteindre ses objectifs. Parmi nos services, l'enseignement et la formation à distance qui est un projet ambitieux.
+                                {{ trans('frontend.about_p') }}
                             </p>
                         </div>
 
@@ -22,7 +22,7 @@
                 <div class="col-md-3"></div>
                 <div class="col-lg-3 col-md-3">
                     <div class="footer-widget">
-                        <h4 class="widget-title">Navigations</h4>
+                        <h4 class="widget-title">{{ trans('frontend.navigations') }}</h4>
                         <ul class="footer-menu">
                             <li><a href="{{ route('frontend.about.index') }}">{{ trans('menu.about') }}</a></li>
                             <li><a href="{{ route('frontend.sessions.index') }}">{{ trans('frontend.find_session') }}</a></li>
@@ -31,17 +31,6 @@
                         </ul>
                     </div>
                 </div>
-{{--
-                <div class="col-lg-2 col-md-3">
-                    <div class="footer-widget">
-                        <h4 class="widget-title">Lien utiles</h4>
-                        <ul class="footer-menu">
-                            <li><a href="#">Documentation</a></li>
-                            <li><a href="#">Privacy</a></li>
-                            <li><a href="#">Faqs</a></li>
-                        </ul>
-                    </div>
-                </div> --}}
 
             </div>
         </div>
@@ -52,10 +41,10 @@
             <div class="row align-items-center">
 
                 <div class="col-lg-6 col-md-6">
-                    <p style="font-size: 17px;color:#bbb; text-align: center;margin:0"><strong style="color:#ddd">{{ trans('frontend.main_site') }}</strong>  © {{ now()->year }} . {{ trans('frontend.copyright_footer') }}</p>
+                    <p style="font-size: 17px;color:#bbb; text-align: center;margin:0"><strong style="color:#ddd">{{ trans('frontend.main_site') }}</strong>  ©  {{ trans('frontend.copyright_footer') }} {{ now()->year }}</p>
                 </div>
 
-                <div class="col-lg-6 col-md-6 text-right">
+                <div class="col-lg-6 col-md-6 text-left">
                     <ul class="footer-bottom-social">
                         @foreach ($menu['social_accounts'] as $contact)
                             <li><a href="{{ $contact->content }}"><i class="ti-{{ $contact->contact_type->name }}"></i></a></li>

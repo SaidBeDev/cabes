@@ -11,7 +11,7 @@
 
 
                         <h4><i class="fa fa-hand-paper"></i> {{ trans('frontend.not_verified_tlt') }}</h4>
-                        <p>{{ trans('frontend.not_verified_txt') }}</p>
+                        <p style="{{ app()->getLocale() == 'ar' ? 'text-align: unset' : '' }}">{{ trans('frontend.not_verified_txt') }}</p>
 
                     </div>
                 </div>

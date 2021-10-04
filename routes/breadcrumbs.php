@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Profile
 Breadcrumbs::for('profile', function ($trail) {
-    $trail->push(ucfirst(trans('routes.profile')), '#');
+    $trail->push(ucfirst(trans('menu.profile')), '#');
 });
 
 // Profile > Show

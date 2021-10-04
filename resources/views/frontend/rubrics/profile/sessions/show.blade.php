@@ -94,7 +94,7 @@
                                             @endif
 
                                             <div class="ed_view_link">
-                                                <a href="{{ route('frontend.sessions.show', ['slug' => $session->slug]) }}" class="btn btn-secondary enroll-btn" target="_blank">{{ trans('frontend.go_session') }}<i class="ti-angle-right"></i></a>
+                                                <a href="{{ route('frontend.sessions.show', ['slug' => $session->slug]) }}" class="btn btn-secondary enroll-btn" target="_blank">{{ trans('frontend.go_session') }}<i class="ti-angle-left"></i></a>
                                             </div>
                                         </div>
                                     </div>
