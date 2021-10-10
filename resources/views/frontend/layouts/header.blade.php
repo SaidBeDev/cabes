@@ -1,7 +1,7 @@
 
 <!-- Start Navigation -->
 <div class="header header-light head-shadow">
-    <div class="container">
+    <div class="container{{ app()->getLocale() == 'ar' ? '' : '-fluid' }}">
         <nav id="navigation" class="navigation navigation-landscape">
             <div class="nav-header">
                 <a class="nav-brand" href="{{ route('frontend.index') }}">

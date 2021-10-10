@@ -99,14 +99,25 @@
 
     <script>
         $(document).ready(function() {
+
+            $('.lang-select').selectpicker({
+                'width': '100px'
+            });
+
             $('.daira-select').selectpicker({
                 'dropupAuto': false
-            })
+            });
 
             $('button[type="submit"]').on('click', function(e) {
                 if ($('form').valid()) {
                     $('button[type="submit"]').attr('disabled', true);
                     $('form').submit();
+                }
+            });
+
+            $(window).on('resize', function() {
+                if ($(window).width() <= 1069) {
+
                 }
             });
         });

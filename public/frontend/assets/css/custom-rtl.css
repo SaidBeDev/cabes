@@ -446,6 +446,10 @@ footer.skin-dark-footer .footer-widget ul li a, footer.skin-dark-footer, footer.
 nav .dropdown.bootstrap-select {
     max-width: 100%;
 }
+/* .header .bootstrap-select>.dropdown-toggle {
+    padding: 10px 0 10px 10px !important;
+} */
+
 /* Back to top btn */
 #back2Top{
     background-color: #a434fa;
