@@ -20,13 +20,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2&display=swap" rel="stylesheet">
 
     @if (app()->getLocale() == "ar")
+        {{-- Naskh font --}}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@500&display=swap" rel="stylesheet">
 
+        {{-- Tajawal font --}}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500&display=swap" rel="stylesheet">
+
+        {{-- Cairo font --}}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
     @endif
 
 
@@ -40,6 +47,8 @@
     {{-- {!! Html::style('node_modules/fortawesome/fontawesome-free/css/all.css') !!} --}}
     {!! Html::style('node_modules/noty/lib/noty.css') !!}
     {!! Html::style('node_modules/noty/lib/themes/sunset.css') !!}
+    {!! Html::style('node_modules/flag-icon-css/css/flag-icon.min.css') !!}
+
 
     {!! Html::style('frontend/assets/css/colors.css') !!}
     {!! Html::style('frontend/assets/css/styles'. (app()->getLocale() == "ar" ? '-rtl' : '') .'.css') !!}

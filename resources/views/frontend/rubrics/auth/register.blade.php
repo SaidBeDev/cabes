@@ -87,7 +87,7 @@
                                 {{-- Gender --}}
                                 <div class="text-center">
                                     <label for="" class="d-block">{{ trans('frontend.gender') }}</label>
-                                    <div class="form-check {{ app()->getLocale() == "ar" ? 'ml-3' : 'mr-3' }}" style="display: inline-block">
+                                    <div class="form-check {{-- app()->getLocale()=="ar"?'ml-3':'mr-3' --}}" style="display: inline-block">
                                         <input class="form-check-input" type="radio" name="gender" id="exampleRadios3" value="male" checked>
                                         <label class="form-check-label" for="exampleRadios3">
                                             <i class="fa fa-male"></i>
@@ -125,7 +125,7 @@
                                 {{-- Profile Switcher --}}
                                 <div class="text-center">
                                     <label for="" class="d-block">{{ trans('frontend.account_type') }}</label>
-                                    <div class="form-check {{ app()->getLocale() == "ar" ? 'ml-3' : 'mr-3' }}" style="display: inline-block">
+                                    <div class="form-check {{ app()->getLocale()=="ar"?'ml-3':'mr-3' }}" style="display: inline-block">
                                         <input class="form-check-input" type="radio" name="profile_type_id" id="exampleRadios1" value="2" checked>
                                         <label class="form-check-label" for="exampleRadios1">
                                             <i class="fa fa-user-md"></i>
@@ -290,6 +290,12 @@
                  }
 
              });
+/*
+             $('.form-check-input').on('click', function(e) {
+                 e.preventDefault();
+             }); */
          });
      </script>
  @endsection
+
+

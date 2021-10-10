@@ -13,8 +13,8 @@
 								<h1 class="big-header-capt cl_2 mb-2 f_2">{{ trans('frontend.banner_tl') }}</h1>
 								<p class="fs-17">{{ trans('frontend.banner_txt') }}</p>
 								<div class="mt-4">
-									@if (!empty(Auth::user()))
-										<a href="{{ route('auth.registerForm') }}" class="btn btn-modern dark">{{ trans('frontend.reg_now') }}<span><i class="ti-arrow-left"></i></span></a>
+									@if (empty(Auth::user()))
+										<a href="{{ route('auth.registerForm') }}" class="btn btn-modern dark">{{ trans('frontend.reg_now') }}<span><i class="ti-arrow-{{ app()->getLocale() == 'ar' ? 'left' : 'right' }}"></i></span></a>
 									@endif
 								</div>
 							</div>

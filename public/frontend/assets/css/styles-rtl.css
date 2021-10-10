@@ -2277,7 +2277,7 @@ outline:none;
 [type="radio"]:checked,
 [type="radio"]:not(:checked) {
     position: absolute;
-    left: -9999px;
+    right: -9999px;
 }
 [type="radio"]:checked + label,
 [type="radio"]:not(:checked) + label
@@ -2944,7 +2944,7 @@ nav a:hover {
     position: absolute;
     top: 50%;
     margin-top: -14px;
-    right: 15px;
+    left: 15px;
     cursor: pointer
 }
 
@@ -4836,9 +4836,10 @@ ul.cources_facts_list li:after {
     background: rgba(218, 11, 78,0.1);
 	transition:all ease 0.4s;
     color: #da0b4e;
+    font-size: 21px;
     border-radius: 6px;
-    height: 54px;
-    padding: 0 5px 0 25px;
+    height: 65px;
+    padding: 0 5px 0 10px;
     display: flex;
     width: max-content;
     align-items: center;
@@ -4855,7 +4856,7 @@ ul.cources_facts_list li:after {
     background: #da0b4e;
     border-radius: 4px;
     color: #ffffff;
-    margin-right: 20px;
+    margin-right: 23px;
 }
 .btn.btn-modern:hover, .btn.btn-modern:focus{
 	background:#da0b4e;

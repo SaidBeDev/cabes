@@ -4823,8 +4823,9 @@ ul.cources_facts_list li:after {
     background: rgba(218, 11, 78,0.1);
 	transition:all ease 0.4s;
     color: #da0b4e;
+    font-size: 21px;
     border-radius: 6px;
-    height: 54px;
+    height: 65px;
     padding: 0 5px 0 25px;
     display: flex;
     width: max-content;
@@ -4842,7 +4843,7 @@ ul.cources_facts_list li:after {
     background: #da0b4e;
     border-radius: 4px;
     color: #ffffff;
-    margin-left: 20px;
+    margin-left: 23px;
 }
 .btn.btn-modern:hover, .btn.btn-modern:focus{
 	background:#da0b4e;
