@@ -16,6 +16,13 @@ return [
     'about' => 'à-propos-de-nous',
     'contact' => "contactez-nous",
     'reset_pass' => "réinitialiser-mot-de-passe",
-    'new_pass' => "nouveau-mot-de-passe"
+    'new_pass' => "nouveau-mot-de-passe",
+    'list' => "liste",
+    'enrolled_students' => "étudiants-inscrits",
+    'completed_sessions' => "séances-terminées",
+    'canceled_sessions' => "sessions-annulées",
+
+    'create' => "créer",
+    'edit' => "modifier",
 
 ];

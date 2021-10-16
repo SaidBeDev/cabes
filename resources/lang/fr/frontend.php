@@ -111,6 +111,8 @@ return [
     'need_help' => "Besoin d'aide?",
     'fill_form' => "Remplir le formulaire",
     'navigations' => "Liens utiles",
+    'choose_lang' => "Choisir une langue",
+    'send_conf_email' => "Confirmation d'inscription sur la plateforme Cabes",
 
     // Texts
     'welcome_txt' => "Vous avez bien été inscrit!",

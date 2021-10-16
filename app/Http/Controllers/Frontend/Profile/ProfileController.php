@@ -91,6 +91,12 @@ class ProfileController extends FrontendBaseController
 
         $user = $this->repository->find($id);
 
+        $translatedSlug = [
+            'fr' => trans('routes.edit', [], 'fr') .'/'. $user->id,
+            'ar' => trans('routes.edit', [], 'ar') .'/'. $user->id
+        ];
+
+        $this->generateRouteCustom(null, $translatedSlug);
 
         $data = [
             'uri' => "edit_profile",

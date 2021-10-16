@@ -17,10 +17,11 @@ use App\Http\Controllers\Controller;
 use App\SaidTech\Repositories\UsersRepository\UserRepository;
 
 use App\SaidTech\Traits\Auth\RegisterTrait;
+use App\SaidTech\Traits\Lang\routeTrait;
 
 class LoginController extends Controller
 {
-    use RegisterTrait;
+    use RegisterTrait, routeTrait;
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -38,6 +39,7 @@ class LoginController extends Controller
     protected $base_view = null;
     protected $title = null;
     public $data = [];
+    protected $uris = [];
 
     protected $repositories = [];
 
@@ -46,10 +48,14 @@ class LoginController extends Controller
         $this->rubric_name = $rubric_name;
         $this->rubric_uri  = trans('routes.login');
 
+        $this->generateTranslatedURL();
+
         $this->data = [
-            'title' => trans('menu.login')
+            'title' => trans('menu.login'),
+            'uris' => $this->uris
         ];
     }
+
 
     /**
      * @var UserRepository
@@ -76,6 +82,9 @@ class LoginController extends Controller
     }
 
     public function notVerified() {
+
+        $this->generateTranslatedURL('not_verified');
+
         $data = [
             'title' => trans('menu.welcome')
         ];
@@ -183,8 +192,11 @@ class LoginController extends Controller
             'email' => "required|email"
         ]);
 
+        $this->generateTranslatedURL('reset_pass');
+
         $data = [
-            'validator' => $validator
+            'validator' => $validator,
+            'uris'      => $this->uris
         ];
 
         return view($this->base_view . '.forgetPass', ['data' => array_merge($this->data, $data)]);
@@ -246,6 +258,13 @@ class LoginController extends Controller
                     'password' => 'required|string|confirmed|min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x]).*$/',
                     'code' => "required"
                 ]);
+
+                $translatedSlug = [
+                    'fr' => trans('routes.by_module', [], 'fr') .'/'. $rem->code .'/'. $user->id,
+                    'ar' => trans('routes.by_module', [], 'ar') .'/'. $rem->code .'/'. $user->id
+                ];
+
+                $this->generateRouteCustom(null, $translatedSlug);
 
                 $data = [
                     'user' => $user,

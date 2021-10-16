@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Frontend\Sessions;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Spatie\OpeningHours\OpeningHours;
-use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -65,9 +62,17 @@ class SessionsController extends FrontendBaseController
     }
 
     public function show($slug) {
+
+        $session = $this->repository->findWhere(['slug' => $slug])->first();
+
+        $uris = $this->generateRouteWithSlug(null, $session->slug);
+        dd($uris);
         $data = [
-            'session' => $this->repository->findWhere(['slug' => $slug])->first()
+            'session' => $session,
+            'uris' => $uris
         ];
+
+
 
         return view($this->base_view . 'show', ['data' => array_merge($this->data, $data)]);
     }

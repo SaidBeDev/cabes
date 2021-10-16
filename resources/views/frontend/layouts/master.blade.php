@@ -101,7 +101,7 @@
         $(document).ready(function() {
 
             $('.lang-select').selectpicker({
-                'width': '100px'
+                'width': '70px'
             });
 
             $('.daira-select').selectpicker({

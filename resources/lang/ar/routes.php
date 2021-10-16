@@ -16,6 +16,13 @@ return [
     'about' => 'حول-المؤسسة',
     'contact' => "اتصل-بنا",
     'reset_pass' => "تغيير-كلمة-السر",
-    'new_pass' => "كلمة-السر-الجديدة"
+    'new_pass' => "كلمة-السر-الجديدة",
+    'list' => "القائمة",
+    'enrolled_students' => "الطلبة-المنضمين",
+    'completed_sessions' => "الحصص-المكتملة",
+    'canceled_sessions' => "الحصص-الملغاة",
+
+    'edit' => "تعديل",
+    'create' => "إنشاء",
 
 ];

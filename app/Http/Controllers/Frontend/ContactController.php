@@ -8,6 +8,8 @@ use App\SaidTech\Repositories\ContactsRepository\ContactRepository;
 
 use App\SaidTech\Traits\Files\UploadImageTrait as uploadImage;
 
+
+
 class ContactController extends FrontendBaseController
 {
 

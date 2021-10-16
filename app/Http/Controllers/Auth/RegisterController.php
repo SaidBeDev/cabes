@@ -14,17 +14,15 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Spatie\OpeningHours\OpeningHours;
-use Illuminate\Support\Facades\Validator;
+use Cartalyst\Sentinel\Laravel\Facades\Activation;
+
 use App\SaidTech\Traits\Data\avatarsTrait;
 use App\SaidTech\Traits\Auth\RegisterTrait;
-use Cartalyst\Sentinel\Laravel\Facades\Activation;
-use App\SaidTech\Repositories\UsersRepository\UserRepository;
 use App\SaidTech\Traits\Files\UploadImageTrait as UploadImage;
-use App\SaidTech\Repositories\DairasRepository\DairaRepository;
+use App\SaidTech\Traits\Lang\routeTrait;
 
+use App\SaidTech\Repositories\UsersRepository\UserRepository;
+use App\SaidTech\Repositories\DairasRepository\DairaRepository;
 use App\SaidTech\Repositories\ConfigsRepository\ConfigRepository;
 use App\SaidTech\Repositories\ModulesRepository\ModuleRepository;
 use App\SaidTech\Repositories\WilayasRepository\WilayaRepository;
@@ -36,9 +34,7 @@ use App\SaidTech\Repositories\ProfileTypesRepository\ProfileTypeRepository;
 
 class RegisterController extends Controller
 {
-    use UploadImage;
-    use RegisterTrait;
-    use avatarsTrait;
+    use UploadImage, RegisterTrait, avatarsTrait, routeTrait;
 
     // Initializing variables
     public $rubric_uri = null;
@@ -46,6 +42,7 @@ class RegisterController extends Controller
     protected $base_view = null;
     protected $title = null;
     public $data = [];
+    protected $uris = [];
 
     protected $repositories = [];
 
@@ -54,10 +51,14 @@ class RegisterController extends Controller
         $this->rubric_name = $rubric_name;
         $this->rubric_uri  = trans('routes.register');
 
+        $this->generateTranslatedURL();
+
         $this->data = [
-            'title' => trans('menu.register')
+            'title' => trans('menu.register'),
+            'uris' => $this->uris
         ];
     }
+
 
     /**
      * @var UserRepository

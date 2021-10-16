@@ -9,25 +9,22 @@ use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use App\SaidTech\Traits\Auth\RegisterTrait;
+use App\SaidTech\Traits\Files\UploadImageTrait as UploadImage;
 
 use App\Http\Controllers\Frontend\FrontendBaseController;
 use App\SaidTech\Repositories\UsersRepository\UserRepository;
-use App\SaidTech\Traits\Files\UploadImageTrait as UploadImage;
 use App\SaidTech\Repositories\DairasRepository\DairaRepository;
 use App\SaidTech\Repositories\ConfigsRepository\ConfigRepository;
 use App\SaidTech\Repositories\PeriodsRepository\PeriodRepository;
 use App\SaidTech\Repositories\WilayasRepository\WilayaRepository;
-use App\SaidTech\Traits\Data\businessHoursTrait as businessHours;
 use App\SaidTech\Repositories\StudentsRepository\StudentRepository;
 use App\SaidTech\Repositories\TeachersRepository\TeacherRepository;
 use App\SaidTech\Repositories\ProfileTypesRepository\ProfileTypeRepository;
 
 class TeacherProfileController extends FrontendBaseController
 {
-    use UploadImage, RegisterTrait, businessHours;
+    use UploadImage, RegisterTrait;
 
     /**
      * @var UserRepository
@@ -68,6 +65,8 @@ class TeacherProfileController extends FrontendBaseController
         }
 
         $user = $this->repository->find($id);
+
+        $this->generateRouteWithSlug(null, $user->id);
 
         $data = [
             'uri' => "",
@@ -123,13 +122,5 @@ class TeacherProfileController extends FrontendBaseController
         ];
 
         return redirect()->route('frontend.profile.editAvailability', ['id' => $user->id])->with($response);
-    }
-
-    public function isContainPeriod($id) {
-        $user = $this->repository->find(Auth::user()->id);
-
-        foreach ($user->teacher->shedules as $shedule) {
-
-        }
     }
 }

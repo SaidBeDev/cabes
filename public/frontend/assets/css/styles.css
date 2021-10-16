@@ -6884,7 +6884,7 @@ span.mod-close {
     position: relative;
     margin-bottom: 1.5rem;
     display: flex;
-    justify-content: end;
+    justify-content: start;
     align-items: center;
 }
 .cn-info-icon {

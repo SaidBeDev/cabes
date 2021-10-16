@@ -199,7 +199,7 @@ Route::group([
         Route::namespace("Profile")->middleware('auth')->name('profile.')->prefix(Laravellocalization::transRoute('routes.profile'))->group(function()
         {
             Route::get('/{id}', 'ProfileController@show')->name('show');
-            Route::get('/edit/{id}', 'ProfileController@edit')->name('edit');
+            Route::get(trans('routes.edit') . '/{id}', 'ProfileController@edit')->name('edit');
 
             Route::put('/update/{id}/{profileId}', 'ProfileController@update')->name('update');
 
@@ -207,19 +207,19 @@ Route::group([
             Route::put('/edit-availability/{id}', 'TeacherProfileController@updateAvailability')->name('updateAvailability');
 
             // sessions
-            Route::name('sessions.')->prefix(trans('routes.sessions'))->group(function() {
-                Route::get('/list', 'MngSessionsController@index')->name('index');
+            Route::name('sessions.')->prefix(Laravellocalization::transRoute('routes.sessions'))->group(function() {
+                Route::get(Laravellocalization::transRoute('routes.list'), 'MngSessionsController@index')->name('index');
 
-                Route::get('/create', 'MngSessionsController@create')->name('create');
+                Route::get(Laravellocalization::transRoute('routes.create'), 'MngSessionsController@create')->name('create');
 
                 Route::get('/{id}', 'MngSessionsController@show')->name('show');
-                Route::get('/{id}/etudiants', 'MngSessionsController@getEnrolledStudents')->name('enrolledStudents');
+                Route::get('{id}/' . Laravellocalization::transRoute('routes.enrolled_students'), 'MngSessionsController@getEnrolledStudents')->name('enrolledStudents');
 
-                Route::get('/{id}/termine', 'MngSessionsController@getCompletedSessions')->name('getCompletedSessions');
-                Route::get('/{id}/séances-annulées', 'MngSessionsController@getCanceledSessions')->name('getCanceledSessions');
+                Route::get(Laravellocalization::transRoute('routes.completed_sessions'), 'MngSessionsController@getCompletedSessions')->name('getCompletedSessions');
+                Route::get(Laravellocalization::transRoute('routes.canceled_sessions'), 'MngSessionsController@getCanceledSessions')->name('getCanceledSessions');
 
                 Route::post('sessions/store', 'MngSessionsController@store')->name('store');
-                Route::get('sessions/{id}/edit', 'MngSessionsController@edit')->name('edit');
+                Route::get('sessions/{id}/' . Laravellocalization::transRoute('routes.edit'), 'MngSessionsController@edit')->name('edit');
                 Route::put('sessions/update/{id}', 'MngSessionsController@update')->name('update');
 
                 Route::post('sessions/mark-completed/{id}', 'MngSessionsController@markAsCompleted')->name('markAsCompleted');
@@ -236,12 +236,12 @@ Route::group([
         });
 
         // About Us
-        Route::name('about.')->prefix(trans('routes.about'))->group(function() {
+        Route::name('about.')->prefix(Laravellocalization::transRoute('routes.about'))->group(function() {
             Route::get('/', 'AboutUsController@index')->name('index');
         });
 
         // Contact Us
-        Route::name('contact.')->prefix(trans('routes.contact'))->group(function() {
+        Route::name('contact.')->prefix(Laravellocalization::transRoute('routes.contact'))->group(function() {
             Route::get('/', 'ContactController@index')->name('index');
 
             Route::post('/send', 'ContactController@store')->name('store');
@@ -249,23 +249,23 @@ Route::group([
         });
 
         // Sessions Guide Routes
-        Route::name('sessions.')->prefix(trans('routes.sessions'))->group(function() {
+        Route::name('sessions.')->prefix(Laravellocalization::transRoute('routes.sessions'))->group(function() {
             Route::get('/', 'SessionsController@index')->name('index');
 
-            Route::get('/{slug}', 'SessionsController@show')->name('show');
+            Route::get('{slug}', 'SessionsController@show')->name('show');
 
-            Route::get(trans('routes.by_module') . '/{slug}', 'SessionsController@getByModule')->name('getByModule');
-            Route::get(trans('routes.by_year') . '/{slug}', 'SessionsController@getByYear')->name('getByYear');
+            Route::get(Laravellocalization::transRoute('routes.by_module') . '/{slug}', 'SessionsController@getByModule')->name('getByModule');
+            Route::get(Laravellocalization::transRoute('routes.by_year') . '/{slug}', 'SessionsController@getByYear')->name('getByYear');
         });
 
         // Teachers Guide routes
-        Route::name('teachers.')->prefix(trans('routes.teachers'))->group(function() {
+        Route::name('teachers.')->prefix(Laravellocalization::transRoute('routes.teachers'))->group(function() {
             Route::get('/', 'TeachersController@index')->name('index');
 
             Route::get('/{id}', 'TeachersController@show')->name('show');
 
-            Route::get(trans('routes.by_module') . '/{slug}', 'TeachersController@getByModule')->name('getByModule');
-            Route::get(trans('routes.by_year') . '/{slug}', 'TeachersController@getByYear')->name('getByYear');
+            Route::get(Laravellocalization::transRoute('routes.by_module') . '/{slug}', 'TeachersController@getByModule')->name('getByModule');
+            Route::get(Laravellocalization::transRoute('routes.by_year') . '/{slug}', 'TeachersController@getByYear')->name('getByYear');
         });
 
     });

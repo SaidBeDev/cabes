@@ -64,6 +64,13 @@ class SessionsController extends FrontendBaseController
             $query->where('slug', $this->slug);
         })->first();
 
+        $translatedSlug = [
+            'fr' => trans('routes.by_module', [], 'fr') .'/'. $module->translate('fr')->slug,
+            'ar' => trans('routes.by_module', [], 'ar') .'/'. $module->translate('ar')->slug
+        ];
+
+        $this->generateRouteCustom(null, $translatedSlug);
+
         $data = [
             'list_sessions' => $module->sessions->filter(function($session) {
                 return $session->is_completed == 0 && $session->is_canceled == 0;
@@ -88,6 +95,13 @@ class SessionsController extends FrontendBaseController
             $query->where('slug', $this->slug);
         })->first();
 
+        $translatedSlug = [
+            'fr' => trans('routes.by_year', [], 'fr') .'/'. $year->translate('fr')->slug,
+            'ar' => trans('routes.by_year', [], 'ar') .'/'. $year->translate('ar')->slug
+        ];
+
+        $this->generateRouteCustom(null, $translatedSlug);
+
         $data = [
             'list_sessions' => $year->sessions->filter(function($session) {
                 return $session->is_completed == 0 && $session->is_canceled == 0;
@@ -109,6 +123,8 @@ class SessionsController extends FrontendBaseController
         $info = [
             'title' => $session->title
         ];
+
+        $this->generateArticleRoutesWithSlug(null, $session);
 
         $data = [
            'session' => $session

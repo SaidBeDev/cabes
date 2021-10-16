@@ -2,26 +2,19 @@
 
 namespace App\Http\Controllers\Frontend\Profile;
 
-use DateTime;
-use App\Session;
 use Carbon\Carbon;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
-use \Cviebrock\EloquentSluggable\Services\SlugService;
+
 use App\Http\Controllers\Frontend\FrontendBaseController;
 
-use App\SaidTech\Repositories\UsersRepository\UserRepository;
-
 use App\SaidTech\Traits\Files\UploadImageTrait as uploadImage;
+use App\SaidTech\Traits\Data\businessHoursTrait as businessHours;
 
 use App\SaidTech\Repositories\ConfigsRepository\ConfigRepository;
 use App\SaidTech\Repositories\ModulesRepository\ModuleRepository;
 use App\SaidTech\Repositories\PeriodsRepository\PeriodRepository;
-
-use App\SaidTech\Traits\Data\businessHoursTrait as businessHours;
-
+use App\SaidTech\Repositories\UsersRepository\UserRepository;
 use App\SaidTech\Repositories\SessionsRepository\SessionRepository;
 use App\SaidTech\Repositories\StudentsRepository\StudentRepository;
 use App\SaidTech\Repositories\TeachersRepository\TeacherRepository;
@@ -71,6 +64,13 @@ class MngSessionsController extends FrontendBaseController
      */
     public function index() {
 
+        $translatedSlug = [
+            'fr' => trans('routes.sessions', [], 'fr') .'/'. trans('routes.list', [], 'fr'),
+            'ar' => trans('routes.sessions', [], 'ar') .'/'. trans('routes.list', [], 'ar')
+        ];
+
+        $this->generateRouteCustom(null, $translatedSlug);
+
         $data = [
             'uri' => "my_courses",
             'title' => trans('menu.sessions'),
@@ -83,9 +83,13 @@ class MngSessionsController extends FrontendBaseController
     }
 
     public function show($id) {
+        $session = $this->repository->find($id);
+
+        $this->generateRouteWithSlug(null, $id);
+
         $data = [
             'uri' => "view_course",
-            'session' => $this->repository->find($id)
+            'session' => $session
         ];
 
         return view($this->base_view . 'sessions.show', ['data' => array_merge($this->data, $data)]);
@@ -95,6 +99,13 @@ class MngSessionsController extends FrontendBaseController
      * Redirect to create view
      */
     public function create() {
+
+        $translatedSlug = [
+            'fr' => trans('routes.sessions', [], 'fr') .'/'. trans('routes.create', [], 'fr'),
+            'ar' => trans('routes.sessions', [], 'ar') .'/'. trans('routes.create', [], 'ar')
+        ];
+
+        $this->generateRouteCustom(null, $translatedSlug);
 
         $data =  [
             'uri' => "add_course",
@@ -243,6 +254,16 @@ class MngSessionsController extends FrontendBaseController
      * @param int $id
      */
     public function edit($id) {
+
+        $session = $this->repository->find($id);
+
+        $translatedSlug = [
+            'fr' => trans('routes.sessions', [], 'fr') .'/'. $session->id .'/'. trans('routes.edit', [], 'fr'),
+            'ar' => trans('routes.sessions', [], 'ar') .'/'. $session->id .'/'. trans('routes.edit', [], 'ar')
+        ];
+
+        $this->generateRouteCustom(null, $translatedSlug);
+
         $data = [
             'uri' => 'my_courses',
             'list_modules' => $this->repositories['ModuleRepository']->all()->filter(function($module) {
@@ -258,7 +279,7 @@ class MngSessionsController extends FrontendBaseController
                 return !in_array($module->translate('fr')->slug, ['formations-professionnelles']);
             }),
 
-            'session' => $this->repository->find($id)
+            'session' => $session
         ];
 
         return view($this->base_view . 'sessions.edit', ['data' => array_merge($this->data, $data)]);
@@ -317,9 +338,18 @@ class MngSessionsController extends FrontendBaseController
      */
     public function getEnrolledStudents($id) {
 
+        $session = $this->repository->find($id);
+
+        $translatedSlug = [
+            'fr' => trans('routes.sessions', [], 'fr') .'/'. $session->id .'/'. trans('routes.enrolled_students', [], 'fr'),
+            'ar' => trans('routes.sessions', [], 'ar') .'/'. $session->id .'/'. trans('routes.enrolled_students', [], 'ar')
+        ];
+
+        $this->generateRouteCustom(null, $translatedSlug);
+
         $data = [
             'uri' => "",
-            'session' => $this->repository->find($id),
+            'session' => $session,
             'title' => trans('frontend.enrolled_list')
         ];
 
@@ -329,7 +359,14 @@ class MngSessionsController extends FrontendBaseController
     /**
      * List of completed sessions
      */
-    public function getCompletedSessions($id) {
+    public function getCompletedSessions() {
+
+        $translatedSlug = [
+            'fr' => trans('routes.sessions', [], 'fr') .'/'. trans('routes.completed_sessions', [], 'fr'),
+            'ar' => trans('routes.sessions', [], 'ar') .'/'. trans('routes.completed_sessions', [], 'ar')
+        ];
+
+        $this->generateRouteCustom(null, $translatedSlug);
 
         if (Auth::user()->profile_type->name == "teacher")
         {
@@ -372,8 +409,15 @@ class MngSessionsController extends FrontendBaseController
     /**
      * List of canceled sessions
      */
-    public function getCanceledSessions($id) {
+    public function getCanceledSessions() {
         $list_sessions = null;
+
+        $translatedSlug = [
+            'fr' => trans('routes.sessions', [], 'fr') .'/'. trans('routes.canceled_sessions', [], 'fr'),
+            'ar' => trans('routes.sessions', [], 'ar') .'/'. trans('routes.canceled_sessions', [], 'ar')
+        ];
+
+        $this->generateRouteCustom(null, $translatedSlug);
 
         if (Auth::user()->profile_type->name == "teacher") {
             $list_sessions = $this->repository->findWhere(['is_canceled' => 1, 'teacher_id' => Auth::user()->teacher->id])->groupBy('id');

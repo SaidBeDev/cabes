@@ -33,7 +33,7 @@ trait RegisterTrait
      */
 
     public function sendConfirmMail($user, $code) {
-        $subject = 'Email de confirmation';
+        $subject = trans('frontend.send_conf_email');
 
         $data = [
             'name' => $user->full_name,

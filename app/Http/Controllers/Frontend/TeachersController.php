@@ -59,6 +59,8 @@ class TeachersController extends FrontendBaseController
 
     public function show($id) {
 
+        $this->generateRouteWithSlug(null, $id);
+
         $data = [
             'user' => $this->repositories['UsersRepository']->find($id),
             'list_status' => Statuses::all(),
@@ -94,6 +96,13 @@ class TeachersController extends FrontendBaseController
 
         }
 
+        $translatedSlug = [
+            'fr' => trans('routes.by_module', [], 'fr') .'/'. $module->translate('fr')->slug,
+            'ar' => trans('routes.by_module', [], 'ar') .'/'. $module->translate('ar')->slug
+        ];
+
+        $this->generateRouteCustom(null, $translatedSlug);
+
         $data = [
             'list_teachers' => $list_teachers,
             'title' => trans('frontend.find_tutor')
@@ -117,6 +126,13 @@ class TeachersController extends FrontendBaseController
             }
         }
 
+
+        $translatedSlug = [
+            'fr' => trans('routes.by_year', [], 'fr') .'/'. $year->translate('fr')->slug,
+            'ar' => trans('routes.by_year', [], 'ar') .'/'. $year->translate('ar')->slug
+        ];
+
+        $this->generateRouteCustom(null, $translatedSlug);
 
         $data = [
             'list_teachers' => $list_teachers,

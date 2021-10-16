@@ -446,6 +446,12 @@ footer.skin-dark-footer .footer-widget ul li a, footer.skin-dark-footer, footer.
 nav .dropdown.bootstrap-select {
     max-width: 100%;
 }
+.bootstrap-select>.dropdown-toggle {
+    padding: 10px 0px 10px 15px;
+}
+.bootstrap-select>.dropdown-toggle:after {
+    margin-right: 3px;
+}
 /* .header .bootstrap-select>.dropdown-toggle {
     padding: 10px 0 10px 10px !important;
 } */

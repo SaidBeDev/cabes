@@ -15,9 +15,9 @@
                     <li class='{{ $data['uri'] == "add_course" ? "active" : '' }}'><a href="{{ route('frontend.profile.sessions.create') }}"><i class="ti-plus"></i>{{ trans('menu.add_course') }}</a></li>
                 @endif
                 <li class='{{ $data['uri'] == "my_courses" ? "active" : '' }}'><a href="{{ route('frontend.profile.sessions.index') }}"><i class="ti-layers"></i>{{ trans('menu.my_courses') }}</a></li>
-                <li class='{{ $data['uri'] == "completed_sessions" ? "active" : '' }}'><a href="{{ route('frontend.profile.sessions.getCompletedSessions', ['id' => Auth::user()->id]) }}"><i class="ti-layers"></i>{{ trans('frontend.completed_sessions') }}</a></li>
+                <li class='{{ $data['uri'] == "completed_sessions" ? "active" : '' }}'><a href="{{ route('frontend.profile.sessions.getCompletedSessions') }}"><i class="ti-layers"></i>{{ trans('frontend.completed_sessions') }}</a></li>
 
-                <li class='{{ $data['uri'] == "canceled_sessions" ? "active" : '' }}'><a href="{{ route('frontend.profile.sessions.getCanceledSessions', ['id' => Auth::user()->id]) }}"><i class="ti-layers"></i>{{ trans('frontend.canceled_sessions') }}</a></li>
+                <li class='{{ $data['uri'] == "canceled_sessions" ? "active" : '' }}'><a href="{{ route('frontend.profile.sessions.getCanceledSessions') }}"><i class="ti-layers"></i>{{ trans('frontend.canceled_sessions') }}</a></li>
                 {{-- <li><a href="saved-courses.html"><i class="ti-heart"></i>Saved Courses</a></li> --}}
 
                 <li class="{{ $data['uri'] == "edit_profile" ? 'active' : '' }}"><a href="{{ route('frontend.profile.edit', ['id' => Auth::user()->id]) }}"><i class="ti-settings"></i>{{ trans('frontend.settings') }}</a></li>
