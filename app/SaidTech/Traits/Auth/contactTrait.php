@@ -12,12 +12,13 @@ trait ContactTrait
      */
 
     public function sendContactMail($data) {
+        $subject = !empty($data['subject']) ? trans('frontend.contact_email') : $data['subject'];
 
         $res = Mail::send('emails.contactEmail', ['data' => $data],
-            function ($mail) use ($data) {
+            function ($mail) use ($data, $subject) {
                 $mail->from($data['email'], "CABES");
                 $mail->to('contact@cabesacademy.org');
-                $mail->subject($data['subject']);
+                $mail->subject($subject);
             });
 
         return $res;

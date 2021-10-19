@@ -55,16 +55,17 @@ class ContactController extends FrontendBaseController
             ];
 
             return redirect()->back()->with($response);
-        }
+        } else {
 
-        $response = [
-            'success' => false,
-            'message' => trans('notifications.error_occured')
-        ];
+            $response = [
+                'success' => false,
+                'message' => trans('notifications.error_occured')
+            ];
 
         return redirect()->back()->with($response);
-    }
+        }
 
+    }
 
     public function getContactRules() {
         return [

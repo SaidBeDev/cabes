@@ -158,3 +158,7 @@
 
     </section>
 @endsection
+
+@section('scripts')
+    @include('frontend._partials.notif')
+@endsection
