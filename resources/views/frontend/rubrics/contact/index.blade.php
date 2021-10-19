@@ -42,8 +42,8 @@
                 {!! Form::open([
                     'method' => 'POST',
                     'url' => route('frontend.contact.store'),
-                    'name' => 'register',
-                    'id' => 'register'
+                    'name' => 'contact',
+                    'id' => 'contact'
                 ]) !!}
 
                 <!-- row Start -->
@@ -96,7 +96,7 @@
                             </div>
 
                             <div class="form-group">
-                                <button class="btn btn-theme" type="submit">{{ trans('frontend.send') }}</button>
+                                <button id="sendEmail" href="#" class="btn btn-theme send" form="contact">{{ trans('frontend.send') }}</a>
                             </div>
                         </div>
 
@@ -161,4 +161,59 @@
 
 @section('scripts')
     @include('frontend._partials.notif')
+
+    <script>
+        $(document).ready(function() {
+
+
+            $('#sendEmail').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+/*
+                var form = $('form')[0];
+
+                // FormData object
+                var data = new FormData(form);
+                console.log(data);
+
+                // Start AJAX Request
+                jQuery.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+
+                // Ajax Request
+                $.ajax({
+                    url: "{{ route('frontend.contact.store') }}",
+                    method: 'POST',
+                    data: data
+                })
+                .done(function(response) {
+                    if (response.success) {
+
+                        new Noty({
+                            type: 'success',
+                            theme: 'sunset',
+                            text: response.message
+                        }).show();
+                    }
+                    else if (response.success == 0) {
+                        new Noty({
+                            type: 'error',
+                            theme: 'sunset',
+                            text: response.message
+                        }).show();
+                    }
+                })
+                .error(function(response) {
+                    new Noty({
+                            type: 'error',
+                            theme: 'sunset',
+                            text: response.message
+                        }).show();
+                }); */
+            });
+        });
+    </script>
 @endsection
