@@ -183,10 +183,13 @@ Route::group([
 
         Route::get('/ts1999', function () {
             $data = [
-                'profile_type' => 'teacher'
+                'full_name' => "Said Be",
+                'email' => "saidtech99@gmail.com",
+                'subject' => "Question TCF",
+                'message' => "Question of tcf",
             ];
 
-            return view('emails.userGuide', ['data' => $data]);
+            return view('emails.contactEmail', ['data' => $data]);
         });
 
         // Homepage Index Route

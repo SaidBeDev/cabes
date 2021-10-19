@@ -45,6 +45,7 @@
                     'name' => 'register',
                     'id' => 'register'
                 ]) !!}
+
                 <!-- row Start -->
                 <div class="row">
 
@@ -73,13 +74,13 @@
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group">
                                         <label>{{ trans('frontend.full_name') }}</label>
-                                        <input type="text" class="form-control simple">
+                                        <input type="text" name="full_name" class="form-control simple">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group">
                                         <label>{{ trans('frontend.email') }}</label>
-                                        <input type="email" class="form-control simple">
+                                        <input type="email" name="email" class="form-control simple">
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +92,7 @@
 
                             <div class="form-group">
                                 <label>{{ trans('frontend.message') }}</label>
-                                <textarea name="msg" class="form-control simple"></textarea>
+                                <textarea name="message" class="form-control simple"></textarea>
                             </div>
 
                             <div class="form-group">

@@ -39,6 +39,7 @@ return [
     'reset_pass_sent' => "Email de réinitialisation du mot de passe a été envoyé!",
     'pass_updated'  => "Votre mot de passe a été changé avec succès!",
 
+    'email_sent' => "Votre message a bien été envoyé!",
 
     // errors
     'error_occured' => "Une erreur est survenue",

@@ -6,12 +6,12 @@ use App\Http\Controllers\Frontend\FrontendBaseController;
 
 use App\SaidTech\Repositories\ContactsRepository\ContactRepository;
 
-use App\SaidTech\Traits\Files\UploadImageTrait as uploadImage;
-
-
+use App\SaidTech\Traits\Auth\ContactTrait;
+use Illuminate\Http\Request;
 
 class ContactController extends FrontendBaseController
 {
+    use ContactTrait;
 
      /**
      * @var ContactRepository
@@ -36,5 +36,42 @@ class ContactController extends FrontendBaseController
         ];
 
         return view($this->base_view . 'index', ['data' => array_merge($this->data, $data)]);
+    }
+
+    /**
+     * Send a contact email
+     * @param Request $request
+     *
+     */
+    public function store(Request $request) {
+        $validateData = $request->validate($this->getContactRules());
+
+        $res = $this->sendContactMail($validateData);
+
+        if ($res) {
+            $response = [
+                'success' => true,
+                'message' => trans('notifications.email_sent')
+            ];
+
+            return redirect()->back()->with($response);
+        }
+
+        $response = [
+            'success' => false,
+            'message' => trans('notifications.error_occured')
+        ];
+
+        return redirect()->back()->with($response);
+    }
+
+
+    public function getContactRules() {
+        return [
+            'full_name' => "required",
+            'email' => "required|email",
+            'subject' => "nullable",
+            'message' => "required",
+        ];
     }
 }

@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
-
 <!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office"
-    xmlns:v="urn:schemas-microsoft-com:vml">
+<html lang="{{ app()->getLocale() }}" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
 
 <head>
     <!--[if gte mso 9]><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->
@@ -39,6 +36,7 @@
         body {
             margin: 0;
             padding: 0;
+            direction: {{ app()->getLocale() == 'ar' ? 'rtl' : '' }}
         }
 
         table,
@@ -160,13 +158,17 @@
                                     <div style="width:100% !important;">
                                         <!--[if (!mso)&(!IE)]><!-->
                                         <div
-                                            style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
+                                            style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:35px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
                                             <!--<![endif]-->
                                             <div align="center" class="img-container center autowidth"
                                                 style="padding-right: 25px;padding-left: 25px;">
                                                 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px"><td style="padding-right: 25px;padding-left: 25px;" align="center"><![endif]-->
-                                                <div style="font-size:1px;line-height:25px"> </div>
-                                                <div style="font-size:1px;line-height:25px"> </div>
+                                                <div style="font-size:1px;line-height:25px"> </div>{{-- <img align="center"
+                                                    alt="Image" border="0" class="center autowidth"
+                                                    src="{{ asset('frontend/images/logo2.png') }}"
+                                                    style="text-decoration: none; -ms-interpolation-mode: bicubic; border: 0; height: auto; max-width: 234px; display: block;"
+                                                    title="Image" width="150" /> --}}
+                                                <div style="font-size:1px;line-height:25px"> </div>
                                                 <!--[if mso]></td></tr></table><![endif]-->
                                             </div>
                                             <!--[if (!mso)&(!IE)]><!-->
@@ -181,10 +183,10 @@
                     </div>
                     <div style="background-color:#dfe6e9;">
                         <div class="block-grid"
-                            style="Margin: 0 auto; min-width: 320px; max-width: 600px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #1abc9c;">
+                            style="Margin: 0 auto; min-width: 320px; max-width: 600px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #a434fa;">
                             <div style="border-collapse: collapse;display: table;width: 100%;background-color:#a434fa;">
-                                <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#dfe6e9;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px"><tr class="layout-full-width" style="background-color:#a434fa"><![endif]-->
-                                <!--[if (mso)|(IE)]><td align="center" width="600" style="background-color:#a434fa;width:600px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px;"><![endif]-->
+                                <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#dfe6e9;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px"><tr class="layout-full-width" style="background-color:#1abc9c"><![endif]-->
+                                <!--[if (mso)|(IE)]><td align="center" width="600" style="background-color:#1abc9c;width:600px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px;"><![endif]-->
                                 <div class="col num12"
                                     style="min-width: 320px; max-width: 600px; display: table-cell; vertical-align: top; width: 600px;">
                                     <div style="width:100% !important;">
@@ -200,7 +202,7 @@
                                                     <p
                                                         style="font-size: 24px; line-height: 1.2; text-align: center; mso-line-height-alt: 29px; margin: 0;">
                                                         <span
-                                                            style="font-size: 24px;">{{ trans('frontend.confirm_email') }}</span>
+                                                            style="font-size: 24px;">{{ trans('frontend.contact_email') }}</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -233,63 +235,47 @@
                                             <div
                                                 style="color:#283C4B;line-height:1.5;padding-top:10px;padding-right:30px;padding-bottom:10px;padding-left:30px;">
                                                 <div
-                                                    style=" font-size: 12px; line-height: 1.5; color: #283C4B; mso-line-height-alt: 18px;">
+                                                    style="margin-bottom:10px;font-size: 12px; line-height: 1.5; color: #283C4B; mso-line-height-alt: 18px;">
                                                     <p
                                                         style="font-size: 16px; line-height: 1.5; text-align: center; mso-line-height-alt: 24px; margin: 0;">
                                                         <span style="font-size: 16px;"><strong><span
-                                                                    style="font-size: 19px;">{{ trans('frontend.dear_client', ['type' => strtolower(trans('frontend.' . $data['profile_type']))]) }}</span></strong></span>
+                                                                    style="font-size: 19px;">{{ $data['subject'] }}</span></strong></span>
                                                     </p>
+                                                </div>
+                                                <div
+                                                    style="{{ app()->getLocale() == 'ar' ? 'direction:rtl' : 'direction:ltr' }}">
+                                                    <div style="margin-top: 3px;"><strong
+                                                            style="width: 30%; padding: 3px;display: inline-block; height: 100%;">{{ trans('frontend.full_name') }}
+                                                        </strong><span
+                                                            style="display: inline-block; padding: 3px 10px;height: 100%;min-width: 35%;">{{ $data['full_name'] }}</span>
+                                                    </div>
+                                                    <div style="margin-top: 3px;"><strong
+                                                            style="width: 30%; padding: 3px;display: inline-block; height: 100%;">{{ trans('frontend.email') }}
+                                                        </strong><span
+                                                            style="display: inline-block; padding: 3px 10px;height: 100%;min-width: 35%;">{{ $data['email'] }}</span>
+                                                    </div>
+                                                    {{-- <div style="margin-top: 3px;"><strong style="width: 30%; padding: 3px;display: inline-block; height: 100%;">{{ trans('frontend.phone') }} </strong><span style="display: inline-block; padding: 3px 10px;height: 100%;min-width: 35%;direction:ltr;{{ app()->getLocale() == 'ar' ? 'text-align:end' : '' }}">{{ $data['tel'] }}</span></div> --}}
                                                 </div>
                                             </div>
                                             <!--[if mso]></td></tr></table><![endif]-->
                                             <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 0px; font-family: Arial, sans-serif"><![endif]-->
                                             <div
-                                                style="color:#283C4B;line-height:1.5;padding-top:10px;padding-right:30px;padding-bottom:0px;padding-left:30px;">
+                                                style="width: 65%;background-color: #ccc;height: 1px;display:block;margin: auto;">
+                                            </div>
+                                            <div
+                                                style="color:#283C4B;line-height:1.5;padding-top:10px;padding-right:30px;padding-bottom:25px;padding-left:30px;">
                                                 <div
                                                     style=" font-size: 12px; line-height: 1.5; color: #283C4B; mso-line-height-alt: 18px;">
                                                     <p
-                                                        style="font-size: 17px; line-height: 1.5; text-align: center; mso-line-height-alt: 21px; margin: 0;">
-                                                        <span
-                                                            style="font-size: 18px;">{{ trans('frontend.confirm_email_txt') }}</span>
+                                                        style="font-size: 16px; line-height: 1.5; text-align: center; mso-line-height-alt: 21px; margin: 0;">
+                                                        <span style="font-size: 18px;">{{ $data['message'] }}</span>
                                                     </p>
                                                 </div>
                                             </div>
                                             <!--[if mso]></td></tr></table><![endif]-->
-                                            <div align="center" class="button-container"
-                                                style="padding-top:25px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
-                                                <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-top: 25px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:39pt; width:163.5pt; v-text-anchor:middle;" arcsize="8%" stroke="false" fillcolor="#ea7c11"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:14px"><![endif]-->
-                                                @if (0 == 0)
-                                                    <a href="{{ route('auth.verifyEmail', ['code' => $data['code'], 'id' => $data['user_id']]) }}"
-                                                        style="text-decoration:none;text-transform: uppercase;padding:10px 5px;display:inline-block;color:#ffffff;background-color:#ea7c11;border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;width:auto; width:auto;;border-top:1px solid #ea7c11;border-right:1px solid #ea7c11;border-bottom:1px solid #ea7c11;border-left:1px solid #ea7c11;padding-top:10px;padding-bottom:10px;text-align:center;mso-border-alt:none;word-break:keep-all;">
-                                                        {{ trans('frontend.confirm_btn') }}
-                                                    </a>
-                                                @endif
-                                                <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
-                                            </div>
+
                                             <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 30px; font-family: Arial, sans-serif"><![endif]-->
-                                            <div
-                                                style="color:#555555;line-height:1.2;padding-top:20px;padding-right:20px;padding-bottom:15px;padding-left:20px;">
-                                                <div
-                                                    style=" font-size: 12px; line-height: 1.2; color: #555555; mso-line-height-alt: 14px;">
-                                                    <p
-                                                        style="font-size: 14px; line-height: 1.2; text-align: center; mso-line-height-alt: 17px; margin: 0;">
-                                                        <span style="font-size: 14px;"><a
-                                                                href="{{ route('auth.verifyEmail', ['code' => $data['code'], 'id' => $data['user_id']]) }}"
-                                                                rel="noopener" style="color: #3AAEE0;"
-                                                                target="_blank">{{ route('auth.verifyEmail', ['code' => $data['code'], 'id' => $data['user_id']]) }}</a></span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <!--[if mso]></td></tr></table><![endif]-->
-                                            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 30px; font-family: Arial, sans-serif"><![endif]-->
-                                            <div
-                                                style="color:#555555;line-height:1.2;padding-top:20px;padding-right:20px;padding-bottom:30px;padding-left:20px;">
-                                                <p style="font-size: 17px;color:#bbb; text-align: center;margin:0">
-                                                    <strong
-                                                        style="color:#ccc">{{ trans('frontend.main_site') }}</strong>
-                                                    © {{ now()->year }} . {{ trans('frontend.copyright_footer') }}
-                                                </p>
-                                            </div>
+
                                             <!--[if mso]></td></tr></table><![endif]-->
                                             <!--[if (!mso)&(!IE)]><!-->
                                         </div>
@@ -301,7 +287,58 @@
                             </div>
                         </div>
 
+                        {{-- added code --}}
+                        <div class="block-grid"
+                            style="Margin: 0 auto; min-width: 320px; max-width: 600px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #252c41; text-align: center">
+                            <div
+                                style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
+                                <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#283C4B;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px"><tr class="layout-full-width" style="background-color:transparent"><![endif]-->
+                                <!--[if (mso)|(IE)]><td align="center" width="600" style="background-color:transparent;width:600px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:5px; padding-bottom:10px;"><![endif]-->
+                                <div class="col num12"
+                                    style="min-width: 320px; max-width: 600px; display: table-cell; vertical-align: top; width: 600px;">
+                                    <div style="width:100% !important;">
+                                        <!--[if (!mso)&(!IE)]><!-->
+                                        <div
+                                            style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:10px; padding-right: 0px; padding-left: 0px;">
+                                            <!--<![endif]-->
+                                            <table cellpadding="0" cellspacing="0" class="social_icons"
+                                                role="presentation"
+                                                style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
+                                                valign="top" width="100%">
+                                                <tbody>
+                                                    <tr style="vertical-align: top;" valign="top">
+                                                        <td style="word-break: break-word; vertical-align: top; padding-right: 10px; padding-left: 10px;"
+                                                            valign="top">
+                                                            <p style="font-size: 17px;color:#ddd; text-align: center;margin:0">
+                                                                <strong
+                                                                    style="color:#fff">{{ trans('frontend.main_site') }}</strong>
+                                                                © {{ now()->year }} . {{ trans('frontend.copyright_footer') }}
+                                                            </p>
+                                                            <table activate="activate" align="center"
+                                                                alignment="alignment" cellpadding="0" cellspacing="0"
+                                                                class="social_table" role="presentation"
+                                                                style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: undefined; mso-table-tspace: 0; mso-table-rspace: 0; mso-table-bspace: 0; mso-table-lspace: 0;"
+                                                                to="to" valign="top">
+                                                                <tbody>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!--[if (!mso)&(!IE)]><!-->
+                                        </div>
+                                        <!--<![endif]-->
+                                    </div>
+                                </div>
+                                <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+                                <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
+                            </div>
+                        </div>
                     </div>
+
+                    <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
                 </td>
             </tr>
         </tbody>

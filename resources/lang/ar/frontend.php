@@ -106,6 +106,7 @@ return [
     'period' => "الفترة",
     'avatar' => "الصورة الرمزية",
     'confirm_email' => "البريد الإلكتروني للتأكيد",
+    'contact_email' => "تواصل معنا",
     'dear_client' => "عزيزي :type",
     'reach_us' => "انضم إلينا",
     'need_help' => "تحتاج إلى مساعدة؟",

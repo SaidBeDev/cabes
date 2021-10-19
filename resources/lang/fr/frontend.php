@@ -106,6 +106,7 @@ return [
     'period' => "Période(s)",
     'avatar' => "avatar",
     'confirm_email' => "E-mail de confirmation",
+    'contact_email' => "Contactez nous",
     'dear_client' => "Cher :type de CABES Academy",
     'reach_us' => "Rejoins-nous",
     'need_help' => "Besoin d'aide?",

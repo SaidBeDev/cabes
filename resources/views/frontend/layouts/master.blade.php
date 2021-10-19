@@ -1,3 +1,11 @@
+@php
+    $styleToken = 'frontend/assets/css/styles'. (app()->getLocale() == "ar" ? '-rtl' : '') .'.css';
+    $customToken = 'frontend/assets/css/custom'. (app()->getLocale() == "ar" ? '-rtl' : '') .'.css';
+
+    $styleTokenM = substr(md5(filemtime($styleToken)), 0, 6);
+    $customTokenM = substr(md5(filemtime($customToken)), 0, 6);
+@endphp
+
 <!doctype html>
 <html lang="en">
 
@@ -51,8 +59,11 @@
 
 
     {!! Html::style('frontend/assets/css/colors.css') !!}
-    {!! Html::style('frontend/assets/css/styles'. (app()->getLocale() == "ar" ? '-rtl' : '') .'.css') !!}
-    {!! Html::style('frontend/assets/css/custom'. (app()->getLocale() == "ar" ? '-rtl' : '') .'.css') !!}
+
+    <link rel="stylesheet" type="text/css" href="<?php echo $styleToken;?>?v=<?php echo $styleTokenM ; ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo $customToken;?>?v=<?php echo $customTokenM ; ?>">
+    {{-- {!! Html::style('frontend/assets/css/styles'. (app()->getLocale() == "ar" ? '-rtl' : '') .'.css') !!}
+    {!! Html::style('frontend/assets/css/custom'. (app()->getLocale() == "ar" ? '-rtl' : '') .'.css') !!} --}}
 
     <style>
         .uc {
