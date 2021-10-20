@@ -46,24 +46,24 @@ class ContactController extends FrontendBaseController
     public function store(Request $request) {
         $validateData = $request->validate($this->getContactRules());
 
-        $res = $this->sendContactMail($validateData);
+        try {
+            $this->sendContactMail($validateData);
+        } catch (\Exception $e) {
+            report($e);
+            $response = [
+                'success' => false,
+                'message' => trans('notifications.error_occured')
+            ];
 
-        if ($res) {
+            return redirect()->back()->with($response);
+        }
+
             $response = [
                 'success' => true,
                 'message' => trans('notifications.email_sent')
             ];
 
             return redirect()->back()->with($response);
-        } else {
-
-            $response = [
-                'success' => false,
-                'message' => trans('notifications.error_occured')
-            ];
-
-        return redirect()->back()->with($response);
-        }
 
     }
 

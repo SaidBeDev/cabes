@@ -60,10 +60,11 @@
 
     {!! Html::style('frontend/assets/css/colors.css') !!}
 
-    {{-- <link rel="stylesheet" type="text/css" href="echo $styleToken;?>?v=echo $styleTokenM ; ?>">
-    <link rel="stylesheet" type="text/css" href="echo $customToken;?>?v=echo $customTokenM ; ?>"> --}}
-    {!! Html::style('frontend/assets/css/styles'. (app()->getLocale() == "ar" ? '-rtl' : '') .'.css') !!}
-    {!! Html::style('frontend/assets/css/custom'. (app()->getLocale() == "ar" ? '-rtl' : '') .'.css') !!}
+    <link rel="stylesheet" type="text/css" href="{{ asset($styleToken.'?v='.$styleTokenM) }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset($customToken.'?v='.$customToken) }}">
+    {{-- <link rel="stylesheet" type="text/css" href=" echo $styleToken;?>'?v='.$styleTokenM ; ?>"> --}}
+    {{-- {!! Html::style('frontend/assets/css/styles'. (app()->getLocale() == "ar" ? '-rtl' : '') .'.css') !!}
+    {!! Html::style('frontend/assets/css/custom'. (app()->getLocale() == "ar" ? '-rtl' : '') .'.css') !!} --}}
 
     <style>
         .uc {
