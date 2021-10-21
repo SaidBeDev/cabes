@@ -122,7 +122,7 @@
                             <div class="tab-pane fade" id="instructor" role="tabpanel" aria-labelledby="instructor-tab">
                                 <div class="single_instructor">
                                     <div class="single_instructor_thumb">
-                                        <a href="#">
+                                        <a href="{{ route('frontend.teachers.show', ['id' => $session->teacher->user->id]) }}">
                                             <img src="{{ asset(!empty($session->teacher->user->avatar) ? 'frontend/images/avatars/' . $session->teacher->user->avatar : ($session->teacher->user->gender == 'male' ? 'frontend/images/default/user-m.png' : 'frontend/images/default/user-f.png')) }}" class="img-fluid" alt="">
                                         </a>
                                     </div>

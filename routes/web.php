@@ -181,6 +181,7 @@ Route::group([
     Route::name('frontend.')->group(function() {
         Route::name('sessionIndex')->get('/sessions', 'MngSessionsController@create');
 
+        Route::get('/test', function () { return view('frontend.rubrics.homepage.test'); });
         Route::get('/ts1999', function () {
             $data = [
                 'full_name' => "Said Be",
