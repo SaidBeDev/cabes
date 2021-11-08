@@ -21,9 +21,9 @@
 
 
                         <div class="about">
-                            <p class="fs-17" >
-                                {{ $article->desc }}
-                            </p>
+                            <div class="fs-17" >
+                                {!! $article->desc !!}
+                            </div>
                         </div>
                         {{-- <div class="list_facts">
                             <div class="list_facts_icons"><i class="ti-desktop"></i></div>
@@ -43,15 +43,12 @@
 
                     </div>
                 </div>
-
             </div>
 
             <div class="row about mt-5">
                 <div class="col-md-12">
-                    <div>
-                        <p class="fs-17">
-                           {{ $article->detail }}
-                        </p>
+                    <div class="fs-17">
+                        {!! $article->detail !!}
                     </div>
                 </div>
             </div>

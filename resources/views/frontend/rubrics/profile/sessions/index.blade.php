@@ -70,7 +70,7 @@
                                                 </div>
                                             </div>
                                             <div class="dashboard_single_course_des">
-                                                <p>{{ $session->desc }}</p>
+                                                <p>{!! $session->desc !!}</p>
                                             </div>
                                             <div class="dashboard_single_course_progress">
                                                 @if (Auth::user()->profile_type->name == "teacher")

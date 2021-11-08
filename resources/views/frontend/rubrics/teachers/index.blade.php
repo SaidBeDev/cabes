@@ -47,9 +47,8 @@
                                         <li class="badge badge-light fs-10" style="color: #555"><i class="fa fa-hourglass"></i>{{ $user->total_hours .' '. trans('frontend.teacher_hrs') }}</li>
                                     </ul>
 
-                                    <p>
-                                        {{ $user->teacher->desc }}
-                                    </p>
+                                    {!! $user->teacher->desc !!}
+
                                     {{-- <ul class="social_info">
                                         @foreach ($user->getSocialCntacts() as $contact)
                                             @if (!in_array($contact->contact_type->name, ['viber', 'whatsapp']))

@@ -9,7 +9,7 @@ return [
     'profile' => "profile",
     /* 'edit_availability' => "edit-availability", */
     'edit_availability' => "modifier-la-disponibilité",
-    'sessions' => "sessions",
+    'sessions' => "séances",
     'teachers' => "trouver-un-enseignant",
     'by_module' => "par-module",
     'by_year' => "par-niveau",

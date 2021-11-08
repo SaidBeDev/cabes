@@ -75,6 +75,13 @@
     {{--
     {!! Html::script('vendor/jsvalidation/js/jsvalidation.min.js') !!} --}}
 
+    {{-- Text editor library --}}
+    <script src="https://cdn.tiny.cloud/1/x05d0l9mc1ak7aihiecw6buqnn1sd7t29fo3c9ejmy9s67a7/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea'
+       });
+    </script>
 
     <script>
         $(document).ready(function() {

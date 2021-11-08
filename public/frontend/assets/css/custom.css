@@ -305,6 +305,16 @@ a.badge-alternate:focus {
 .nav-menu>li .nav-dropdown{
     padding: 10px;
 }
+nav .lang-container {
+    display: inline-block;
+    margin: 19px 0;
+}
+@media screen and (max-width: 992px) {
+    nav .lang-container {
+        float: left !important;
+        margin-left: 10px;
+    }
+}
 
 /* Homepage */
 .light-colors .trips_icons {
@@ -389,7 +399,9 @@ footer.skin-dark-footer ul.footer-bottom-social li a
 footer.skin-dark-footer .footer-widget ul li a, footer.skin-dark-footer, footer.skin-dark-footer a{
     font-size: 16px;
 }
-
+footer .footer-bottom-social {
+    float: right;
+}
 
 /** Override shema color styles
 */
@@ -563,3 +575,9 @@ footer.skin-dark-footer .footer-widget ul li a:hover, footer.skin-dark-footer .f
       height:30vh;
     }
   }
+
+
+  /* Text editor */
+  .tox-tinymce {
+    width: 100%;
+}

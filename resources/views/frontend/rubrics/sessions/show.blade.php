@@ -102,13 +102,11 @@
                                 <!-- Overview -->
                                 <div class="edu_wraper">
                                     <h6 class="edu_title">{{ trans('frontend.course_overview') }}</h6>
-                                    <p>{{ $session->desc }}</p>
+                                    {!! $session->desc !!}
 
                                     <h6>{{ trans('frontend.lesson_objectives') }}</h6>
 
-                                    <p>
-                                        {!! nl2br(e($session->objectives)) !!}
-                                    </p>
+                                    {!! $session->objectives !!}
 
                                     {{-- Google drive link --}}
                                     @if (!empty(Auth::user()) && $session->students->contains(Auth::user()->id))
@@ -133,7 +131,7 @@
                                             <li><i class="ti-control-forward"></i>{{ $session->teacher->user->total_hours .' '. trans('frontend.teacher_hrs') }}</li>
                                             <li><i class="ti-user"></i>{{ $session->teacher->experience .' '. trans('frontend.experience_nb') }}</li>
                                         </ul>
-                                        <p class="fs-18">{{ $session->teacher->desc }}</p>
+                                        <p class="fs-18">{!! $session->teacher->desc !!}</p>
                                         <ul class="social_info">
                                             @foreach ($session->teacher->user->getSocialCntacts() as $contact)
                                                 <li><a href="{{ $contact->content }}" target="_blank"><i class="ti-{{ $contact->contact_type->name }}"></i></a></li>

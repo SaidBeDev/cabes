@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use Sentinel;
-use Exception;
 use App\Sector;
 use jsValidator;
 use Illuminate\View\View;
@@ -14,14 +13,13 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
-use Cartalyst\Sentinel\Laravel\Facades\Activation;
-
+use App\SaidTech\Traits\Lang\routeTrait;
 use App\SaidTech\Traits\Data\avatarsTrait;
 use App\SaidTech\Traits\Auth\RegisterTrait;
-use App\SaidTech\Traits\Files\UploadImageTrait as UploadImage;
-use App\SaidTech\Traits\Lang\routeTrait;
+use Cartalyst\Sentinel\Laravel\Facades\Activation;
 
 use App\SaidTech\Repositories\UsersRepository\UserRepository;
+use App\SaidTech\Traits\Files\UploadImageTrait as UploadImage;
 use App\SaidTech\Repositories\DairasRepository\DairaRepository;
 use App\SaidTech\Repositories\ConfigsRepository\ConfigRepository;
 use App\SaidTech\Repositories\ModulesRepository\ModuleRepository;
@@ -46,7 +44,8 @@ class RegisterController extends Controller
 
     protected $repositories = [];
 
-    protected function setRubricConfig($rubric_name) {
+    protected function setRubricConfig($rubric_name)
+    {
         $this->base_view   = 'frontend.rubrics.' . $rubric_name . '.';
         $this->rubric_name = $rubric_name;
         $this->rubric_uri  = trans('routes.register');
@@ -77,8 +76,7 @@ class RegisterController extends Controller
         ModuleRepository $moduleRepository,
         StudyYearRepository $studyYearsRepository,
         ContactTypeRepository $contactTypesRepository
-    )
-    {
+    ) {
         $this->repository = $repository;
         $this->repositories['ProfileTypesRepository'] = $profileTypesRepository;
         $this->repositories['StudentRepository'] = $studentRepository;
@@ -121,7 +119,7 @@ class RegisterController extends Controller
     {
 
         $data = [
-            'profile_types' => $this->repositories['ProfileTypesRepository']->findWhereNotIn('name',["admin"]),
+            'profile_types' => $this->repositories['ProfileTypesRepository']->findWhereNotIn('name', ["admin"]),
             'list_modules' => $this->repositories['ModulesRepository']->all(),
             'list_sectors' => Sector::all(),
             'study_years' => $this->repositories['StudyYearsRepository']->all(),
@@ -149,10 +147,9 @@ class RegisterController extends Controller
 
         $user = $request->validate($this->getUsersRules());
 
-        if ($profile_type->name == 'student'){
+        if ($profile_type->name == 'student') {
             $request->validate($this->getStudentRules($request));
-        }
-        else if ($profile_type->name == 'teacher'){
+        } else if ($profile_type->name == 'teacher') {
             $request->validate($this->getTeacherRules($request));
         }
 
@@ -174,7 +171,6 @@ class RegisterController extends Controller
             $act = Activation::create($newUser);
 
             $res = $this->sendConfirmMail($newUser, $act->code);
-
         }
 
         if ($this->isSetContact($request)) {
@@ -188,7 +184,6 @@ class RegisterController extends Controller
                 $contact->save();
 
                 $newUser->contacts()->save($contact);
-
             }
 
             if (in_array("linkedin", $this->getContacts($request))) {
@@ -228,7 +223,7 @@ class RegisterController extends Controller
             }
         }
 
-        switch($profile_type->name) {
+        switch ($profile_type->name) {
 
             case 'student':
 
@@ -274,40 +269,40 @@ class RegisterController extends Controller
 
                 if (!empty($teacher->modules)) {
                     for ($i = 0; $i < count($teacher->modules); $i++) {
-                         $teacher->modules()->detach($teacher->modules[$i]);
-                     }
-                 }
+                        $teacher->modules()->detach($teacher->modules[$i]);
+                    }
+                }
 
-                 if (!empty($request->module_id)) {
-                     for ($i = 0; $i < count($request->module_id); $i++) {
+                if (!empty($request->module_id)) {
+                    for ($i = 0; $i < count($request->module_id); $i++) {
                         $teacher->modules()->attach($request->module_id[$i]);
                     }
-                 }
+                }
 
-                 // Sectors
+                // Sectors
                 if (!empty($teacher->sectors)) {
                     for ($i = 0; $i < count($teacher->sectors); $i++) {
                         $teacher->sectors()->detach();
                     }
-                 }
+                }
 
-                 for ($i = 0; $i < count($request->sector); $i++) {
-                     $teacher->sectors()->attach($request->sector[$i]);
-                 }
+                for ($i = 0; $i < count($request->sector); $i++) {
+                    $teacher->sectors()->attach($request->sector[$i]);
+                }
 
                 // Teaching Years
                 if (!empty($teacher->teaching_years)) {
                     for ($i = 0; $i < count($teacher->teaching_years); $i++) {
-                         $teacher->teaching_years()->detach();
-                     }
-                 }
+                        $teacher->teaching_years()->detach();
+                    }
+                }
 
-                 for ($i = 0; $i < count($request->teaching_years); $i++) {
-                     $teacher->teaching_years()->attach($request->teaching_years[$i]);
-                 }
+                for ($i = 0; $i < count($request->teaching_years); $i++) {
+                    $teacher->teaching_years()->attach($request->teaching_years[$i]);
+                }
 
 
-                 $response = [
+                $response = [
                     'success' => true,
                     'message' => trans('notifications.register_success'),
                     'isTeacher' => true
@@ -318,7 +313,8 @@ class RegisterController extends Controller
         }
     }
 
-    public function welcome($isTeacher = false) {
+    public function welcome($isTeacher = false)
+    {
         $data = [
             'title' => trans('menu.welcome'),
             'isTeacher' => $isTeacher
@@ -327,7 +323,8 @@ class RegisterController extends Controller
         return view($this->base_view . 'welcome', ['data' => array_merge($this->data, $data)]);
     }
 
-    public function isSetContact($request) {
+    public function isSetContact($request)
+    {
 
         if (!empty($request->facebook) || !empty($request->linkedin) || !empty($request->whatsapp) || !empty($request->viber))
             return true;
@@ -335,7 +332,8 @@ class RegisterController extends Controller
         return false;
     }
 
-    public function getContacts($request) {
+    public function getContacts($request)
+    {
 
         $contacts = [];
 
@@ -362,7 +360,8 @@ class RegisterController extends Controller
         return false;
     }
 
-    public function verify($code, $id) {
+    public function verify($code, $id)
+    {
         $user = Sentinel::findById($id);
 
         if (Activation::exists($user)) {
@@ -377,23 +376,22 @@ class RegisterController extends Controller
                 return redirect()->route('frontend.index')->with($response);
             } else {
                 // Attemp to complete activation
-               if ($code == $act->code) {
-                   $res = Activation::complete($user, $code);
+                if ($code == $act->code) {
+                    $res = Activation::complete($user, $code);
 
-                   if ($res) {
-                       $response = [
-                           'success' => true,
-                           'message' => trans('notifications.account_verified')
-                       ];
-                   }
-                   else {
+                    if ($res) {
+                        $response = [
+                            'success' => true,
+                            'message' => trans('notifications.account_verified')
+                        ];
+                    } else {
                         $response = [
                             'success' => false,
                             'message' => "Un erreur est survenue!"
                         ];
-                   }
-                   return redirect()->route('frontend.index')->with($response);
-               }
+                    }
+                    return redirect()->route('frontend.index')->with($response);
+                }
 
                 $response = [
                     'success' => false,
@@ -408,7 +406,8 @@ class RegisterController extends Controller
         }
     }
 
-    public function getUsersRules() {
+    public function getUsersRules()
+    {
         return [
             'avatar'          => 'required',
             'full_name'       => 'required',
@@ -423,13 +422,15 @@ class RegisterController extends Controller
         ];
     }
 
-    public function getStudentRules($request) {
+    public function getStudentRules($request)
+    {
         return [
             'study_year_id' => Rule::requiredIf($request->profile_type_id == 3),
         ];
     }
 
-    public function getTeacherRules($request) {
+    public function getTeacherRules($request)
+    {
         return [
             'desc'       => 'nullable',
             'diploma'    => 'nullable',
@@ -444,13 +445,15 @@ class RegisterController extends Controller
         ];
     }
 
-    public function getStudentRulesJs() {
+    public function getStudentRulesJs()
+    {
         return [
             'study_year_id' => "nullable|required_if:profile_type_id,==,3"
         ];
     }
 
-    public function getTeacherRulesJs() {
+    public function getTeacherRulesJs()
+    {
         return [
             'desc'       => "nullable",
             'diploma'    => "nullable",

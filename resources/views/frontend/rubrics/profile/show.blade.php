@@ -56,7 +56,7 @@
                                 <div class="form-row mt-3 pl-3">
                                     <div>
                                         <h5>{{ trans('frontend.desc') }}</h5>
-                                        <p>{{ !empty($user->teacher->desc) ? $user->teacher->desc : trans('frontend.no_desc') }}</p>
+                                        <p>{!! !empty($user->teacher->desc) ? $user->teacher->desc : trans('frontend.no_desc') !!}</p>
                                     </div>
                                 </div>
                                 <div class="form-row mt-3 pl-3">

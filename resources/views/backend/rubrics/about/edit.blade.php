@@ -87,13 +87,13 @@
                     <div class="col-md-12 mb-3">
                         <label for="validationCustomUsername">Description (Ar)</label>
                         <div class="input-group">
-                            <textarea name="desc_ar" id="" cols="50" rows="10" class="form-control">{{ $article->translate('ar')->desc }}</textarea>
+                            <textarea name="desc_ar" id="" cols="50" rows="10" class="form-control" dir="rtl">{{ $article->translate('ar')->desc }}</textarea>
                         </div>
                     </div>
                     <div class="col-md-12 mb-3">
                         <label for="validationCustom04">Detail (Ar)</label>
                         <div class="input-group">
-                            <textarea name="detail_ar" id="" rows="10" class="form-control">{{ $article->translate('ar')->detail }}</textarea>
+                            <textarea name="detail_ar" id="" rows="10" class="form-control" dir="rtl">{{ $article->translate('ar')->detail }}</textarea>
                         </div>
                     </div>
                 </div>

@@ -456,6 +456,16 @@ nav .dropdown.bootstrap-select {
     padding: 10px 0 10px 10px !important;
 } */
 
+nav .lang-container {
+    display: inline-block;
+    margin: 19px 0;
+}
+@media screen and (max-width: 992px) {
+    nav .lang-container {
+        margin-left: 10px;
+    }
+}
+
 /* Back to top btn */
 #back2Top{
     background-color: #a434fa;
@@ -580,3 +590,9 @@ footer.skin-dark-footer .footer-widget ul li a:hover, footer.skin-dark-footer .f
       height:30vh;
     }
   }
+
+
+  /* Text editor */
+  .tox-tinymce {
+    width: 100%;
+}

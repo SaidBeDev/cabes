@@ -179,19 +179,9 @@ Route::group([
     'namespace' => 'Frontend'
 ], function() {
     Route::name('frontend.')->group(function() {
-        Route::name('sessionIndex')->get('/sessions', 'MngSessionsController@create');
 
-        Route::get('/test', function () { return view('frontend.rubrics.homepage.test'); });
-        Route::get('/ts1999', function () {
-            $data = [
-                'full_name' => "Said Be",
-                'email' => "saidtech99@gmail.com",
-                'subject' => "Question TCF",
-                'message' => "Question of tcf",
-            ];
-
-            return view('emails.contactEmail', ['data' => $data]);
-        });
+        // Sessions listing index page
+        /* Route::name('sessionIndex')->get('/sessions', 'MngSessionsController@create'); */
 
         // Homepage Index Route
         Route::get('/', 'HomepageController@index')->name('index');
@@ -211,26 +201,26 @@ Route::group([
             Route::put('/edit-availability/{id}', 'TeacherProfileController@updateAvailability')->name('updateAvailability');
 
             // sessions
-            Route::name('sessions.')->prefix(Laravellocalization::transRoute('routes.sessions'))->group(function() {
-                Route::get(Laravellocalization::transRoute('routes.list'), 'MngSessionsController@index')->name('index');
+            Route::name('sessions.')->group(function() {
+                Route::get(Laravellocalization::transRoute('routes.sessions') .'/'. Laravellocalization::transRoute('routes.list'), 'MngSessionsController@index')->name('index');
 
-                Route::get(Laravellocalization::transRoute('routes.create'), 'MngSessionsController@create')->name('create');
+                Route::get(Laravellocalization::transRoute('routes.sessions') .'/'. Laravellocalization::transRoute('routes.create'), 'MngSessionsController@create')->name('create');
 
-                Route::get('/{id}', 'MngSessionsController@show')->name('show');
-                Route::get('{id}/' . Laravellocalization::transRoute('routes.enrolled_students'), 'MngSessionsController@getEnrolledStudents')->name('enrolledStudents');
+                Route::get(Laravellocalization::transRoute('routes.sessions') .'/'. '/{id}', 'MngSessionsController@show')->name('show');
+                Route::get(Laravellocalization::transRoute('routes.sessions') .'/'. '{id}/' . Laravellocalization::transRoute('routes.enrolled_students'), 'MngSessionsController@getEnrolledStudents')->name('enrolledStudents');
 
-                Route::get(Laravellocalization::transRoute('routes.completed_sessions'), 'MngSessionsController@getCompletedSessions')->name('getCompletedSessions');
-                Route::get(Laravellocalization::transRoute('routes.canceled_sessions'), 'MngSessionsController@getCanceledSessions')->name('getCanceledSessions');
+                Route::get(Laravellocalization::transRoute('routes.sessions') .'/'. Laravellocalization::transRoute('routes.completed_sessions'), 'MngSessionsController@getCompletedSessions')->name('getCompletedSessions');
+                Route::get(Laravellocalization::transRoute('routes.sessions') .'/'. Laravellocalization::transRoute('routes.canceled_sessions'), 'MngSessionsController@getCanceledSessions')->name('getCanceledSessions');
 
-                Route::post('sessions/store', 'MngSessionsController@store')->name('store');
-                Route::get('sessions/{id}/' . Laravellocalization::transRoute('routes.edit'), 'MngSessionsController@edit')->name('edit');
-                Route::put('sessions/update/{id}', 'MngSessionsController@update')->name('update');
+                Route::post(Laravellocalization::transRoute('routes.sessions') .'/'. 'store', 'MngSessionsController@store')->name('store');
+                Route::get(Laravellocalization::transRoute('routes.sessions') .'/'. '{id}/' . Laravellocalization::transRoute('routes.edit'), 'MngSessionsController@edit')->name('edit');
+                Route::put(Laravellocalization::transRoute('routes.sessions') .'/'. 'update/{id}', 'MngSessionsController@update')->name('update');
 
-                Route::post('sessions/mark-completed/{id}', 'MngSessionsController@markAsCompleted')->name('markAsCompleted');
-                Route::post('sessions/mark-canceled/{id}', 'MngSessionsController@markAsCanceled')->name('markAsCanceled');
+                Route::post(Laravellocalization::transRoute('routes.sessions') .'/'. 'mark-completed/{id}', 'MngSessionsController@markAsCompleted')->name('markAsCompleted');
+                Route::post(Laravellocalization::transRoute('routes.sessions') .'/'. 'mark-canceled/{id}', 'MngSessionsController@markAsCanceled')->name('markAsCanceled');
 
-                Route::post('sessions/join-session/{id}', 'MngSessionsController@joinSession')->name('joinSession');
-                Route::post('sessions/exit-session/{id}', 'MngSessionsController@exitFromSession')->name('exitFromSession');
+                Route::post(Laravellocalization::transRoute('routes.sessions') .'/'. 'join-session/{id}', 'MngSessionsController@joinSession')->name('joinSession');
+                Route::post(Laravellocalization::transRoute('routes.sessions') .'/'. 'exit-session/{id}', 'MngSessionsController@exitFromSession')->name('exitFromSession');
             });
 
             /**
