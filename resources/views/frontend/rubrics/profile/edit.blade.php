@@ -145,9 +145,9 @@
                                             <select name="commune_id" class="daira-select form-control selectpicker" data-live-search="true" data-width="auto">
 
                                                 @foreach ($data['list_dairas'] as $daira)
-                                                    <optgroup label="{{ $daira->name }}">
+                                                    <optgroup label="{{ app()->getLocale() == 'ar' ? $daira->name_ar : $daira->name }}">
                                                         @foreach ($daira->communes as $commune)
-                                                            <option value="{{ $commune->id }}" {{ (!empty($user->commune->id) and $user->commune->id == $commune->id) ? 'selected' : '' }}>{{ $commune->name }}</option>
+                                                            <option value="{{ $commune->id }}" {{ (!empty($user->commune->id) and $user->commune->id == $commune->id) ? 'selected' : '' }}>{{ app()->getLocale() == 'ar' ? $commune->name_ar : $commune->name }}</option>
                                                         @endforeach
                                                     </optgroup>
                                                 @endforeach
