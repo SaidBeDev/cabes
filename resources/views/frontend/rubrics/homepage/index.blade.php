@@ -182,6 +182,7 @@
 
                 @if ($data['list_sessions']->isNotEmpty())
                     @foreach ($data['list_sessions'] as $session)
+
                         <!-- Cource Grid 1 -->
                         <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
                             <div class="education_block_list_layout">

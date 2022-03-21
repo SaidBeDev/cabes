@@ -84,12 +84,7 @@
                                             @if (($diff <= 15) and ($now->lte($d2)))
                                                 <div class="ed_view_features pl-4">
                                                     <h6 class="fs-14">{{ trans('frontend.session_link') }}</h6>
-                                                    <a href="{{ $session->link }}" class="btn btn-info" target="_blank"
-                                                        onclick="window.open('{{ $session->link }}',
-                                                                    'newwindow',
-                                                                    'width=600,height=450');
-                                                        return false;"
-                                                        >{{ trans('frontend.session_link') }}</a>
+                                                        <a href="{{ $session->link }}" class="btn btn-info" target="_blank">{{ trans('frontend.session_link') }}</a>
                                                 </div>
                                             @endif
 

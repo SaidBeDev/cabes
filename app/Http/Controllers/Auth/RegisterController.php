@@ -401,8 +401,12 @@ class RegisterController extends Controller
                 return redirect()->route('frontend.index')->with($response);
             }
         } else {
+            $response = [
+                'success' => false,
+                'message' => trans('notifications.expired_link')
+            ];
 
-            throw new \LogicException('Activation not exist');
+            return redirect()->route('frontend.index')->with($response);
         }
     }
 

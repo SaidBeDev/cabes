@@ -109,6 +109,18 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label>{{ trans('frontend.link') }}</label>
+                                            <input type="url" name="link" class="form-control" required value="{{ old('link') }}">
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label>{{ trans('frontend.capacity') }}</label>
+                                            <input type="number" name="capacity" class="form-control" required value={{ !empty(old('capacity')) ? old('capacity') : (int)$data['default_capacity'] }}>
+                                        </div>
+                                    </div>
+
                                     <div class="form-row mb-2">
                                         <div class="form-group col-md-12">
                                             <label>{{ trans('frontend.drive_link') }}</label>
@@ -151,7 +163,7 @@
                                     </div>
 
                                     <div class="form-row">
-                                        <div class="form-group col-md-6">
+                                    {{--     <div class="form-group col-md-6">
                                             <label>{{ trans('frontend.link') }}</label>
                                             <input type="url" name="link" class="form-control" required value="{{ old('link') }}">
                                         </div>
@@ -159,7 +171,7 @@
                                         <div class="form-group col-md-6">
                                             <label>{{ trans('frontend.capacity') }}</label>
                                             <input type="number" name="capacity" class="form-control" required value={{ !empty(old('capacity')) ? old('capacity') : (int)$data['default_capacity'] }}>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="form-group col-md-6">
                                             <label>{{ trans('frontend.date') }}</label>

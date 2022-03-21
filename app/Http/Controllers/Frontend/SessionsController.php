@@ -46,7 +46,7 @@ class SessionsController extends FrontendBaseController
         $data = [
             'list_sessions' => $this->repository->findWhere(['is_completed' => 0, 'is_canceled' => 0])->filter(function($session) {
 
-                $d1 =  Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->periods->first()->hour_from);
+                $d1 =  Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->periods->last()->hour_to);
                 $now = Carbon::now();
 
                 return $now->lte($d1);

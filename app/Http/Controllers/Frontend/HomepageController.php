@@ -57,7 +57,7 @@ class HomepageController extends FrontendBaseController
             })->findWhere(['is_blocked' => 0])->all(),
             'list_sessions' => $this->repositories['SessionRepository']->orderBy('date', 'DESC')->findWhere(['is_canceled' => 0, 'is_completed' => 0])->filter(function($session) {
 
-                $d1 =  Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->periods->first()->hour_from);
+                $d1 =  Carbon::createFromFormat('Y-m-d H:i', $session->date .' '. $session->periods->last()->hour_to);
                 $now = Carbon::now();
 
                 return $now->lte($d1);

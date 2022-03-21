@@ -109,7 +109,8 @@ class SessionsController extends FrontendBaseController
             return response()->json($response);
         }
 
-        $group_price  = (int)$this->repositories['ConfigsRepository']->findWhere(['name' => "group_price"])->first()->content;
+        /* $group_price  = (int)$this->repositories['ConfigsRepository']->findWhere(['name' => "group_price"])->first()->content; */
+        $group_price  = (int)$teacher->group_price;
 
         // Session credit cost calculate
         $session['credit_cost'] = (int)$session->nbr_hour * $group_price;

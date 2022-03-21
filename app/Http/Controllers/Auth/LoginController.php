@@ -112,7 +112,7 @@ class LoginController extends Controller
                         ];
 
                         return redirect()->route('auth.welcome')->with($response);
-                    }else if ($user->is_blocked == 1) {
+                    }elseif ($user->is_blocked == 1) {
                         $response = [
                             'success' => false,
                             'message' => trans('notifications.blocked_account')
@@ -122,7 +122,8 @@ class LoginController extends Controller
 
                     }elseif ($user->profile_type->name == "teacher" && $user->teacher->is_checked == 0) {
                         $response = [
-                            'type' => "not_verified"
+                            'success' => false,
+                            'message' => trans('notifications.not_verified')
                         ];
 
                         return redirect()->route('auth.notVerified')->with($response);
